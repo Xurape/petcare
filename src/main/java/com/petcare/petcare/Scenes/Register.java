@@ -1,4 +1,4 @@
-package com.petcare.petcare;
+package com.petcare.petcare.Scenes;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,17 +7,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Launcher extends Application {
+public class Register extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Register.class.getResource("register.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 810, 385);
-        stage.setTitle("PetCare - Bem-vindo");
+        stage.setTitle("PetCare - Registo");
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public void launch() {
         launch();
     }
 }

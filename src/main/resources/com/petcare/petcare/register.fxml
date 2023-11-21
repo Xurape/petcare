@@ -16,7 +16,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="810.0" style="-fx-background-color: #100;" styleClass="background-color: #000" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.petcare.Controllers.LauncherController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="810.0" style="-fx-background-color: #100;" styleClass="background-color: #000" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="385.0" fitWidth="575.0">
          <image>
@@ -30,7 +30,7 @@
                   <Image url="@img/logo.jpg" />
                </image>
             </ImageView>
-            <Button onAction="#tryLogin" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="18.0" layoutY="326.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="25.0" prefWidth="200.0" style="-fx-border-radius: 35; -fx-background-color: #4287f5; -fx-border-width: 0;" text="LOGIN" textAlignment="CENTER" textFill="#eeeeee">
+            <Button defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="18.0" layoutY="326.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="25.0" prefWidth="200.0" style="-fx-border-radius: 35; -fx-background-color: #4287f5; -fx-border-width: 0;" text="LOGIN" textAlignment="CENTER" textFill="#eeeeee">
                <font>
                   <Font name="Montserrat Thin" size="12.0" />
                </font>
@@ -60,7 +60,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <TextField layoutX="18.0" layoutY="219.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 35;" fx:id="fieldUsername" />
+            <TextField layoutX="18.0" layoutY="219.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 35;" />
             <Label graphicTextGap="3.0" layoutX="18.0" layoutY="262.0" text="Password" textFill="#434343">
                <font>
                   <Font name="Apple Braille" size="13.0" />
@@ -76,13 +76,13 @@
                   </Lighting>
                </effect>
             </Label>
-            <PasswordField layoutX="18.0" layoutY="282.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 35;" fx:id="fieldPassword" />
+            <PasswordField layoutX="18.0" layoutY="282.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 35;" />
             <Label layoutX="78.0" layoutY="168.0" text="Fazer login">
                <font>
                   <Font name="Apple Braille Outline 8 Dot" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="errorText" id="errorText" layoutX="19.0" layoutY="358.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true" />
+            <Label fx-id="errorText" id="errorText" layoutX="19.0" layoutY="358.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true" />
          </children>
          <effect>
             <DropShadow height="23.95" radius="12.21" spread="0.19" width="26.89">
