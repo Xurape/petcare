@@ -2,9 +2,10 @@ package com.petcare.petcare.Users;
 
 import com.petcare.petcare.Crypt.Crypt;
 
-public class User {
+public class User implements IUser {
     private String username, password;
     private boolean isOnline = false;
+    private int id;
 
     public User(String username, String password) {
         this.username = username;
@@ -29,5 +30,17 @@ public class User {
 
     public boolean isOnline() {
         return this.isOnline;
+    }
+    
+    public int getId() {
+        return this.id;
+    }
+
+    public String getPassword() throws Exception {
+        return Crypt.decrypt(this.password);
+    }
+
+    public boolean checkPassword(String password) throws Exception {
+        return Crypt.encrypt(password) == Crypt.encrypt(this.password);
     }
 }
