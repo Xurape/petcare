@@ -1,9 +1,9 @@
-package com.petcare.petcare;
+package com.petcare.petcare.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class LauncherController {
     @FXML
     private Label welcomeText;
 
