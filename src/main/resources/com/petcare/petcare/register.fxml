@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="810.0" style="-fx-background-color: #eeeeee;" styleClass="background-color: #000" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.petcare.Controllers.LauncherController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="810.0" style="-fx-background-color: #eeeeee;" styleClass="background-color: #000" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.petcare.Controllers.RegisterController">
    <children>
       <Pane prefHeight="385.0" prefWidth="0.0" style="-fx-background-color: #fff;">
          <children>
