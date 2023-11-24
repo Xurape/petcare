@@ -1,7 +1,5 @@
 package com.petcare.petcare.Users;
 
-import com.petcare.petcare.Crypt.Crypt;
-
 public class User implements IUser {
     private String username, password;
     private boolean isOnline = false;
@@ -21,7 +19,7 @@ public class User implements IUser {
     }
 
     public void setPassword(String password) throws Exception {
-        this.password = Crypt.encrypt(password);
+        this.password = password;
     }
 
     public void setOnline(boolean isOnline) {
@@ -36,11 +34,11 @@ public class User implements IUser {
         return this.id;
     }
 
-    public String getPassword() throws Exception {
-        return Crypt.decrypt(this.password);
+    public String getPassword() {
+        return this.password;
     }
 
-    public boolean checkPassword(String password) throws Exception {
-        return Crypt.encrypt(password) == Crypt.encrypt(this.password);
+    public boolean checkPassword(String password) {
+        return password.equals(this.password);
     }
 }

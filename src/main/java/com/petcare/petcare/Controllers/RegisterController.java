@@ -2,13 +2,17 @@ package com.petcare.petcare.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class RegisterController {
-    @FXML
-    private Label welcomeText;
+    Stage thisStage;
+    
+    public void setStage (Stage stage){
+        thisStage = stage;
+    }
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    public void showStage(){
+        thisStage.setTitle("PetCare - Registo");
+        thisStage.show();
     }
 }
