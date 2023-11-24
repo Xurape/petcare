@@ -49,6 +49,8 @@ public class LauncherController {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
                     Parent root = fxmlLoader.load();
+                    RegisterController controller = fxmlLoader.getController();
+                    controller.setStage(thisStage);
                     thisStage.setScene(new Scene(root));
                 } catch (IOException e) {
                     e.printStackTrace();
