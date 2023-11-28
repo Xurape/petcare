@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -40,6 +41,11 @@
                         <Image url="@img/logo_nobg_eee.png" />
                      </image>
                   </ImageView>
+                  <Hyperlink fx:id="goToLog" layoutX="22.0" layoutY="13.0" onAction="#goBack" prefHeight="17.0" prefWidth="81.0" text="←" textFill="#ededed42">
+                     <font>
+                        <Font name="Tahoma" size="29.0" />
+                     </font>
+                  </Hyperlink>
                </children>
             </Pane>
             <Label graphicTextGap="3.0" layoutX="285.0" layoutY="201.0" text="Username" textFill="#eeeeee">
@@ -110,7 +116,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <PasswordField fx:id="fieldPassword1" layoutX="504.0" layoutY="294.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
+            <PasswordField fx:id="fieldPasswordAgain" layoutX="504.0" layoutY="294.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
                <effect>
                   <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
                      <color>
@@ -136,7 +142,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <TextField fx:id="fieldUsername1" layoutX="502.0" layoutY="224.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
+            <TextField fx:id="fieldEmail" layoutX="502.0" layoutY="224.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
                <effect>
                   <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
                      <color>
@@ -162,7 +168,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <TextField fx:id="fieldUsername2" layoutX="288.0" layoutY="366.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
+            <TextField fx:id="fieldNIF" layoutX="288.0" layoutY="366.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
                <effect>
                   <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
                      <color>
@@ -189,7 +195,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <TextField fx:id="fieldUsername211" layoutX="289.0" layoutY="434.0" prefHeight="26.0" prefWidth="415.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
+            <TextField fx:id="fieldAddress" layoutX="289.0" layoutY="434.0" prefHeight="26.0" prefWidth="415.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
                <effect>
                   <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
                      <color>
@@ -224,7 +230,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <Button defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="506.0" layoutY="485.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Registar" textAlignment="CENTER" textFill="#eeeeee">
+            <Button fx:id="regUser" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="506.0" layoutY="485.0" mnemonicParsing="false" onAction="#registerUser" pickOnBounds="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Registar" textAlignment="CENTER" textFill="#eeeeee">
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font>

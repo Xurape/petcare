@@ -6,11 +6,6 @@ import com.petcare.petcare.Exceptions.UserExistsException;
 import com.petcare.petcare.Exceptions.UserListIsNullException;
 import com.petcare.petcare.Exceptions.UserNotFoundException;
 import com.petcare.petcare.Users.User;
-import com.petcare.petcare.Exceptions.UserExistsException;
-import com.petcare.petcare.Exceptions.UserListIsNullException;
-import com.petcare.petcare.Exceptions.UserNotFoundException;
-import com.petcare.petcare.Users.User;
-import com.petcare.petcare.Users.UserType;
 
 import java.util.List;
 
