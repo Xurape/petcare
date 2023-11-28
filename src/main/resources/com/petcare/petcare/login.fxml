@@ -25,16 +25,16 @@
             <Image url="@img/full-dogo.jpg" />
          </image>
       </ImageView>
-      <Pane prefHeight="385.0" prefWidth="235.0" style="-fx-background-color: #fff;">
+      <Pane prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #fff;">
          <children>
-            <ImageView fitHeight="164.0" fitWidth="235.0" layoutY="20.0">
+            <ImageView fitHeight="164.0" fitWidth="235.0" layoutY="-9.0">
                <image>
                   <Image url="@img/logo.jpg" />
                </image>
             </ImageView>
-            <Button defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="18.0" layoutY="326.0" mnemonicParsing="false" onAction="#tryLogin" pickOnBounds="false" prefHeight="25.0" prefWidth="200.0" style="-fx-border-radius: 35; -fx-background-color: #4287f5; -fx-border-width: 0;" text="LOGIN" textAlignment="CENTER" textFill="#eeeeee">
+            <Button defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="18.0" layoutY="286.0" mnemonicParsing="false" onAction="#tryLogin" pickOnBounds="false" prefHeight="25.0" prefWidth="200.0" style="-fx-border-radius: 35; -fx-background-color: #4287f5; -fx-background-radius: 6;" text="LOGIN" textAlignment="CENTER" textFill="#eeeeee">
                <font>
-                  <Font name="Montserrat Thin" size="12.0" />
+                  <Font name="Tahoma" size="13.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
@@ -47,9 +47,9 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Label graphicTextGap="3.0" layoutX="18.0" layoutY="198.0" text="Username" textFill="#434343">
+            <Label graphicTextGap="3.0" layoutX="18.0" layoutY="158.0" text="Username" textFill="#434343">
                <font>
-                  <Font name="Apple Braille" size="13.0" />
+                  <Font name="Tahoma" size="13.0" />
                </font>
                <effect>
                   <Lighting>
@@ -62,10 +62,10 @@
                   </Lighting>
                </effect>
             </Label>
-            <TextField fx:id="fieldUsername" layoutX="18.0" layoutY="219.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 35;" />
-            <Label graphicTextGap="3.0" layoutX="18.0" layoutY="262.0" text="Password" textFill="#434343">
+            <TextField fx:id="fieldUsername" layoutX="18.0" layoutY="179.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 6px;" />
+            <Label graphicTextGap="3.0" layoutX="18.0" layoutY="222.0" text="Password" textFill="#434343">
                <font>
-                  <Font name="Apple Braille" size="13.0" />
+                  <Font name="Tahoma" size="13.0" />
                </font>
                <effect>
                   <Lighting>
@@ -78,21 +78,24 @@
                   </Lighting>
                </effect>
             </Label>
-            <PasswordField fx:id="fieldPassword" layoutX="18.0" layoutY="282.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 35;" />
-            <Label layoutX="78.0" layoutY="168.0" text="Fazer login">
+            <PasswordField fx:id="fieldPassword" layoutX="18.0" layoutY="242.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 6px;" />
+            <Label layoutX="86.0" layoutY="125.0" text="Fazer login" textAlignment="CENTER">
                <font>
-                  <Font name="Apple Braille Outline 8 Dot" size="15.0" />
+                  <Font name="Tahoma" size="13.0" />
                </font>
             </Label>
-            <Label id="errorText" fx:id="errorText" layoutX="19.0" layoutY="358.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true" />
-            <Text layoutX="19.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não tem conta? " wrappingWidth="126.0">
+            <Label id="errorText" fx:id="errorText" layoutX="19.0" layoutY="339.0" prefHeight="39.0" prefWidth="200.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true">
                <font>
-                  <Font name="Apple Braille Outline 8 Dot" size="12.0" />
+                  <Font name="Apple Braille" size="13.0" />
+               </font></Label>
+            <Text layoutX="19.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não tem conta? " wrappingWidth="126.0">
+               <font>
+                  <Font name="Tahoma" size="12.0" />
                </font>
             </Text>
-            <Hyperlink fx:id="goToReg" layoutX="141.0" layoutY="357.0" onAction="#goToRegister" text="Crie agora →">
+            <Hyperlink fx:id="goToReg" layoutX="141.0" layoutY="317.0" onAction="#goToRegister" text="Crie agora →">
                <font>
-                  <Font name="Apple Braille" size="12.0" />
+                  <Font name="Tahoma" size="12.0" />
                </font>
             </Hyperlink>
          </children>

@@ -3,6 +3,9 @@ package com.petcare.petcare.Auth;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petcare.petcare.Exceptions.UserExistsException;
+import com.petcare.petcare.Exceptions.UserListIsNullException;
+import com.petcare.petcare.Exceptions.UserNotFoundException;
 import com.petcare.petcare.Users.Admin;
 import com.petcare.petcare.Users.User;
 import com.petcare.petcare.Users.UserType;
@@ -23,15 +26,26 @@ public class Users implements IUsers {
         return this.users;
     }
 
-    public void addUser(User user) {
+    public void addUser(User user) throws UserExistsException {
+        if (this.userExists(user)) {
+            throw new UserExistsException("O utilizador já existe!");
+        }
+
+        for(User usr : this.users) {
+            if(usr.getUsername().equals(user.getUsername()))
+                throw new UserExistsException("O utilizador já existe!");
+            else if (usr.getId() == user.getId())
+                throw new UserExistsException("O utilizador já existe!");
+        }
+
         this.users.add(user);
     }
 
-    public void removeUser(User user) {
+    public void removeUser(User user) throws UserNotFoundException {
         this.users.remove(user);
     }
 
-    public void removeUserById(int userID) {
+    public void removeUserById(int userID) throws UserNotFoundException {
         for (User user : this.users) {
             if (user.getId() == userID) {
                 this.users.remove(user);
@@ -40,24 +54,26 @@ public class Users implements IUsers {
         }
     }
 
-    public void updateUser(int userID, User user) {
+    public void updateUser(int userID, User user) throws UserNotFoundException {
         for (int i = 0; i < this.users.size(); i++) {
             if (this.users.get(i).getId() == userID) {
                 this.users.set(i, user);
-                break;
+                return;
             }
         }
+
+        throw new UserNotFoundException("Utilizador não encontrado!");
     }
 
     public int getUsersAmount() {
         return this.users.size();
     }
 
-    public int getLastUserId() {
+    public int getLastUserId() throws UserListIsNullException {
         return this.users.get(this.users.size() - 1).getId();
     }
 
-    public User getUserById(int userID) {
+    public User getUserById(int userID) throws UserNotFoundException {
         for (User user : this.users) {
             if (user.getId() == userID) {
                 return user;
@@ -66,7 +82,7 @@ public class Users implements IUsers {
         return null;
     }
 
-    public User getUserByUsername(String username) {
+    public User getUserByUsername(String username) throws UserNotFoundException {
         for (User user : this.users) {
             if (user.getUsername().equals(username)) {
                 return user;
@@ -76,17 +92,15 @@ public class Users implements IUsers {
     }
 
     public boolean userExists(User user) {
-        return false;
+        return this.users.contains(user);
     }
 
     public boolean userExistsByUsername(String username) {
-        for (User user : this.users) {
-            if (user.getUsername().equals(username)) {
-                return true;
-            }
-        }
-        
-        return false;
+        return this.users.stream().anyMatch(user -> user.getUsername().equals(username));
+    }
+
+    public boolean userExistsById(int userId) {
+        return this.users.stream().anyMatch(user -> user.getId() == userId);
     }
 
     public boolean isUserOnline(User user) {
@@ -120,48 +134,36 @@ public class Users implements IUsers {
     }
 
     public boolean isUserAdmin(User user) {
-        if (user instanceof Admin) {
-            return true;
-        }
-
-        return false;
+        return user instanceof Admin;
     }
 
-    public boolean login(String username, String password) throws Exception {
-        if(!this.userExistsByUsername(username))
-            return false;
-
-        for(User user : this.users) {
-            if(user.getUsername().equals(username)) {
-                if(user.checkPassword(password)) {
-                    user.setOnline(true);
-                    return true;
-                }
+    public boolean login(String username, String password) {
+        for (User user : this.users) {
+            if (user.getUsername().equals(username) && user.checkPassword(password)) {
+                user.setOnline(true);
+                this.currentUser = user;
+                return true;
             }
         }
-
         return false;
     }
 
-    public boolean loginByUser(User user) {
-        if(!this.userExistsByUsername(user.getUsername()))
-            return false;
+    public void loginByUser(User user) throws UserNotFoundException {
+        if(this.userExistsByUsername(user.getUsername()))
+            throw new UserNotFoundException("O utilizador não existe.");
 
         user.setOnline(true);
         this.updateUser(user.getId(), user);
         this.currentUser = user;
-
-        return true;
     }
 
-    public boolean register(User user, UserType type) {
-        if(this.userExists(user)) {
-            return false;
+    public boolean register(User user) throws UserExistsException, UserNotFoundException {
+        if (userExists(user)) {
+            throw new UserExistsException("O utilizador já existe!");
         }
-
-        this.addUser(user);
-        this.loginByUser(user);
-
-        return false;
+        this.users.add(user);
+        user.setOnline(true);
+        this.currentUser = user;
+        return true;
     }
 }
