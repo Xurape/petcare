@@ -18,86 +18,86 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="810.0" style="-fx-background-color: #100;" styleClass="background-color: #000" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.petcare.Controllers.LauncherController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="960.0" style="-fx-background-color: #100;" styleClass="background-color: #000" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.petcare.Controllers.LauncherController">
    <children>
-      <ImageView fitHeight="385.0" fitWidth="575.0">
-         <image>
-            <Image url="@img/full-dogo.jpg" />
-         </image>
-      </ImageView>
-      <Pane prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #fff;">
+      <Pane prefHeight="520.0" prefWidth="960.0" style="-fx-background-color: #fff;" stylesheets="@style.css">
          <children>
-            <ImageView fitHeight="164.0" fitWidth="235.0" layoutY="-9.0">
+            <ImageView fitHeight="520.0" fitWidth="960.0">
                <image>
-                  <Image url="@img/logo.jpg" />
+                  <Image url="@img/background-sprinkle.png" />
                </image>
             </ImageView>
-            <Button defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="18.0" layoutY="286.0" mnemonicParsing="false" onAction="#tryLogin" pickOnBounds="false" prefHeight="25.0" prefWidth="200.0" style="-fx-border-radius: 35; -fx-background-color: #4287f5; -fx-background-radius: 6;" text="LOGIN" textAlignment="CENTER" textFill="#eeeeee">
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-               <effect>
-                  <DropShadow blurType="GAUSSIAN" height="11.9" radius="6.672499999999999" spread="0.21" width="16.79">
-                     <color>
-                        <Color red="0.25920000672340393" green="0.5395200252532959" blue="0.9599999785423279" opacity="0.28298279643058777" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Button>
-            <Label graphicTextGap="3.0" layoutX="18.0" layoutY="158.0" text="Username" textFill="#434343">
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font>
-               <effect>
-                  <Lighting>
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                        <Light.Distant />
-                     </light>
-                  </Lighting>
-               </effect>
-            </Label>
-            <TextField fx:id="fieldUsername" layoutX="18.0" layoutY="179.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 6px;" />
-            <Label graphicTextGap="3.0" layoutX="18.0" layoutY="222.0" text="Password" textFill="#434343">
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font>
-               <effect>
-                  <Lighting>
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                        <Light.Distant />
-                     </light>
-                  </Lighting>
-               </effect>
-            </Label>
-            <PasswordField fx:id="fieldPassword" layoutX="18.0" layoutY="242.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 6px;" />
-            <Label layoutX="86.0" layoutY="125.0" text="Fazer login" textAlignment="CENTER">
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font>
-            </Label>
-            <Label id="errorText" fx:id="errorText" layoutX="19.0" layoutY="339.0" prefHeight="39.0" prefWidth="200.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true">
-               <font>
-                  <Font name="Apple Braille" size="13.0" />
-               </font></Label>
-            <Text layoutX="19.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não tem conta? " wrappingWidth="126.0">
-               <font>
-                  <Font name="Tahoma" size="12.0" />
-               </font>
-            </Text>
-            <Hyperlink fx:id="goToReg" layoutX="141.0" layoutY="317.0" onAction="#goToRegister" text="Crie agora →">
-               <font>
-                  <Font name="Tahoma" size="12.0" />
-               </font>
-            </Hyperlink>
+            <Pane layoutX="318.0" layoutY="76.0" prefHeight="374.0" prefWidth="345.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+               <children>
+                  <ImageView fitHeight="95.0" fitWidth="104.0" layoutX="121.0" layoutY="24.0">
+                     <image>
+                        <Image url="@img/logo_nobg_eee.png" />
+                     </image>
+                  </ImageView>
+                  <Button defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="47.0" layoutY="260.0" mnemonicParsing="false" onAction="#tryLogin" pickOnBounds="false" prefHeight="25.0" prefWidth="249.0" style="-fx-border-radius: 35; -fx-background-color: #4287f5; -fx-background-radius: 6;" text="Login" textAlignment="CENTER" textFill="#eeeeee">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" height="11.9" radius="6.672499999999999" spread="0.21" width="16.79">
+                           <color>
+                              <Color red="0.25920000672340393" green="0.5395200252532959" blue="0.9599999785423279" opacity="0.28298279643058777" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Button>
+                  <Label graphicTextGap="3.0" layoutX="47.0" layoutY="137.0" style="-fx-text-fill: #eee;" text="Username" textFill="#eeeeee">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <TextField fx:id="fieldUsername" layoutX="47.0" layoutY="158.0" prefHeight="26.0" prefWidth="250.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eee;" />
+                  <Label graphicTextGap="3.0" layoutX="47.0" layoutY="201.0" style="-fx-text-fill: #eee;" text="Password" textFill="#ededed">
+                     <font>
+                        <Font name="Tahoma" size="13.0" />
+                     </font>
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <PasswordField fx:id="fieldPassword" layoutX="47.0" layoutY="221.0" prefHeight="26.0" prefWidth="249.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6px;" />
+                  <Text fill="#eeeeee" layoutX="50.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não tem conta? " wrappingWidth="126.0">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                  </Text>
+                  <Hyperlink fx:id="goToReg" layoutX="220.0" layoutY="296.0" onAction="#goToRegister" text="Crie agora →">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                  </Hyperlink>
+                  <Label id="errorText" fx:id="errorText" layoutX="49.0" layoutY="326.0" prefHeight="28.0" prefWidth="246.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Tahoma" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
          <effect>
             <DropShadow height="23.95" radius="12.21" spread="0.19" width="26.89">

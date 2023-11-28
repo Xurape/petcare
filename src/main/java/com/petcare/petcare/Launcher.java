@@ -12,6 +12,15 @@ import java.io.IOException;
 import com.petcare.petcare.Controllers.LauncherController;
 
 public class Launcher extends Application {
+
+    /**
+     *
+     * COLORS:
+     * Left - #02223A
+     * Middle - #0E2A47
+     * Right - #113255
+     */
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();

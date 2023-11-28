@@ -1,7 +1,7 @@
 package com.petcare.petcare.Users;
 
 public class Client extends User {
-    private String name, surname, email, phone, address;
+    private String name, surname, email, address;
     private int VAT;
 
     public Client(String username, String password) {
@@ -30,14 +30,6 @@ public class Client extends User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getAddress() {

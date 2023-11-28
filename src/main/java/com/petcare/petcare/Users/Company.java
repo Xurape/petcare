@@ -1,7 +1,7 @@
 package com.petcare.petcare.Users;
 
 public class Company extends User {
-    private String name, email, phone, address;
+    private String name, email, address;
     private int VAT;
 
     public Company(String username, String password) {
@@ -22,14 +22,6 @@ public class Company extends User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getAddress() {

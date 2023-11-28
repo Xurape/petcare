@@ -1,0 +1,19 @@
+.button {
+    -fx-background-color: #1163f5
+}
+
+.text-field {
+    -fx-background-color: #02223A;
+    -fx-background-radius: 6;
+    -fx-text-fill: #eee;
+}
+
+.choice-box {
+    -fx-background-radius: 6;
+    -fx-background-color: #02223A;
+    -fx-text-fill: #eeeeee;
+}
+
+.choice-box .label {
+    -fx-text-fill: #eeeeee;
+}
