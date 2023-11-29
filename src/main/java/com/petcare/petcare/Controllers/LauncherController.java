@@ -1,6 +1,10 @@
 package com.petcare.petcare.Controllers;
-import com.petcare.petcare.Users.Admin;
 
+import com.petcare.petcare.Auth.Session;
+import com.petcare.petcare.Auth.Users;
+import com.petcare.petcare.Users.Admin;
+import com.petcare.petcare.Users.User;
+import com.petcare.petcare.Users.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,24 +70,20 @@ public class LauncherController {
         error = false;
 
         Admin admin = new Admin("admin", "admin");
-        
+
         username = fieldUsername.getText();
         password = fieldPassword.getText();
 
         if (username.isEmpty() || password.isEmpty()) {
             error = true;
             errorText.setText("Os campos não podem estar vazios!");
-        } else {
-            if (username.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
-                error = false;
-                errorText.setText("Login efetuado com sucesso!");
-            } else {
-                error = true;
-                errorText.setText("Utilizador ou password incorretos!");
-            }
         }
 
+        //    error = true;
+        //    errorText.setText("Utilizador ou password incorretos!");
+
         if (!error) {
+            Session.getSession().login(username, password);
             URL resourceUrl = getClass().getResource("/com/petcare/petcare/homepage.fxml");
             if (resourceUrl != null) {
                 try {

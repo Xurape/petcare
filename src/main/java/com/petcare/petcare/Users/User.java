@@ -1,10 +1,11 @@
 package com.petcare.petcare.Users;
 
 public class User implements IUser {
-    private String username, password;
+    private String NIF, username, password, address;
     private boolean isOnline = false;
-    private int id;
 
+    public User() {}
+    
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -18,7 +19,7 @@ public class User implements IUser {
         return this.username; 
     }
 
-    public void setPassword(String password) throws Exception {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -29,10 +30,6 @@ public class User implements IUser {
     public boolean isOnline() {
         return this.isOnline;
     }
-    
-    public int getId() {
-        return this.id;
-    }
 
     public String getPassword() {
         return this.password;
@@ -40,5 +37,21 @@ public class User implements IUser {
 
     public boolean checkPassword(String password) {
         return password.equals(this.password);
+    }
+
+    public String getNIF() {
+        return NIF;
+    }
+
+    public void setNIF(String NIF) {
+        this.NIF = NIF;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

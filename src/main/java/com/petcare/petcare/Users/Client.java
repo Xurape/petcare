@@ -1,8 +1,7 @@
 package com.petcare.petcare.Users;
 
 public class Client extends User {
-    private String name, surname, email, address;
-    private int VAT;
+    private String NIF, name, surname, email, address;
 
     public Client(String username, String password) {
         super(username, password);
@@ -40,11 +39,11 @@ public class Client extends User {
         this.address = address;
     }
 
-    public int getVAT() {
-        return VAT;
+    public String getNIF() {
+        return NIF;
     }
 
-    public void setVAT(int VAT) {
-        this.VAT = VAT;
+    public void setNIF(String NIF) {
+        this.NIF = NIF;
     }
 }

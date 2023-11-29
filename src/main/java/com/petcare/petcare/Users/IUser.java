@@ -6,7 +6,8 @@ public interface IUser {
     void setPassword(String password) throws Exception;
     void setOnline(boolean isOnline);
     boolean isOnline();
-    int getId();
     String getPassword() throws Exception;
     boolean checkPassword(String password) throws Exception;
+    public String getNIF();
+    public void setNIF(String NIF);
 }
