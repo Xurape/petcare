@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.net.URL;
 
 public class LauncherController {
-    private boolean error;
-
     private Stage stage;
 
     @FXML
@@ -47,57 +45,55 @@ public class LauncherController {
 
     @FXML
     protected void goToRegister(ActionEvent event) throws Exception {
-        if (!error) {
-            URL resourceUrl = getClass().getResource("/com/petcare/petcare/register.fxml");
-            if (resourceUrl != null) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
-                    Parent root = fxmlLoader.load();
-                    RegisterController controller = fxmlLoader.getController();
-                    controller.setStage(thisStage);
-                    thisStage.setScene(new Scene(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.err.println("Resource 'register.fxml' not found.");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/register.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                RegisterController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }     
+        } else {
+            System.err.println("Resource 'register.fxml' not found.");
+        }
     }
     
     @FXML
     protected void tryLogin(ActionEvent event) throws Exception {
-        error = false;
-
-        Admin admin = new Admin("admin", "admin");
-
         username = fieldUsername.getText();
         password = fieldPassword.getText();
 
         if (username.isEmpty() || password.isEmpty()) {
-            error = true;
             errorText.setText("Os campos não podem estar vazios!");
+            return;
         }
 
-        //    error = true;
-        //    errorText.setText("Utilizador ou password incorretos!");
+        if(Session.getSession().getCurrentUser() != null) {
+            errorText.setText("O utilizador já está logado!");
+            return;
+        }
 
-        if (!error) {
-            Session.getSession().login(username, password);
-            URL resourceUrl = getClass().getResource("/com/petcare/petcare/homepage.fxml");
-            if (resourceUrl != null) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
-                    Parent root = fxmlLoader.load();
-                    HomepageController controller = fxmlLoader.getController();
-                    controller.setStage(thisStage);
-                    thisStage.setScene(new Scene(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.err.println("Resource 'homepage.fxml' not found.");
+        if(!Session.getSession().login(username, password)) {
+            errorText.setText("O utilizador não existe ou a password está errada!");
+            return;
+        }
+
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/homepage.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                HomepageController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }        
+        } else {
+            System.err.println("Resource 'homepage.fxml' not found.");
+        }
     }
 }

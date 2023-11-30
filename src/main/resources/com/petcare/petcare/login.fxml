@@ -91,7 +91,7 @@
                         <Font name="Tahoma" size="12.0" />
                      </font>
                   </Hyperlink>
-                  <Label id="errorText" fx:id="errorText" layoutX="49.0" layoutY="326.0" prefHeight="28.0" prefWidth="246.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true">
+                  <Label id="errorText" fx:id="errorText" layoutX="49.0" layoutY="318.0" prefHeight="48.0" prefWidth="246.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true">
                      <font>
                         <Font name="Tahoma" size="13.0" />
                      </font>

@@ -46,6 +46,11 @@
                         <Font name="Tahoma" size="29.0" />
                      </font>
                   </Hyperlink>
+                  <Label id="errorText" fx:id="errorText" layoutX="32.0" layoutY="427.0" prefHeight="67.0" prefWidth="208.0" textFill="#ff4a4a" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Tahoma" size="13.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Label graphicTextGap="3.0" layoutX="285.0" layoutY="201.0" text="Username" textFill="#eeeeee">
@@ -64,6 +69,32 @@
                </effect>
             </Label>
             <TextField fx:id="fieldUsername" layoutX="285.0" layoutY="224.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
+                     <color>
+                        <Color red="0.06666667014360428" green="0.19607843458652496" blue="0.3333333432674408" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font></TextField>
+            <Label graphicTextGap="3.0" layoutX="502.0" layoutY="201.0" text="Email" textFill="#eeeeee">
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Label>
+            <TextField fx:id="fieldEmail" layoutX="502.0" layoutY="224.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
                <effect>
                   <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
                      <color>
@@ -127,32 +158,6 @@
                <font>
                   <Font name="Tahoma" size="13.0" />
                </font></PasswordField>
-            <Label graphicTextGap="3.0" layoutX="502.0" layoutY="201.0" text="Email" textFill="#eeeeee">
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font>
-               <effect>
-                  <Lighting>
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                        <Light.Distant />
-                     </light>
-                  </Lighting>
-               </effect>
-            </Label>
-            <TextField fx:id="fieldEmail" layoutX="502.0" layoutY="224.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
-               <effect>
-                  <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
-                     <color>
-                        <Color red="0.06666667014360428" green="0.19607843458652496" blue="0.3333333432674408" />
-                     </color>
-                  </DropShadow>
-               </effect>
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font></TextField>
             <Label graphicTextGap="3.0" layoutX="292.0" layoutY="343.0" text="NIF" textFill="#eeeeee">
                <font>
                   <Font name="Tahoma" size="13.0" />
@@ -180,6 +185,30 @@
                   <Font name="Tahoma" size="13.0" />
                </font>
             </TextField>
+            <ChoiceBox fx:id="tipoConta" layoutX="505.0" layoutY="366.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;" stylesheets="@style.css">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
+                     <color>
+                        <Color red="0.06666667014360428" green="0.19607843458652496" blue="0.3333333432674408" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </ChoiceBox>
+            <Label graphicTextGap="3.0" layoutX="507.0" layoutY="343.0" text="Tipo de conta" textFill="#eeeeee">
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Label>
             <Label graphicTextGap="3.0" layoutX="292.0" layoutY="411.0" text="Morada" textFill="#eeeeee">
                <font>
                   <Font name="Tahoma" size="13.0" />
@@ -206,30 +235,6 @@
                <font>
                   <Font name="Tahoma" size="13.0" />
                </font></TextField>
-            <ChoiceBox fx:id="tipoConta" layoutX="505.0" layoutY="366.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;" stylesheets="@style.css">
-               <effect>
-                  <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
-                     <color>
-                        <Color red="0.06666667014360428" green="0.19607843458652496" blue="0.3333333432674408" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </ChoiceBox>
-            <Label graphicTextGap="3.0" layoutX="507.0" layoutY="343.0" text="Tipo de conta" textFill="#eeeeee">
-               <font>
-                  <Font name="Tahoma" size="13.0" />
-               </font>
-               <effect>
-                  <Lighting>
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                        <Light.Distant />
-                     </light>
-                  </Lighting>
-               </effect>
-            </Label>
             <Button fx:id="regUser" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="506.0" layoutY="485.0" mnemonicParsing="false" onAction="#registerUser" pickOnBounds="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Registar" textAlignment="CENTER" textFill="#eeeeee">
                <font>
                   <Font name="Tahoma" size="12.0" />

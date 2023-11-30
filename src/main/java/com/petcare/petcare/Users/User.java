@@ -1,6 +1,7 @@
 package com.petcare.petcare.Users;
+import java.io.Serializable;
 
-public class User implements IUser {
+public class User implements IUser, Serializable {
     private String NIF, username, password, address;
     private boolean isOnline = false;
 

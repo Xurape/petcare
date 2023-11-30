@@ -1,6 +1,7 @@
 package com.petcare.petcare.Users;
+import java.io.Serializable;
 
-public class Client extends User {
+public class Client extends User implements Serializable {
     private String NIF, name, surname, email, address;
 
     public Client(String username, String password) {

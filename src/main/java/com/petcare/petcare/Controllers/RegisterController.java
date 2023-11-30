@@ -34,6 +34,8 @@ public class RegisterController {
     private TextField fieldNIF;
     @FXML
     private TextField fieldAddress;
+    @FXML
+    private Label errorText;
 
     public void initialize() {
         if (tipoConta != null) {
@@ -82,7 +84,7 @@ public class RegisterController {
         if(!password.equals(passwordAgain))
             error = "Password não coincide";
 
-        if(username.equals("") || password.equals("") || passwordAgain.equals("") || nif.equals("") || address.equals(""))
+        if(username.equals("") || password.equals("") || passwordAgain.equals("") || nif.equals("") || address.equals("") || tipo == null)
             error = "Por favor preencha todos os campos.";
 
         if(Storage.getStorage().userExists(nif))
@@ -100,13 +102,14 @@ public class RegisterController {
         User _user = null;
 
         switch(tipo) {
-            case "Prestador de Serviços":
+            case "Prestador de serviço":
                 _user = new Company(username, password);
                 _user.setNIF(nif);
                 _user.setAddress(address);
                 _user.setOnline(true);
-                
                 Storage.getStorage().getCompanies().put(nif, (Company) _user);
+                if(!Session.getSession().register((Company) _user))
+                    error = "Erro ao registar utilizador como prestador de serviço.";
                 break;
                 
             case "Cliente":
@@ -115,16 +118,29 @@ public class RegisterController {
                 _user.setAddress(address);
                 _user.setOnline(true);
                 Storage.getStorage().getClients().put(nif, (Client) _user);
+                if(!Session.getSession().register((Client) _user))
+                    error = "Erro ao registar utilizador como cliente.";
                 break;
         }
 
-        Session.getSession().setCurrentUser(_user);
+        if(error != null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro no registo");
+            alert.setContentText(error);
+            alert.showAndWait();
+            _user = null;
+            return;
+        }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Sucesso");
         alert.setHeaderText("Registo efetuado com sucesso");
         alert.setContentText("A sua conta foi criada com sucesso.");
         alert.showAndWait();
+
+        Session.getSession().setCurrentUser(_user);
+
         URL resourceUrl = getClass().getResource("/com/petcare/petcare/homepage.fxml");
         if (resourceUrl != null) {
             try {

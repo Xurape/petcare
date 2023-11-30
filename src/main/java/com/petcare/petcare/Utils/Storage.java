@@ -1,5 +1,7 @@
 package com.petcare.petcare.Utils;
 
+import com.petcare.petcare.Exceptions.CouldNotDeserializeException;
+import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Users.Admin;
 import com.petcare.petcare.Users.Client;
 import com.petcare.petcare.Users.Company;
@@ -11,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Storage {
-    private static Storage Storage = null;
+public class Storage implements Serializable {
+    private static Storage storage = null;
 
     private Map<String, Client> clients = new HashMap<>();
     private Map<String, Company> companies = new HashMap<>();
@@ -27,15 +29,14 @@ public class Storage {
     public Map<String, Employee> getEmployees() {return employees;}
 
     public static Storage getStorage() {
-
         ReentrantLock lock = new ReentrantLock();
 
         lock.lock();
-        if (Storage == null)
-            Storage = new Storage();
+        if (storage == null)
+            storage = new Storage();
         lock.unlock();
 
-        return Storage;
+        return storage;
     }
 
     public boolean userExists(String NIF) {
@@ -51,48 +52,31 @@ public class Storage {
             return false;
     }
 
-    public void serialize(String type) {
-        String filename = null;
-        try {
-            switch(type) {
-                case "users":
-                    filename = "src\\\\main\\\\resources\\\\data\\\\userStorage.data";
-                    break;
-                default:
-                    filename = "src\\\\main\\\\resources\\\\data\\\\data.data";
-                    break;
-            }
+    public void serialize(String filename) throws CouldNotSerializeException {
+        try{
             FileOutputStream fileOut = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
             out.close();
             fileOut.close();
-            System.out.printf("Storage data is saved on " + filename + "\n");
-        } catch(IOException e) {
-            System.out.println("Error while trying to serialize: " + e.getMessage());
+            System.out.printf("Serialized data is saved in " + filename + "\n");
+        } catch(IOException ex){
+            System.out.println("ErrorSerialize: " + ex.getMessage());
         }
     }
 
-    public static void deserialize(String type) {
-        String filename = null;
-        try {
-            switch(type) {
-                case "users":
-                    filename = "src\\\\main\\\\resources\\\\data\\\\userStorage.data";
-                    break;
-                default:
-                    filename = "src\\\\main\\\\resources\\\\data\\\\data.data";
-                    break;
-            }
+    public static void deserialize(String filename) throws CouldNotDeserializeException {
+
+        try{
             FileInputStream fileIn = new FileInputStream(filename);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            Storage = (Storage) in.readObject();
+            storage = (Storage) in.readObject();
             in.close();
             fileIn.close();
         } catch(IOException ex){
-            System.out.println("Error while trying to deserialize: " + ex.getMessage());
+            System.out.println("ErrorDeserialize: " + ex.getMessage());
         } catch(ClassNotFoundException ex){
-            System.out.println("Storage not found. " + ex.getMessage());
+            System.out.println("Repository class not found. " + ex.getMessage());
         }
     }
 }

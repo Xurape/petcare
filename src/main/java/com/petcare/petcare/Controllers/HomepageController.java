@@ -8,13 +8,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.PasswordField;
 import java.io.IOException;
 import java.net.URL;
 
+import com.petcare.petcare.Auth.Session;
+
 public class HomepageController {
     Stage thisStage;
+
+    @FXML
+    private Text welcomeText;
     
     public void setStage(Stage stage) {
         thisStage = stage;
@@ -26,7 +32,13 @@ public class HomepageController {
     }
 
     @FXML
+    protected void initialize() {
+        welcomeText.setText("Bem-vindo, " + Session.getSession().getCurrentUser().getUsername() + "!");
+    }
+
+    @FXML
     protected void logout(ActionEvent event) throws Exception {
+        Session.getSession().logout();
         URL resourceUrl = getClass().getResource("/com/petcare/petcare/login.fxml");
         if (resourceUrl != null) {
             try {

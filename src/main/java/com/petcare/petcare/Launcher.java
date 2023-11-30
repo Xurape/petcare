@@ -5,11 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 import com.petcare.petcare.Controllers.LauncherController;
+import com.petcare.petcare.Exceptions.CouldNotDeserializeException;
+import com.petcare.petcare.Utils.Storage;
 
 public class Launcher extends Application {
 
@@ -22,7 +25,17 @@ public class Launcher extends Application {
      */
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, CouldNotDeserializeException {
+        Storage storage;
+        try {
+            Storage.deserialize("./src/main/resources/data/users.db");
+        } catch(CouldNotDeserializeException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao executar o programa");
+            alert.setContentText("Não foi possível carregar os utilizadores atuais.");
+            alert.showAndWait();
+        }
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("login.fxml"));
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Exceptions.UserExistsException;
 import com.petcare.petcare.Exceptions.UserListIsNullException;
 import com.petcare.petcare.Exceptions.UserNotFoundException;
@@ -34,7 +35,7 @@ public class Users implements Serializable {
         return false;
     }
 
-    public void addUser(User user) throws UserExistsException {
+    public void addUser(User user) throws UserExistsException, CouldNotSerializeException {
         if (this.userExists(user)) {
             throw new UserExistsException("O utilizador já existe!");
         }
