@@ -52,20 +52,20 @@ public class Storage implements Serializable {
             return false;
     }
 
-    public void serialize(String filename) throws CouldNotSerializeException {
+    public void serialize(String filename) throws CouldNotSerializeException, CouldNotSerializeException {
         try{
             FileOutputStream fileOut = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved in " + filename + "\n");
+            Debug.getDebug().debug("Serialized data is saved in " + filename + "\n");
         } catch(IOException ex){
-            System.out.println("ErrorSerialize: " + ex.getMessage());
+            throw new CouldNotSerializeException("ErrorSerialize: " + ex.getMessage());
         }
     }
 
-    public static void deserialize(String filename) throws CouldNotDeserializeException {
+    public static void deserialize(String filename) throws CouldNotDeserializeException, ClassNotFoundException {
 
         try{
             FileInputStream fileIn = new FileInputStream(filename);
@@ -74,9 +74,9 @@ public class Storage implements Serializable {
             in.close();
             fileIn.close();
         } catch(IOException ex){
-            System.out.println("ErrorDeserialize: " + ex.getMessage());
+            throw new CouldNotDeserializeException("ErrorDeserialize: " + ex.getMessage());
         } catch(ClassNotFoundException ex){
-            System.out.println("Repository class not found. " + ex.getMessage());
+            throw new ClassNotFoundException("Storage class not found. " + ex.getMessage());
         }
     }
 }

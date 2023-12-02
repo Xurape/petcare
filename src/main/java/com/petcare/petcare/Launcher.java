@@ -25,7 +25,7 @@ public class Launcher extends Application {
      */
 
     @Override
-    public void start(Stage stage) throws IOException, CouldNotDeserializeException {
+    public void start(Stage stage) throws IOException, CouldNotDeserializeException, ClassNotFoundException {
         Storage storage;
         try {
             Storage.deserialize("./src/main/resources/data/users.db");
