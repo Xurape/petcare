@@ -16,7 +16,7 @@ import java.net.URL;
 
 import com.petcare.petcare.Auth.Session;
 
-public class HomepageController {
+public class ServicesController {
     Stage thisStage;
 
     @FXML
@@ -27,15 +27,10 @@ public class HomepageController {
     }
 
     public void showStage(){
-        thisStage.setTitle("PetCare - Bem-vindo");
+        thisStage.setTitle("PetCare - Serviços");
         thisStage.show();
     }
-
-    @FXML
-    protected void initialize() {
-        welcomeText.setText("Bem-vindo, " + Session.getSession().getCurrentUser().getUsername() + "!");
-    }
-
+    
     @FXML
     protected void logout(ActionEvent event) throws Exception {
         Session.getSession().logout();
@@ -52,7 +47,7 @@ public class HomepageController {
             }
         } else {
             System.err.println("Resource 'login.fxml' not found.");
-        } 
+        }
     }
 
     @FXML
@@ -65,7 +60,6 @@ public class HomepageController {
                 HomepageController controller = fxmlLoader.getController();
                 controller.setStage(thisStage);
                 thisStage.setScene(new Scene(root));
-                thisStage.setTitle("PetCare - Bem-vindo");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -84,7 +78,6 @@ public class HomepageController {
                 ServicesController controller = fxmlLoader.getController();
                 controller.setStage(thisStage);
                 thisStage.setScene(new Scene(root));
-                thisStage.setTitle("PetCare - Serviços");
             } catch (IOException e) {
                 e.printStackTrace();
             }
