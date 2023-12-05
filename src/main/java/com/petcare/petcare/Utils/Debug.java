@@ -1,7 +1,6 @@
 package com.petcare.petcare.Utils;
 
 import java.util.concurrent.locks.ReentrantLock;
-
 public class Debug {
     private static Debug debug = null;
     private boolean enabled = true;
