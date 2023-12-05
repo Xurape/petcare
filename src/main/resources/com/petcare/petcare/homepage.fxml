@@ -38,10 +38,10 @@
                   </Text>
                   <ImageView fitHeight="17.0" fitWidth="20.0" layoutX="27.0" layoutY="139.0">
                      <image>
-                        <Image url="@img/icons/home-icon.png" />
+                        <Image url="@img/icons/services.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#eeeeee" layoutX="10.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                  <Text fill="#eeeeee" layoutX="10.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviços" textAlignment="CENTER" wrappingWidth="53.08499526977539">
                      <font>
                         <Font name="Apple Braille Outline 8 Dot" size="9.0" />
                      </font>
@@ -78,6 +78,7 @@
                   </Text>
                </children>
             </Pane>
+            <Pane layoutX="67.0" prefHeight="63.0" prefWidth="895.0" style="-fx-background-color: #02223A;" />
             <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="26.0" layoutY="547.0" preserveRatio="true">
                <image>
                   <Image url="@img/icons/leave.png" />
@@ -89,9 +90,9 @@
                </font>
             </Text>
             <Button fx:id="logOut" layoutX="9.0" layoutY="545.0" mnemonicParsing="false" onAction="#logout" opacity="0.0" prefHeight="44.0" prefWidth="53.0" text="Button" />
-            <Text fx:id="welcomeText" fill="#eeeeee" layoutX="104.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{{welcomeText}}" wrappingWidth="660.3887481689453">
+            <Text fx:id="welcomeText" fill="#eeeeee" layoutX="80.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{{welcomeText}}" wrappingWidth="660.3887481689453">
                <font>
-                  <Font size="51.0" />
+                  <Font name="Tahoma" size="24.0" />
                </font>
             </Text>
          </children>

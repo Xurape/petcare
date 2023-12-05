@@ -2,6 +2,7 @@ package com.petcare.petcare.Utils;
 
 import com.petcare.petcare.Exceptions.CouldNotDeserializeException;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
+import com.petcare.petcare.Services.Services;
 import com.petcare.petcare.Users.Admin;
 import com.petcare.petcare.Users.Client;
 import com.petcare.petcare.Users.Company;
@@ -20,6 +21,7 @@ public class Storage implements Serializable {
     private Map<String, Company> companies = new HashMap<>();
     private Map<String, Admin> admins = new HashMap<>();
     private Map<String, Employee> employees = new HashMap<>();
+    private Map<Integer, Services> services = new HashMap<>();
 
     public Storage (){};
 
@@ -27,6 +29,7 @@ public class Storage implements Serializable {
     public Map<String, Company> getCompanies() {return companies;}
     public Map<String, Admin> getAdmins() {return admins;}
     public Map<String, Employee> getEmployees() {return employees;}
+    public Map<Integer, Services> getServices() {return services;}
 
     public static Storage getStorage() {
         ReentrantLock lock = new ReentrantLock();
@@ -46,10 +49,7 @@ public class Storage implements Serializable {
             return true;
         else if (this.admins.containsKey(NIF))
             return true;
-        else if (this.employees.containsKey(NIF))
-            return true;
-        else
-            return false;
+        else return this.employees.containsKey(NIF);
     }
 
     public void serialize(String filename) throws CouldNotSerializeException, CouldNotSerializeException {
@@ -59,7 +59,7 @@ public class Storage implements Serializable {
             out.writeObject(this);
             out.close();
             fileOut.close();
-            Debug.getDebug().debug("Serialized data is saved in " + filename + "\n");
+            Debug.print("Serialized data is saved in " + filename + "\n");
         } catch(IOException ex){
             throw new CouldNotSerializeException("ErrorSerialize: " + ex.getMessage());
         }
