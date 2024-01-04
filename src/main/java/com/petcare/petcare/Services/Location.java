@@ -1,6 +1,8 @@
 package com.petcare.petcare.Services;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private String address, city, zipcode;
     private int phone;
     private ServiceType serviceType;

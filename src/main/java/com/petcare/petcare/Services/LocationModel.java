@@ -7,12 +7,11 @@ public class LocationModel {
     private SimpleStringProperty address, city, zipcode, serviceType;
     private SimpleIntegerProperty phone;
 
-    public LocationModel(String address, String city, String zipcode, String serviceType, Integer phone) {
+    public LocationModel(String address, String city, Integer phone, String serviceType) {
         this.address = new SimpleStringProperty(address);
         this.city = new SimpleStringProperty(city);
-        this.zipcode = new SimpleStringProperty(zipcode);
-        this.serviceType = new SimpleStringProperty(serviceType);
         this.phone = new SimpleIntegerProperty(phone);
+        this.serviceType = new SimpleStringProperty(serviceType);
     }
 
     public String getAddress() {
@@ -37,18 +36,6 @@ public class LocationModel {
 
     public void setCity(String city) {
         this.city = new SimpleStringProperty(city);
-    }
-
-    public String getZipcode() {
-        return zipcode.get();
-    }
-
-    public SimpleStringProperty zipcodeProperty() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = new SimpleStringProperty(zipcode);
     }
 
     public String getServiceType() {

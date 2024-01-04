@@ -1,10 +1,7 @@
 package com.petcare.petcare.Controllers;
 
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
-import com.petcare.petcare.Services.Service;
-import com.petcare.petcare.Services.ServiceType;
-import com.petcare.petcare.Services.Services;
-import com.petcare.petcare.Services.ServicesList;
+import com.petcare.petcare.Services.*;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 import javafx.collections.FXCollections;
@@ -26,6 +23,24 @@ import com.petcare.petcare.Auth.Session;
 
 public class LocationsController {
     Stage thisStage;
+
+    @FXML
+    protected Pane createLocationPane;
+
+    @FXML
+    protected Pane editLocationPane;
+
+    @FXML
+    protected TableView<LocationModel> locationsTable;
+
+    @FXML
+    protected TableColumn<LocationModel, String> columnCidade;
+    @FXML
+    protected TableColumn<LocationModel, String> columnMorada;
+    @FXML
+    protected TableColumn<LocationModel, Integer> columnTelemovel;
+    @FXML
+    protected TableColumn<LocationModel, String> columnTipoServico;
 
     /**
      *
@@ -55,12 +70,35 @@ public class LocationsController {
      *
      */
     public void initialize() {
+        columnCidade.setCellValueFactory(new PropertyValueFactory<>("City"));
+        columnMorada.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        columnTelemovel.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+        columnTipoServico.setCellValueFactory(new PropertyValueFactory<>("ServiceType"));
 
+        this.getLocationList();
     }
 
     /**
      *
-     * Initializes the controller class.
+     * Get the locations list
+     *
+     */
+    public void getLocationList() {
+        for(Location location : Storage.getStorage().getLocations()) {
+            Debug.print(location.getCity() + " " + location.getAddress() + " " + location.getPhone() + " " + location.getServiceType(), false, false);
+        }
+
+        ObservableList<LocationModel> locationsData = FXCollections.observableArrayList();
+        for(Location location : Storage.getStorage().getLocations()) {
+            locationsData.add(new LocationModel(location.getAddress(), location.getCity(), location.getPhone(), ""));
+        }
+
+        locationsTable.setItems(locationsData);
+    }
+
+    /**
+     *
+     * Logout
      *
      * @param event Event
      * @throws Exception Exception
@@ -162,7 +200,7 @@ public class LocationsController {
 
     /**
      *
-     * Go to the employees page
+     * Go to the locations page
      *
      * @param event Event
      *
@@ -182,6 +220,33 @@ public class LocationsController {
             }
         } else {
             System.err.println("Resource 'locations.fxml' not found.");
+        }
+    }
+
+    @FXML
+    protected void createLocation(ActionEvent event) {
+
+    }
+
+    @FXML
+    protected void editLocation(ActionEvent event) {
+
+    }
+
+    @FXML
+    protected void createLocationToggle(ActionEvent event) {
+        if(createLocationPane.getOpacity() == 0) {
+            createLocationPane.setOpacity(1);
+        } else {
+            createLocationPane.setOpacity(0);
+        }
+    }
+    @FXML
+    protected void editLocationToggle(ActionEvent event) {
+        if(editLocationPane.getOpacity() == 0) {
+            editLocationPane.setOpacity(1);
+        } else {
+            editLocationPane.setOpacity(0);
         }
     }
 }

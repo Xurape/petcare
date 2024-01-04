@@ -146,14 +146,14 @@ public class HomepageController {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
                 Parent root = fxmlLoader.load();
-                EmployeesController controller = fxmlLoader.getController();
+                ServicesController controller = fxmlLoader.getController();
                 controller.setStage(thisStage);
                 thisStage.setScene(new Scene(root));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            System.err.println("Resource 'employees.fxml' not found.");
+            System.err.println("Resource 'services.fxml' not found.");
         }
     }
 

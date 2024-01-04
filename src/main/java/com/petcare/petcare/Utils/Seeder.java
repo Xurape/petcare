@@ -2,6 +2,7 @@ package com.petcare.petcare.Utils;
 
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Launcher;
+import com.petcare.petcare.Services.Location;
 import com.petcare.petcare.Services.Service;
 import com.petcare.petcare.Services.ServiceType;
 import com.petcare.petcare.Users.*;
@@ -13,7 +14,9 @@ public class Seeder {
                                                 Storage.getStorage().getCompanies().isEmpty() ||
                                                 Storage.getStorage().getEmployees().isEmpty();
 
-    private static final boolean isSeeded = !isUsersSeeadble && !isServicesSeedable;
+    private static final boolean isLocationsSeedable = Storage.getStorage().getLocations().isEmpty();
+
+    private static final boolean isSeeded = !isUsersSeeadble && !isServicesSeedable && !isLocationsSeedable;
 
     /**
      *
@@ -49,6 +52,11 @@ public class Seeder {
         if (isServicesSeedable) {
             seedServices();
             Debug.success("Services seeded!", true, true);
+        }
+
+        if (isLocationsSeedable) {
+            seedLocations();
+            Debug.success("Locations seeded!", true, true);
         }
 
         Debug.success("Seeding complete...", true, true);
@@ -123,5 +131,20 @@ public class Seeder {
         Storage.getStorage().getServices().add(daycare);
         Storage.getStorage().getServices().add(spa);
         Storage.getStorage().getServices().add(transport);
+    }
+
+    /**
+     *
+     * Seed the storage with the default locations
+     *
+     */
+    public static void seedLocations() {
+        Location location = new Location("Rua do Funcionário", "Porto", "4000-000", 123456789, ServiceType.GROOMING);
+        Location location1 = new Location("Rua do Funcionário", "Porto", "4000-000", 123456789, ServiceType.BATHING);
+        Location location2 = new Location("Rua do Funcionário", "Porto", "4000-000", 123456789, ServiceType.VETERINARY);
+
+        Storage.getStorage().getLocations().add(location);
+        Storage.getStorage().getLocations().add(location1);
+        Storage.getStorage().getLocations().add(location2);
     }
 }
