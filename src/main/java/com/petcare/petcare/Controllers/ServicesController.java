@@ -326,7 +326,7 @@ public class ServicesController {
             } finally {
                 Debug.success("Data serialized successfully!", true, true);
             }
-            //this.getServicesList();
+            this.getServicesList();
             createServiceToggle(event);
         }
     }
