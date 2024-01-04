@@ -1,47 +1,80 @@
 package com.petcare.petcare.Services;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Services {
-    private String name, description;
-    private ServiceType type;
+    private SimpleStringProperty client;
+    private SimpleStringProperty service;
+    private SimpleStringProperty serviceType;
+    private SimpleStringProperty date;
+    private SimpleDoubleProperty value;
 
-    private float price;
-
-    public Services(String name, String description, ServiceType type, float price) {
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.price = price;
+    public Services(String client, String service, String serviceType, String date, Integer value) {
+        this.client = new SimpleStringProperty(client);
+        this.service = new SimpleStringProperty(service);
+        this.serviceType = new SimpleStringProperty(serviceType);
+        this.date = new SimpleStringProperty(date);
+        this.value = new SimpleDoubleProperty(value);
     }
 
-    public String getName() {
-        return name;
+    public String getClient() {
+        return client.get();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public SimpleStringProperty clientProperty() {
+        return client;
     }
 
-    public String getDescription() {
-        return description;
+    public void setClient(String client) {
+        this.client = new SimpleStringProperty(client);
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getService() {
+        return service.get();
     }
 
-    public ServiceType getType() {
-        return type;
+    public SimpleStringProperty serviceProperty() {
+        return service;
     }
 
-    public void setType(ServiceType type) {
-        this.type = type;
+    public void setService(String service) {
+        this.service = new SimpleStringProperty(service);
     }
 
-    public float getPrice() {
-        return price;
+    public String getServiceType() {
+        return serviceType.get();
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public SimpleStringProperty serviceTypeProperty() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = new SimpleStringProperty(serviceType);
+    }
+
+    public String getDate() {
+        return date.get();
+    }
+
+    public SimpleStringProperty dateProperty() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = new SimpleStringProperty(date);
+    }
+
+    public double getValue() {
+        return value.get();
+    }
+
+    public SimpleDoubleProperty valueProperty() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = new SimpleDoubleProperty(value);
     }
 }

@@ -1,11 +1,23 @@
 package com.petcare.petcare.Exceptions;
 
 public class CouldNotDeserializeException extends Exception {
+    /**
+     *
+     * Constructor
+     *
+     */
     public CouldNotDeserializeException() {
         super();
     }
 
-    public CouldNotDeserializeException(String message) {
-        super(message);
+    /**
+     *
+     * Constructor
+     *
+     * @param errorMessage Error message
+     *
+     */
+    public CouldNotDeserializeException(String errorMessage) {
+        super(errorMessage);
     }
 }

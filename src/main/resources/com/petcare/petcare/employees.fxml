@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="962.0" style="-fx-background-color: #100;" styleClass="background-color: #000" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.petcare.Controllers.HomepageController">
+   <children>
+      <Pane prefHeight="385.0" prefWidth="67.0" style="-fx-background-color: #fff;">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="962.0">
+               <image>
+                  <Image url="@img/background-counter-892.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="-2.0" prefHeight="600.0" prefWidth="74.0" style="-fx-background-color: #02223A;">
+               <children>
+                  <ImageView fitHeight="63.0" fitWidth="62.0" layoutX="7.0" layoutY="11.0">
+                     <image>
+                        <Image url="@img/logo_nobg_eee.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="25.0" layoutY="94.0">
+                     <image>
+                        <Image url="@img/icons/home-icon.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="11.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="150.0">
+                     <image>
+                        <Image url="@img/icons/services.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="12.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviços" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="gotoServices" layoutX="12.0" layoutY="145.0" mnemonicParsing="false" onAction="#gotoServices" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+                  <Button fx:id="gotoHome" layoutX="11.0" layoutY="91.0" mnemonicParsing="false" onAction="#gotoHome" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="210.0">
+                     <image>
+                        <Image url="@img/user-group.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="5.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários" textAlignment="CENTER" wrappingWidth="67.07869338989258">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="gotoEmployeesButton" layoutX="12.0" layoutY="205.0" mnemonicParsing="false" onAction="#gotoEmployees" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+                  <Pane layoutX="-2.0" layoutY="513.0" prefHeight="84.0" prefWidth="80.0">
+                     <children>
+                        <Button fx:id="logOut" layoutX="3.0" layoutY="15.0" mnemonicParsing="false" onAction="#logout" opacity="0.0" prefHeight="62.0" prefWidth="77.0" text="Button" />
+                        <Text fill="#eeeeee" layoutX="15.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminar sessão" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                           <font>
+                              <Font name="Apple Braille Outline 8 Dot" size="9.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="32.0" layoutY="20.0" preserveRatio="true">
+                           <image>
+                              <Image url="@img/icons/leave.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane layoutX="65.0" layoutY="-7.0" prefHeight="63.0" prefWidth="902.0" style="-fx-background-color: #02223A;" />
+            <Text fill="#eeeeee" layoutX="80.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários" wrappingWidth="660.3887481689453">
+               <font>
+                  <Font name="Tahoma" size="24.0" />
+               </font>
+            </Text>
+            <Pane layoutX="97.0" layoutY="81.0" prefHeight="305.0" prefWidth="836.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
+               <children>
+                  <TableView fx:id="servicesTable" fixedCellSize="1.0" layoutY="40.0" prefHeight="266.0" prefWidth="836.0" style="-fx-background-radius: 10; -fx-background-color: #02223A;">
+                     <columns>
+                        <TableColumn fx:id="columnCliente" editable="false" prefWidth="104.32429504394531" style="-fx-background-color: #00568F;" text="NIF" />
+                        <TableColumn editable="false" prefWidth="120.0" style="-fx-background-color: #00568F;" text="Nome" />
+                        <TableColumn fx:id="columnTipoServico" editable="false" prefWidth="120.0" style="-fx-background-color: #00568F;" text="Sobrenome" />
+                        <TableColumn fx:id="columnData" editable="false" prefWidth="250.0" sortType="DESCENDING" style="-fx-background-color: #00568F;" text="Email" />
+                        <TableColumn fx:id="columnValor" editable="false" prefWidth="250.0" style="-fx-background-color: #00568F; -fx-color: #fff;" text="Morada" />
+                     </columns>
+                  </TableView>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="13.0" layoutY="12.0">
+                     <image>
+                        <Image url="@img/user-group.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="37.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários">
+                     <font>
+                        <Font name="Apple Braille" size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+         <effect>
+            <DropShadow height="23.95" radius="12.21" spread="0.19" width="26.89">
+               <color>
+                  <Color opacity="0.252390056848526" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Pane>
+   </children>
+</HBox>

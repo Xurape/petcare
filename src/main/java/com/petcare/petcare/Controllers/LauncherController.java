@@ -34,15 +34,36 @@ public class LauncherController {
 
     Stage thisStage;
 
+    /**
+     *
+     * Set the current stage
+     *
+     * @param stage Current stage
+     */
     public void setStage (Stage stage){
         thisStage = stage;
     }
 
+    /**
+     *
+     * Show the current stage
+     *
+     * @see #thisStage
+     *
+     */
     public void showStage(){
         thisStage.setTitle("PetCare - Bem-vindo");
         thisStage.show();
     }
 
+    /**
+     *
+     * Go to the register page
+     *
+     * @param event Event
+     * @throws Exception Exception
+     *
+     */
     @FXML
     protected void goToRegister(ActionEvent event) throws Exception {
         URL resourceUrl = getClass().getResource("/com/petcare/petcare/register.fxml");
@@ -60,7 +81,15 @@ public class LauncherController {
             System.err.println("Resource 'register.fxml' not found.");
         }
     }
-    
+
+    /**
+     *
+     * Try to log in the user
+     *
+     * @param event Event
+     * @throws Exception Exception
+     *
+     */
     @FXML
     protected void tryLogin(ActionEvent event) throws Exception {
         username = fieldUsername.getText();

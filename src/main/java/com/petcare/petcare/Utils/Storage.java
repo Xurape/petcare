@@ -2,13 +2,15 @@ package com.petcare.petcare.Utils;
 
 import com.petcare.petcare.Exceptions.CouldNotDeserializeException;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
-import com.petcare.petcare.Services.Services;
+import com.petcare.petcare.Services.Service;
 import com.petcare.petcare.Users.Admin;
 import com.petcare.petcare.Users.Client;
 import com.petcare.petcare.Users.Company;
 import com.petcare.petcare.Users.Employee;
+import javafx.scene.control.Alert;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,16 +23,36 @@ public class Storage implements Serializable {
     private Map<String, Company> companies = new HashMap<>();
     private Map<String, Admin> admins = new HashMap<>();
     private Map<String, Employee> employees = new HashMap<>();
-    private Map<Integer, Services> services = new HashMap<>();
+    private List<Service> services = new ArrayList<>();
 
     public Storage (){};
 
+    /**
+     *
+     * Getters for each object
+     *
+     * @see #clients
+     * @see #companies
+     * @see #admins
+     * @see #employees
+     * @see #services
+     * @return Map of objects
+     *
+     */
     public Map<String, Client> getClients() {return clients;}
     public Map<String, Company> getCompanies() {return companies;}
     public Map<String, Admin> getAdmins() {return admins;}
     public Map<String, Employee> getEmployees() {return employees;}
-    public Map<Integer, Services> getServices() {return services;}
+    public List<Service> getServices() {return services;}
 
+    /**
+     *
+     * Get the storage instance
+     *
+     * @see #Storage()
+     * @return Storage object
+     *
+     */
     public static Storage getStorage() {
         ReentrantLock lock = new ReentrantLock();
 
@@ -42,6 +64,14 @@ public class Storage implements Serializable {
         return storage;
     }
 
+    /**
+     *
+     * Check if the user exists in the storage
+     *
+     * @param NIF NIF of the user
+     * @return True if the user exists, false otherwise
+     *
+     */
     public boolean userExists(String NIF) {
         if (this.clients.containsKey(NIF))
             return true;
@@ -52,22 +82,49 @@ public class Storage implements Serializable {
         else return this.employees.containsKey(NIF);
     }
 
-    public void serialize(String filename) throws CouldNotSerializeException, CouldNotSerializeException {
+    /**
+     *
+     * Add a new client to the storage
+     *
+     * @param services List of services
+     *
+     */
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
+    /**
+     *
+     * Serialize all content in the storage object
+     *
+     * @param filename Name of the file to serialize
+     * @throws CouldNotSerializeException Could not serialize exception
+     *
+     */
+    public void serialize(String filename) throws CouldNotSerializeException {
         try{
             FileOutputStream fileOut = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
             out.close();
             fileOut.close();
-            Debug.print("Serialized data is saved in " + filename + "\n");
+            Debug.success("Serialized data is saved in " + filename + "\n", true, true);
         } catch(IOException ex){
             throw new CouldNotSerializeException("ErrorSerialize: " + ex.getMessage());
         }
     }
 
+    /**
+     *
+     * Deserialize all content in the storage object
+     *
+     * @param filename Name of the file to deserialize
+     * @throws CouldNotDeserializeException Could not deserialize exception
+     * @throws ClassNotFoundException Class not found exception
+     *
+     */
     public static void deserialize(String filename) throws CouldNotDeserializeException, ClassNotFoundException {
-
-        try{
+        try {
             FileInputStream fileIn = new FileInputStream(filename);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             storage = (Storage) in.readObject();

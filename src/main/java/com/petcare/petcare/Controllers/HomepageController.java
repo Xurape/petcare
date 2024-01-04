@@ -21,21 +21,47 @@ public class HomepageController {
 
     @FXML
     private Text welcomeText;
-    
+
+    /**
+     *
+     * Set the current stage
+     *
+     * @param stage Current stage
+     */
     public void setStage(Stage stage) {
         thisStage = stage;
     }
 
+    /**
+     *
+     * Show the current stage
+     *
+     * @see #thisStage
+     *
+     */
     public void showStage(){
         thisStage.setTitle("PetCare - Bem-vindo");
         thisStage.show();
     }
 
+    /**
+     *
+     * Initializes the controller class.
+     *
+     */
     @FXML
     protected void initialize() {
         welcomeText.setText("Bem-vindo, " + Session.getSession().getCurrentUser().getUsername() + "!");
     }
 
+    /**
+     *
+     * Logout the current user and go to the login page
+     *
+     * @param event Event
+     * @throws Exception Exception
+     *
+     */
     @FXML
     protected void logout(ActionEvent event) throws Exception {
         Session.getSession().logout();
@@ -55,6 +81,13 @@ public class HomepageController {
         } 
     }
 
+    /**
+     *
+     * Go to the homepage
+     *
+     * @param event Event
+     *
+     */
     @FXML
     protected void gotoHome(ActionEvent event) {
         URL resourceUrl = getClass().getResource("/com/petcare/petcare/homepage.fxml");
@@ -74,6 +107,13 @@ public class HomepageController {
         } 
     }
 
+    /**
+     *
+     * Go to the services page
+     *
+     * @param event Event
+     *
+     */
     @FXML
     protected void gotoServices(ActionEvent event) {
         URL resourceUrl = getClass().getResource("/com/petcare/petcare/services.fxml");

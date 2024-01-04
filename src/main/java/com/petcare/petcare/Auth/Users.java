@@ -14,18 +14,45 @@ import com.petcare.petcare.Utils.Storage;
 public class Users implements Serializable {
     private List<User> users;
 
+    /**
+     *
+     * Constructor
+     *
+     * @param users List of users
+     *
+     */
     public Users(List<User> users) {
         this.users = users;
     }
 
+    /**
+     *
+     * Constructor
+     *
+     */
     public Users() {
         this.users = new ArrayList<>();
     }
 
+    /**
+     *
+     * Get users
+     *
+     * @return List of users
+     *
+     */
     public List<User> getUsers() {
         return this.users;
     }
 
+    /**
+     *
+     * See if user exists
+     *
+     * @param user User
+     * @return True if user exists, false otherwise
+     *
+     */
     public boolean userExists(User user) {
         for (User usr : this.users) {
             if (usr.equals(user)) {
@@ -35,6 +62,15 @@ public class Users implements Serializable {
         return false;
     }
 
+    /**
+     *
+     * Add user to the users list
+     *
+     * @param user User
+     * @throws UserExistsException UserExistsException
+     * @throws CouldNotSerializeException CouldNotSerializeException
+     *
+     */
     public void addUser(User user) throws UserExistsException, CouldNotSerializeException {
         if (this.userExists(user)) {
             throw new UserExistsException("O utilizador já existe!");
@@ -56,9 +92,17 @@ public class Users implements Serializable {
         else if(user instanceof Client)
             Storage.getStorage().getClients().put(user.getNIF(), (Client) user);
 
-        Storage.getStorage().serialize("users");
+        Storage.getStorage().serialize("./src/main/resources/data/storage.db");
     }
 
+    /**
+     *
+     * Remove user from the users list
+     *
+     * @param user User
+     * @throws UserNotFoundException UserNotFoundException
+     *
+     */
     public void removeUser(User user) throws UserNotFoundException {
         this.users.remove(user);
     }

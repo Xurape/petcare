@@ -2,6 +2,7 @@ package com.petcare.petcare.Services;
 
 public enum ServiceType {
     GROOMING,
+    BATHING,
     VETERINARY,
     HOTEL,
     WALKING,

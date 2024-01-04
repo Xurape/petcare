@@ -35,23 +35,51 @@ public class RegisterController {
     @FXML
     private TextField fieldAddress;
     @FXML
+    private TextField fieldPhone;
+    @FXML
     private Label errorText;
 
+    /**
+     *
+     * Initializes the controller class.
+     *
+     */
     public void initialize() {
         if (tipoConta != null) {
             tipoConta.getItems().addAll("Prestador de serviço", "Cliente");
         }
     }
 
+    /**
+     *
+     * Set the current stage
+     *
+     * @param stage Current stage
+     */
     public void setStage (Stage stage){
         thisStage = stage;
     }
 
+    /**
+     *
+     * Show the current stage
+     *
+     * @see #thisStage
+     *
+     */
     public void showStage(){
         thisStage.setTitle("PetCare - Registo");
         thisStage.show();
     }
 
+    /**
+     *
+     * Go back to the login page
+     *
+     * @param event Event
+     * @throws Exception Exception
+     *
+     */
     @FXML
     protected void goBack(ActionEvent event) throws Exception {
         URL resourceUrl = getClass().getResource("/com/petcare/petcare/login.fxml");
@@ -70,6 +98,14 @@ public class RegisterController {
         } 
     }
 
+    /**
+     *
+     * Register the user
+     *
+     * @param event Event
+     * @throws Exception Exception
+     *
+     */
     @FXML
     protected void registerUser(ActionEvent event) throws Exception {
         String error = null;
@@ -80,15 +116,28 @@ public class RegisterController {
         String nif = fieldNIF.getText();
         String address = fieldAddress.getText();
         String tipo = (String) tipoConta.getValue();
+        String phone = fieldPhone.getText();
 
         if(!password.equals(passwordAgain))
             error = "Password não coincide";
 
-        if(username.equals("") || password.equals("") || passwordAgain.equals("") || nif.equals("") || address.equals("") || tipo == null)
+        if(username.isEmpty() || password.isEmpty() || passwordAgain.isEmpty() || nif.isEmpty() || address.isEmpty() || phone.isEmpty() || tipo == null)
             error = "Por favor preencha todos os campos.";
 
         if(Storage.getStorage().userExists(nif))
             error = "O utilizador já existe!";
+
+        if(nif.length() != 9)
+            error = "O NIF tem de ter 9 dígitos.";
+
+        if(!nif.matches("[0-9]+"))
+            error = "O NIF só pode conter números.";
+
+        if(!phone.matches("[0-9]+"))
+            error = "O número de telefone só pode conter números.";
+
+        if(phone.length() != 9)
+            error = "O número de telefone tem de ter 9 dígitos.";
 
         if(error != null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

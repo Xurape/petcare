@@ -224,7 +224,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <TextField fx:id="fieldAddress" layoutX="289.0" layoutY="434.0" prefHeight="26.0" prefWidth="415.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
+            <TextField fx:id="fieldAddress" layoutX="289.0" layoutY="434.0" prefHeight="26.0" prefWidth="197.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
                <effect>
                   <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
                      <color>
@@ -243,6 +243,33 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </Button>
+            <Label graphicTextGap="3.0" layoutX="508.0" layoutY="411.0" text="Telemóvel" textFill="#eeeeee">
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Label>
+            <TextField fx:id="fieldPhone" layoutX="506.0" layoutY="434.0" prefHeight="26.0" prefWidth="197.0" style="-fx-background-radius: 6; -fx-background-color: #02223A; -fx-text-fill: #eee;">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" height="170.0" radius="84.5" width="170.0">
+                     <color>
+                        <Color red="0.06666667014360428" green="0.19607843458652496" blue="0.3333333432674408" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <font>
+                  <Font name="Tahoma" size="13.0" />
+               </font>
+            </TextField>
          </children>
          <effect>
             <DropShadow height="23.95" radius="12.21" spread="0.19" width="26.89">
