@@ -2,6 +2,7 @@ package com.petcare.petcare.Users;
 
 public class Employee extends User {
     private String NIF, name, surname, email, address;
+    private Company company;
 
     public Employee(String username, String password) {
         super(username, password);
@@ -115,5 +116,27 @@ public class Employee extends User {
      */
     public void setNIF(String NIF) {
         this.NIF = NIF;
+    }
+
+    /**
+     *
+     * Get the company of the employee
+     *
+     * @return Company of the employee
+     *
+     */
+    public Company getCompany() {
+        return company;
+    }
+
+    /**
+     *
+     * Set the company of the Employee
+     *
+     * @param company Company of the employee
+     *
+     */
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

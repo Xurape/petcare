@@ -200,6 +200,56 @@ public class ServicesController {
         } 
     }
 
+    /**
+     *
+     * Go to the employees page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoEmployees(ActionEvent event) {
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/employees.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                EmployeesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'employees.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the locations page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoLocations(ActionEvent event) {
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/locations.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                LocationsController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'employees.fxml' not found.");
+        }
+    }
+
     @FXML
     protected void createServiceToggle(ActionEvent event) {
         if(createServicePane.getOpacity() == 0) {

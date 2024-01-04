@@ -55,7 +55,7 @@
                         <Image url="@img/user-group.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#eeeeee" layoutX="5.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários" textAlignment="CENTER" wrappingWidth="67.07869338989258">
+                  <Text fill="#eeeeee" layoutX="5.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Localidades" textAlignment="CENTER" wrappingWidth="67.07869338989258">
                      <font>
                         <Font name="Tahoma" size="10.0" />
                      </font>

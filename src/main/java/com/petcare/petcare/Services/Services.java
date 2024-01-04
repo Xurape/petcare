@@ -10,7 +10,7 @@ public class Services {
     private SimpleStringProperty date;
     private SimpleDoubleProperty value;
 
-    public Services(String client, String service, String serviceType, String date, Integer value) {
+    public Services(String client, String service, String serviceType, String date, Double value) {
         this.client = new SimpleStringProperty(client);
         this.service = new SimpleStringProperty(service);
         this.serviceType = new SimpleStringProperty(serviceType);

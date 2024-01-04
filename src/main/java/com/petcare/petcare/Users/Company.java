@@ -1,7 +1,10 @@
 package com.petcare.petcare.Users;
 
+import java.util.List;
+
 public class Company extends User {
     private String NIF, name, email, address;
+    private List<Employee> employees;
 
     /**
      *
@@ -101,5 +104,54 @@ public class Company extends User {
      */
     public void setNIF(String NIF) {
         this.NIF = NIF;
+    }
+
+    /**
+     *
+     * Get the employees of the company
+     *
+     * @return Employees of the company
+     *
+     */
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    /**
+     *
+     * Set the employees of the company
+     *
+     * @param employees Employees of the company
+     *
+     */
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    /**
+     *
+     * Add an employee to the company
+     *
+     * @param employee Employee to add
+     *
+     */
+    public void addEmployee(Employee employee) {
+        this.employees.add(employee);
+    }
+
+    /**
+     *
+     * Remove an employee from the company
+     *
+     * @param NIF NIF of the employee to remove
+     *
+     */
+    public void removeEmployee(String NIF) {
+        for (Employee employee : this.employees) {
+            if (employee.getNIF().equals(NIF)) {
+                this.employees.remove(employee);
+                return;
+            }
+        }
     }
 }
