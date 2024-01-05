@@ -7,6 +7,7 @@ import com.petcare.petcare.Services.Services;
 import com.petcare.petcare.Services.ServicesList;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -159,7 +160,7 @@ public class ServicesController {
      */
     @FXML
     protected void gotoHome(ActionEvent event) {
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/homepage.fxml");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/homepage.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
@@ -184,7 +185,7 @@ public class ServicesController {
      */
     @FXML
     protected void gotoServices(ActionEvent event) {
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/services.fxml");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/services.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
@@ -209,7 +210,7 @@ public class ServicesController {
      */
     @FXML
     protected void gotoEmployees(ActionEvent event) {
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/employees.fxml");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
@@ -224,6 +225,30 @@ public class ServicesController {
             System.err.println("Resource 'employees.fxml' not found.");
         }
     }
+    /**
+     *
+     * Go to the employees page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoDeskEmployees(ActionEvent event) {
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/deskemployees.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                DeskEmployeesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'deskemployees.fxml' not found.");
+        }
+    }
 
     /**
      *
@@ -234,7 +259,7 @@ public class ServicesController {
      */
     @FXML
     protected void gotoLocations(ActionEvent event) {
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/locations.fxml");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/locations.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);

@@ -99,10 +99,18 @@ public class Seeder {
         employee.setEmail("employee@gmail.com");
         employee.setCompany(company);
 
+        DeskEmployee employee1 = new DeskEmployee("employee1", "employee1");
+        employee1.setName("Funcionário");
+        employee1.setSurname("Testeee");
+        employee1.setAddress("Rua do Funcionário");
+        employee1.setnif("123456789");
+        employee1.setEmail("employee1@gmail.com");
+
         Storage.getStorage().getAdmins().put(admin.getnif(), admin);
         Storage.getStorage().getClients().put(client.getnif(), client);
         Storage.getStorage().getCompanies().put(company.getnif(), company);
         Storage.getStorage().getCompanies().get(company.getnif()).addEmployee(employee);
+        Storage.getStorage().getDeskEmployees().add(employee1);
     }
 
     /**
@@ -140,9 +148,9 @@ public class Seeder {
      *
      */
     public static void seedLocations() {
-        Location location = new Location("Rua do Funcionário", "Porto", 123456789, Service.getTypeString(ServiceType.GROOMING));
-        Location location1 = new Location("Rua do Funcionário", "Porto", 123456789, Service.getTypeString(ServiceType.BATHING));
-        Location location2 = new Location("Rua do Funcionário", "Porto", 123456789, Service.getTypeString(ServiceType.VETERINARY));
+        Location location = new Location("Rua do Funcionário", "Porto", "1000-100", 123456789, Service.getTypeString(ServiceType.GROOMING));
+        Location location1 = new Location("Rua do Funcionário 2", "Porto", "1000-100",123456789, Service.getTypeString(ServiceType.BATHING));
+        Location location2 = new Location("Rua do Funcionário 3", "Porto", "1000-100",123456789, Service.getTypeString(ServiceType.VETERINARY));
 
         Storage.getStorage().getLocations().add(location);
         Storage.getStorage().getLocations().add(location1);

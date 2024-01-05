@@ -4,10 +4,7 @@ import com.petcare.petcare.Exceptions.CouldNotDeserializeException;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Services.Location;
 import com.petcare.petcare.Services.Service;
-import com.petcare.petcare.Users.Admin;
-import com.petcare.petcare.Users.Client;
-import com.petcare.petcare.Users.Company;
-import com.petcare.petcare.Users.Employee;
+import com.petcare.petcare.Users.*;
 import javafx.scene.control.Alert;
 
 import java.io.*;
@@ -24,6 +21,7 @@ public class Storage implements Serializable {
     private Map<String, Company> companies = new HashMap<>();
     private Map<String, Admin> admins = new HashMap<>();
     private Map<String, Employee> employees = new HashMap<>();
+    private List<DeskEmployee> deskEmployees = new ArrayList<>();
     private List<Service> services = new ArrayList<>();
     private List<Location> locations = new ArrayList<>();
 
@@ -45,8 +43,12 @@ public class Storage implements Serializable {
     public Map<String, Company> getCompanies() {return companies;}
     public Map<String, Admin> getAdmins() {return admins;}
     public Map<String, Employee> getEmployees() {return employees;}
-    public List<Service> getServices() {return services;}
 
+    public List<DeskEmployee> getDeskEmployees() {
+        return deskEmployees;
+    }
+
+    public List<Service> getServices() {return services;}
     public List<Location> getLocations() {
         return locations;
     }
@@ -76,6 +78,22 @@ public class Storage implements Serializable {
                 if (employee.getName().equals(name) && employee.getSurname().equals(surname))
                     return employee;
             }
+        }
+        return null;
+    }
+
+    public DeskEmployee getDeskEmployeeByName(String name, String surname) {
+        for(DeskEmployee deskEmployee : Storage.getStorage().getDeskEmployees()) {
+            if (deskEmployee.getName().equals(name) && deskEmployee.getSurname().equals(surname))
+                return deskEmployee;
+        }
+        return null;
+    }
+
+    public Location getLocationByAddress(String address) {
+        for(Location location : Storage.getStorage().getLocations()) {
+            if (location.getAddress().equals(address))
+                return location;
         }
         return null;
     }

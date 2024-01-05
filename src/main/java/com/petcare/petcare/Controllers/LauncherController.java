@@ -1,11 +1,6 @@
 package com.petcare.petcare.Controllers;
 
 import com.petcare.petcare.Auth.Session;
-import com.petcare.petcare.Auth.Users;
-import com.petcare.petcare.Users.Admin;
-import com.petcare.petcare.Users.User;
-import com.petcare.petcare.Users.UserType;
-import com.petcare.petcare.Utils.Storage;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -112,7 +107,7 @@ public class LauncherController {
             return;
         }
 
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/employees.fxml");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);

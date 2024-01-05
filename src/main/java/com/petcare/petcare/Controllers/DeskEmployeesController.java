@@ -2,8 +2,7 @@ package com.petcare.petcare.Controllers;
 
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Users.Admin;
-import com.petcare.petcare.Users.Company;
-import com.petcare.petcare.Users.Employee;
+import com.petcare.petcare.Users.DeskEmployee;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 import javafx.beans.value.ChangeListener;
@@ -25,10 +24,10 @@ import java.util.ResourceBundle;
 
 import com.petcare.petcare.Auth.Session;
 
-public class EmployeesController implements Initializable {
+public class DeskEmployeesController implements Initializable {
     Stage thisStage;
 
-    Employee currentEmployee;
+    DeskEmployee currentEmployee;
 
     @FXML
     private ListView<String> employeesList;
@@ -60,7 +59,7 @@ public class EmployeesController implements Initializable {
      *
      */
     public void showStage(){
-        thisStage.setTitle("PetCare - Funcionários");
+        thisStage.setTitle("PetCare - Funcionários de Secretária");
         thisStage.show();
     }
 
@@ -73,20 +72,12 @@ public class EmployeesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         employeesList.setStyle("-fx-control-inner-background: #012B49;");
 
-        if(createCompany != null) {
-            ObservableList<String> companies = FXCollections.observableArrayList();
-            for (Company company : Storage.getStorage().getCompanies().values()) {
-                companies.add(company.getName());
-            }
-            createCompany.getItems().addAll(companies);
-        }
-
         this.getEmployees();
         employeesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if(newValue != null) {
-                    currentEmployee = Storage.getStorage().getEmployeeByName(newValue.split(" ")[0], newValue.split(" ")[1]);
+                    currentEmployee = Storage.getStorage().getDeskEmployeeByName(newValue.split(" ")[0], newValue.split(" ")[1]);
                     editNIF.setText(currentEmployee.getnif());
                     editName.setText(currentEmployee.getName());
                     editSurname.setText(currentEmployee.getSurname());
@@ -99,36 +90,23 @@ public class EmployeesController implements Initializable {
 
     public void getEmployees() {
         boolean isEmpty = false;
+
         ObservableList<String> employees = FXCollections.observableArrayList();
-        for (Company company : Storage.getStorage().getCompanies().values()) {
-            if(Session.getSession().getCurrentUser() instanceof Admin) {
-                if(company.getEmployees().isEmpty()) {
-                    isEmpty = true;
-                    employeesList.setStyle("-fx-control-inner-background: #012B49;");
-                    employeesList.getItems().clear();
-                    employeesList.getItems().addAll("Não existem funcionários");
-                } else {
-                    for(Employee employee : company.getEmployees()) {
-                        employees.add(employee.getName() + " " + employee.getSurname());
-                    }
-                }
-            } else if(Session.getSession().getCurrentUser() instanceof Company) {
-                if(company.getName().equals(Session.getSession().getCurrentUserAsCompany().getName())) {
-                    if(company.getEmployees().isEmpty()) {
-                        isEmpty = true;
-                        employeesList.setStyle("-fx-control-inner-background: #012B49;");
-                        employeesList.getItems().clear();
-                        employeesList.getItems().addAll("Não existem funcionários");
-                    } else {
-                        for (Employee employee : company.getEmployees()) {
-                            employees.add(employee.getName() + " " + employee.getSurname());
-                        }
-                    }
-                }
+        if(Session.getSession().getCurrentUser() instanceof Admin) {
+            if(Storage.getStorage().getDeskEmployees().isEmpty()) {
+                isEmpty = true;
+                employeesList.setStyle("-fx-control-inner-background: #012B49;");
+                employeesList.getItems().clear();
+                employeesList.getItems().addAll("Não existem funcionários");
             } else {
-                Debug.print("User is not an admin or a company", true, true);
+                for(DeskEmployee employee : Storage.getStorage().getDeskEmployees()) {
+                    employees.add(employee.getName() + " " + employee.getSurname());
+                }
             }
+        } else {
+            Debug.print("User is not an admin", true, true);
         }
+
         if(!isEmpty) {
             employeesList.getItems().clear();
             employeesList.getItems().addAll(employees);
@@ -160,34 +138,17 @@ public class EmployeesController implements Initializable {
     }
 
     public void createEmployee(ActionEvent event) {
-        Company _company = null;
-
-        if(Session.getSession().getCurrentUser() instanceof Admin) {
-            for(Company company : Storage.getStorage().getCompanies().values()) {
-                if(company.getName().equals((String) createCompany.getValue())) {
-                    _company = company;
-                }
-            }
+        DeskEmployee employee = new DeskEmployee(createNIF.getText(), createName.getText(), createSurname.getText(), createEmail.getText(), createAddress.getText());
+        if(Storage.getStorage().getDeskEmployees().contains(employee)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar funcionário");
+            alert.setContentText("O funcionário já existe");
+            alert.showAndWait();
+            return;
         } else {
-            _company = Session.getSession().getCurrentUserAsCompany();
-        }
-
-        Employee employee = new Employee(createNIF.getText(), createName.getText(), createSurname.getText(), createEmail.getText(), createAddress.getText(), _company);
-        for(Company company : Storage.getStorage().getCompanies().values()) {
-            assert _company != null;
-            if(company.getName().equals(_company.getName())) {
-                if(company.getEmployees().contains(employee)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Erro");
-                    alert.setHeaderText("Erro ao criar funcionário");
-                    alert.setContentText("O funcionário já existe");
-                    alert.showAndWait();
-                    return;
-                } else {
-                    company.addEmployee(employee);
-                    this.getEmployees();
-                }
-            }
+            Storage.getStorage().getDeskEmployees().add(employee);
+            this.getEmployees();
         }
     }
 
@@ -200,39 +161,36 @@ public class EmployeesController implements Initializable {
             alert.showAndWait();
             return;
         }
-        for(Company company : Storage.getStorage().getCompanies().values()) {
-            if(company.getName().equals(currentEmployee.getCompany().getName())) {
-                if(company.getEmployees().contains(currentEmployee)) {
-                    company.removeEmployee(currentEmployee.getnif());
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Successo!");
-                    alert.setHeaderText("Funcionário removido com sucesso!");
-                    alert.setContentText("O funcionário foi removido com sucesso da empresa" + company.getName());
-                    alert.showAndWait();
+        for(DeskEmployee employee : Storage.getStorage().getDeskEmployees()) {
+            if(employee.equals(currentEmployee)) {
+                Storage.getStorage().getDeskEmployees().remove(employee);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Successo!");
+                alert.setHeaderText("Funcionário removido com sucesso!");
+                alert.setContentText("O funcionário foi removido com sucesso da empresa PetCare");
+                alert.showAndWait();
 
-                    try {
-                        Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-                        Debug.success("Employee removed successfully", true, true);
-                        this.getEmployees();
-                        currentEmployee = null;
-                    } catch(CouldNotSerializeException e) {
-                        alert.setAlertType(Alert.AlertType.ERROR);
-                        alert.setTitle("Erro");
-                        alert.setHeaderText("Erro ao remover funcionário");
-                        alert.setContentText("Não foi possível guardar");
-                        alert.showAndWait();
-                        return;
-                    }
-
-                    return;
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                try {
+                    Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+                    Debug.success("Employee removed successfully", true, true);
+                    this.getEmployees();
+                    currentEmployee = null;
+                } catch(CouldNotSerializeException e) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setTitle("Erro");
                     alert.setHeaderText("Erro ao remover funcionário");
-                    alert.setContentText("O funcionário não existe");
+                    alert.setContentText("Não foi possível guardar");
                     alert.showAndWait();
                     return;
                 }
+                return;
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao remover funcionário");
+                alert.setContentText("O funcionário não existe");
+                alert.showAndWait();
+                return;
             }
         }
     }
@@ -366,7 +324,7 @@ public class EmployeesController implements Initializable {
 
     /**
      *
-     * Go to the employees page
+     * Go to the locations page
      *
      * @param event Event
      *

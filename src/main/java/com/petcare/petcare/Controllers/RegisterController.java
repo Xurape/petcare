@@ -1,11 +1,9 @@
 package com.petcare.petcare.Controllers;
 
 import com.petcare.petcare.Auth.Session;
-import com.petcare.petcare.Auth.Users;
 import com.petcare.petcare.Users.Client;
 import com.petcare.petcare.Users.Company;
 import com.petcare.petcare.Users.User;
-import com.petcare.petcare.Users.UserType;
 import com.petcare.petcare.Utils.Storage;
 
 import javafx.event.ActionEvent;
@@ -190,7 +188,7 @@ public class RegisterController {
 
         Session.getSession().setCurrentUser(_user);
 
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/homepage.fxml");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/homepage.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);

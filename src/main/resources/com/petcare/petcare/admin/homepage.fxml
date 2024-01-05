@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="600.0" fitWidth="962.0">
                <image>
-                  <Image url="@img/background-counter-892.png" />
+                  <Image url="@../img/background-counter-892.png" />
                </image>
             </ImageView>
             <Pane layoutX="67.0" prefHeight="63.0" prefWidth="895.0" style="-fx-background-color: #02223A;" />
@@ -29,12 +29,12 @@
                <children>
                   <ImageView fitHeight="63.0" fitWidth="62.0" layoutX="7.0" layoutY="11.0">
                      <image>
-                        <Image url="@img/logo_nobg_eee.png" />
+                        <Image url="@../img/logo_nobg_eee.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="25.0" layoutY="94.0">
                      <image>
-                        <Image url="@img/icons/home-icon.png" />
+                        <Image url="@../img/icons/home-icon.png" />
                      </image>
                   </ImageView>
                   <Text fill="#eeeeee" layoutX="11.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" textAlignment="CENTER" wrappingWidth="53.08499526977539">
@@ -44,7 +44,7 @@
                   </Text>
                   <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="150.0">
                      <image>
-                        <Image url="@img/icons/services.png" />
+                        <Image url="@../img/icons/services.png" />
                      </image>
                   </ImageView>
                   <Text fill="#eeeeee" layoutX="12.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviços" textAlignment="CENTER" wrappingWidth="53.08499526977539">
@@ -56,7 +56,7 @@
                   <Button fx:id="gotoHome" layoutX="11.0" layoutY="91.0" mnemonicParsing="false" onAction="#gotoHome" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
                   <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="210.0">
                      <image>
-                        <Image url="@img/user-group.png" />
+                        <Image url="@../img/user-group.png" />
                      </image>
                   </ImageView>
                   <Text fill="#eeeeee" layoutX="5.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários" textAlignment="CENTER" wrappingWidth="67.07869338989258">
@@ -67,7 +67,7 @@
                   <Button fx:id="gotoEmployeesButton" layoutX="12.0" layoutY="205.0" mnemonicParsing="false" onAction="#gotoEmployees" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
                   <ImageView fitHeight="22.0" fitWidth="17.0" layoutX="30.0" layoutY="270.0">
                      <image>
-                        <Image url="@img/icons/map-pin.png" />
+                        <Image url="@../img/icons/map-pin.png" />
                      </image>
                   </ImageView>
                   <Text fill="#eeeeee" layoutX="5.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Localidades" textAlignment="CENTER" wrappingWidth="67.07869338989258">
@@ -86,7 +86,7 @@
                         </Text>
                         <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="32.0" layoutY="20.0" preserveRatio="true">
                            <image>
-                              <Image url="@img/icons/leave.png" />
+                              <Image url="@../img/icons/leave.png" />
                            </image>
                         </ImageView>
                      </children>

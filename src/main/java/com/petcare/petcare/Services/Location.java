@@ -3,14 +3,23 @@ package com.petcare.petcare.Services;
 import java.io.Serializable;
 
 public class Location implements Serializable {
-    private String address, city, serviceType;
+    private String address, city, serviceType, zipcode;
     private int phone;
 
-    public Location(String address, String city, int phone, String serviceType) {
+    public Location(String address, String city, String zipcode, int phone, String serviceType) {
         this.address = address;
         this.city = city;
         this.phone = phone;
+        this.zipcode = zipcode;
         this.serviceType = serviceType;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getAddress() {
