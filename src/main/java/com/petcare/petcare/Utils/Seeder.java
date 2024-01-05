@@ -8,11 +8,10 @@ import com.petcare.petcare.Services.ServiceType;
 import com.petcare.petcare.Users.*;
 
 public class Seeder {
-    private static final boolean isUsersSeeadble = Storage.getStorage().getServices().isEmpty();
-    private static final boolean isServicesSeedable = Storage.getStorage().getAdmins().isEmpty() ||
+    private static final boolean isServicesSeedable = Storage.getStorage().getServices().isEmpty();
+    private static final boolean isUsersSeeadble = Storage.getStorage().getAdmins().isEmpty() ||
                                                 Storage.getStorage().getClients().isEmpty() ||
-                                                Storage.getStorage().getCompanies().isEmpty() ||
-                                                Storage.getStorage().getEmployees().isEmpty();
+                                                Storage.getStorage().getCompanies().isEmpty();
 
     private static final boolean isLocationsSeedable = Storage.getStorage().getLocations().isEmpty();
 
@@ -83,25 +82,26 @@ public class Seeder {
         Client client = new Client("client", "client");
         client.setName("Cliente");
         client.setAddress("Rua do Cliente");
-        client.setNIF("123456789");
+        client.setnif("123456789");
         client.setEmail("cliente@gmail.com");
 
         Company company = new Company("company", "company");
         company.setName("Empresa");
         company.setAddress("Rua da Empresa");
-        company.setNIF("987654321");
+        company.setnif("987654321");
         company.setEmail("empresa@gmail.com");
 
         Employee employee = new Employee("employee", "employee");
         employee.setName("Funcionário");
+        employee.setSurname("Testeee");
         employee.setAddress("Rua do Funcionário");
-        employee.setNIF("123456789");
+        employee.setnif("123456789");
         employee.setEmail("employee@gmail.com");
 
-        Storage.getStorage().getAdmins().put(admin.getNIF(), admin);
-        Storage.getStorage().getClients().put(client.getNIF(), client);
-        Storage.getStorage().getCompanies().put(company.getNIF(), company);
-        Storage.getStorage().getEmployees().put(employee.getNIF(), employee);
+        Storage.getStorage().getAdmins().put(admin.getnif(), admin);
+        Storage.getStorage().getClients().put(client.getnif(), client);
+        Storage.getStorage().getCompanies().put(company.getnif(), company);
+        Storage.getStorage().getCompanies().get(company.getnif()).addEmployee(employee);
     }
 
     /**
@@ -139,9 +139,9 @@ public class Seeder {
      *
      */
     public static void seedLocations() {
-        Location location = new Location("Rua do Funcionário", "Porto", "4000-000", 123456789, ServiceType.GROOMING);
-        Location location1 = new Location("Rua do Funcionário", "Porto", "4000-000", 123456789, ServiceType.BATHING);
-        Location location2 = new Location("Rua do Funcionário", "Porto", "4000-000", 123456789, ServiceType.VETERINARY);
+        Location location = new Location("Rua do Funcionário", "Porto", 123456789, Service.getTypeString(ServiceType.GROOMING));
+        Location location1 = new Location("Rua do Funcionário", "Porto", 123456789, Service.getTypeString(ServiceType.BATHING));
+        Location location2 = new Location("Rua do Funcionário", "Porto", 123456789, Service.getTypeString(ServiceType.VETERINARY));
 
         Storage.getStorage().getLocations().add(location);
         Storage.getStorage().getLocations().add(location1);

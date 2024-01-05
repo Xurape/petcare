@@ -4,6 +4,8 @@ import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Services.*;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,22 +27,13 @@ public class LocationsController {
     Stage thisStage;
 
     @FXML
-    protected Pane createLocationPane;
+    private Pane createLocationPane;
 
     @FXML
-    protected Pane editLocationPane;
+    private Pane editLocationPane;
 
     @FXML
-    protected TableView<LocationModel> locationsTable;
-
-    @FXML
-    protected TableColumn<LocationModel, String> columnCidade;
-    @FXML
-    protected TableColumn<LocationModel, String> columnMorada;
-    @FXML
-    protected TableColumn<LocationModel, Integer> columnTelemovel;
-    @FXML
-    protected TableColumn<LocationModel, String> columnTipoServico;
+    private TableView<String> locationsTbl;
 
     /**
      *
@@ -70,11 +63,6 @@ public class LocationsController {
      *
      */
     public void initialize() {
-        columnCidade.setCellValueFactory(new PropertyValueFactory<>("City"));
-        columnMorada.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        columnTelemovel.setCellValueFactory(new PropertyValueFactory<>("Phone"));
-        columnTipoServico.setCellValueFactory(new PropertyValueFactory<>("ServiceType"));
-
         this.getLocationList();
     }
 
@@ -84,16 +72,22 @@ public class LocationsController {
      *
      */
     public void getLocationList() {
-        for(Location location : Storage.getStorage().getLocations()) {
-            Debug.print(location.getCity() + " " + location.getAddress() + " " + location.getPhone() + " " + location.getServiceType(), false, false);
-        }
-
         ObservableList<LocationModel> locationsData = FXCollections.observableArrayList();
-        for(Location location : Storage.getStorage().getLocations()) {
-            locationsData.add(new LocationModel(location.getAddress(), location.getCity(), location.getPhone(), ""));
-        }
 
-        locationsTable.setItems(locationsData);
+        TableColumn addressCol = new TableColumn("Morada");
+        TableColumn cityCol = new TableColumn("Cidade");
+        TableColumn phoneCol = new TableColumn("Telemóvel");
+        TableColumn serviceTypeCol = new TableColumn("Tipo de Serviço");
+        locationsTbl.getColumns().addAll(addressCol, cityCol, phoneCol, serviceTypeCol);
+        locationsTbl.getItems().clear();
+
+        for(Location location : Storage.getStorage().getLocations()) {
+            addressCol.setCellValueFactory(c -> new SimpleStringProperty(new String(location.getAddress())));
+            cityCol.setCellValueFactory(c -> new SimpleStringProperty(new String(location.getCity())));
+            phoneCol.setCellValueFactory(c -> new SimpleStringProperty(new String(String.valueOf(location.getPhone()))));
+            serviceTypeCol.setCellValueFactory(c -> new SimpleStringProperty(new String(location.getServiceType())));
+            locationsTbl.getItems().add("");
+        }
     }
 
     /**

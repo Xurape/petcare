@@ -1,10 +1,11 @@
 package com.petcare.petcare.Users;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Company extends User {
-    private String NIF, name, email, address;
-    private List<Employee> employees;
+    private String nif, name, email, address;
+    private List<Employee> employees = new ArrayList<>();
 
     /**
      *
@@ -86,24 +87,24 @@ public class Company extends User {
 
     /**
      *
-     * Get the NIF of the company
+     * Get the nif of the company
      *
-     * @return NIF of the company
+     * @return nif of the company
      *
      */
-    public String getNIF() {
-        return NIF;
+    public String getnif() {
+        return nif;
     }
 
     /**
      *
-     * Set the NIF of the company
+     * Set the nif of the company
      *
-     * @param NIF NIF of the company
+     * @param nif nif of the company
      *
      */
-    public void setNIF(String NIF) {
-        this.NIF = NIF;
+    public void setnif(String nif) {
+        this.nif = nif;
     }
 
     /**
@@ -143,12 +144,12 @@ public class Company extends User {
      *
      * Remove an employee from the company
      *
-     * @param NIF NIF of the employee to remove
+     * @param nif nif of the employee to remove
      *
      */
-    public void removeEmployee(String NIF) {
+    public void removeEmployee(String nif) {
         for (Employee employee : this.employees) {
-            if (employee.getNIF().equals(NIF)) {
+            if (employee.getnif().equals(nif)) {
                 this.employees.remove(employee);
                 return;
             }

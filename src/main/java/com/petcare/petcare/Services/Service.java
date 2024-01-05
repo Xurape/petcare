@@ -92,6 +92,41 @@ public class Service implements Serializable {
 
     /**
      *
+     * Get the type of the service as a string
+     *
+     * @param type Type of the service
+     * @return Type of the service as a string
+     *
+     */
+    public static String getTypeString(ServiceType type) {
+        switch(type) {
+            case BATHING:
+                return "Banho";
+            case DAYCARE:
+                return "Creche";
+            case GROOMING:
+                return "Tosquia";
+            case HOTEL:
+                return "Hotel";
+            case SITTING:
+                return "Babysitting";
+            case SPA:
+                return "Spa";
+            case TRANSPORT:
+                return "Transporte";
+            case VETERINARY:
+                return "Veterinário";
+            case WALKING:
+                return "Passeio";
+            case TRAINING:
+                return "Treino";
+            default:
+                return "Outro";
+        }
+    }
+
+    /**
+     *
      * Get the price of the service
      *
      * @return Price of the service

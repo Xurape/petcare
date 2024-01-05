@@ -79,18 +79,18 @@ public class Users implements Serializable {
         for(User usr : this.users) {
             if(usr.getUsername().equals(user.getUsername()))
                 throw new UserExistsException("O utilizador já existe!");
-            else if (usr.getNIF().equals(user.getNIF()))
+            else if (usr.getnif().equals(user.getnif()))
                 throw new UserExistsException("O utilizador já existe!");
         }
 
         if(user instanceof Admin)
-            Storage.getStorage().getAdmins().put(user.getNIF(), (Admin) user);
+            Storage.getStorage().getAdmins().put(user.getnif(), (Admin) user);
         else if(user instanceof Company)
-            Storage.getStorage().getCompanies().put(user.getNIF(), (Company) user);
+            Storage.getStorage().getCompanies().put(user.getnif(), (Company) user);
         else if(user instanceof Employee)
-            Storage.getStorage().getEmployees().put(user.getNIF(), (Employee) user);
+            Storage.getStorage().getEmployees().put(user.getnif(), (Employee) user);
         else if(user instanceof Client)
-            Storage.getStorage().getClients().put(user.getNIF(), (Client) user);
+            Storage.getStorage().getClients().put(user.getnif(), (Client) user);
 
         Storage.getStorage().serialize("./src/main/resources/data/storage.db");
     }

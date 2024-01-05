@@ -146,7 +146,7 @@ public class HomepageController {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
                 Parent root = fxmlLoader.load();
-                ServicesController controller = fxmlLoader.getController();
+                EmployeesController controller = fxmlLoader.getController();
                 controller.setStage(thisStage);
                 thisStage.setScene(new Scene(root));
             } catch (IOException e) {

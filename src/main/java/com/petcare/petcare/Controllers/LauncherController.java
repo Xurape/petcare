@@ -5,6 +5,8 @@ import com.petcare.petcare.Auth.Users;
 import com.petcare.petcare.Users.Admin;
 import com.petcare.petcare.Users.User;
 import com.petcare.petcare.Users.UserType;
+import com.petcare.petcare.Utils.Storage;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -110,12 +112,13 @@ public class LauncherController {
             return;
         }
 
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/homepage.fxml");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/employees.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
                 Parent root = fxmlLoader.load();
-                HomepageController controller = fxmlLoader.getController();
+                EmployeesController controller = fxmlLoader.getController();
+                // HomepageController controller = fxmlLoader.getController();
                 controller.setStage(thisStage);
                 thisStage.setScene(new Scene(root));
             } catch (IOException e) {

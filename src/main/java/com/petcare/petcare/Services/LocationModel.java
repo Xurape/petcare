@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class LocationModel {
-    private SimpleStringProperty address, city, zipcode, serviceType;
+    private SimpleStringProperty address, city, serviceType;
     private SimpleIntegerProperty phone;
 
     public LocationModel(String address, String city, Integer phone, String serviceType) {

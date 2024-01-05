@@ -77,19 +77,19 @@ public class Session implements Serializable {
      */
     public boolean register(User user) {
         if (user instanceof Client)
-            Storage.getStorage().getClients().put(user.getNIF(), (Client) user);
+            Storage.getStorage().getClients().put(user.getnif(), (Client) user);
         else if (user instanceof Company)
-            Storage.getStorage().getCompanies().put(user.getNIF(), (Company) user);
+            Storage.getStorage().getCompanies().put(user.getnif(), (Company) user);
         else if (user instanceof Employee)
-            Storage.getStorage().getEmployees().put(user.getNIF(), (Employee) user);
+            Storage.getStorage().getEmployees().put(user.getnif(), (Employee) user);
         else if (user instanceof Admin)
-            Storage.getStorage().getAdmins().put(user.getNIF(), (Admin) user);
+            Storage.getStorage().getAdmins().put(user.getnif(), (Admin) user);
         else
             return false;
 
         try {
             Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-            Debug.success("User " + user.getNIF() + " registered successfully!", true, true);
+            Debug.success("User " + user.getnif() + " registered successfully!", true, true);
         } catch(CouldNotSerializeException e) {
             return false;
         } 
@@ -114,7 +114,7 @@ public class Session implements Serializable {
         for (Client client : clients) {
             if (client.getUsername().equals(username) && client.getPassword().equals(password)) {
                 this.setCurrentUser(client);
-                Debug.success("Client " + client.getNIF() + " logged in successfully!", true, true);
+                Debug.success("Client " + client.getnif() + " logged in successfully!", true, true);
                 return true;
             }
         }
@@ -123,7 +123,7 @@ public class Session implements Serializable {
         for (Company company : companies) {
             if (company.getUsername().equals(username) && company.getPassword().equals(password)) {
                 this.setCurrentUser(company);
-                Debug.success("Company " + company.getNIF() + " logged in successfully!", true, true);
+                Debug.success("Company " + company.getnif() + " logged in successfully!", true, true);
                 return true;
             }
         }
@@ -132,7 +132,7 @@ public class Session implements Serializable {
         for (Employee employee : employees) {
             if (employee.getUsername().equals(username) && employee.getPassword().equals(password)) {
                 this.setCurrentUser(employee);
-                Debug.success("Employee " + employee.getNIF() + " logged in successfully!", true, true);
+                Debug.success("Employee " + employee.getnif() + " logged in successfully!", true, true);
                 return true;
             }
         }
@@ -141,7 +141,7 @@ public class Session implements Serializable {
         for (Admin admin : admins) {
             if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
                 this.setCurrentUser(admin);
-                Debug.success("Admin " + admin.getNIF() + " logged in successfully!", true, true);
+                Debug.success("Admin " + admin.getnif() + " logged in successfully!", true, true);
                 return true;
             }
         }

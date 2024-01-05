@@ -70,19 +70,19 @@ public interface IUser {
 
     /**
      *
-     * Get the NIF of the user
+     * Get the nif of the user
      *
-     * @return NIF of the user
+     * @return nif of the user
      *
      */
-    public String getNIF();
+    public String getnif();
 
     /**
      *
-     * Set the NIF of the user
+     * Set the nif of the user
      *
-     * @param NIF NIF of the user
+     * @param nif nif of the user
      *
      */
-    public void setNIF(String NIF);
+    public void setnif(String nif);
 }

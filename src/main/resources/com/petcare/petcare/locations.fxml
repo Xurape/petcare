@@ -3,7 +3,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -100,14 +99,7 @@
             </Text>
             <Pane layoutX="97.0" layoutY="81.0" prefHeight="305.0" prefWidth="836.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
                <children>
-                  <TableView fx:id="locationsTable" fixedCellSize="1.0" layoutY="40.0" prefHeight="266.0" prefWidth="836.0" style="-fx-background-radius: 10; -fx-background-color: #02223A;">
-                     <columns>
-                        <TableColumn fx:id="columnCidade" editable="false" prefWidth="171.9093780517578" style="-fx-background-color: #00568F;" text="Cidade" />
-                        <TableColumn fx:id="columnMorada" editable="false" prefWidth="471.3436279296875" style="-fx-background-color: #00568F;" text="Morada" />
-                        <TableColumn fx:id="columnTelemovel" editable="false" prefWidth="93.146240234375" style="-fx-background-color: #00568F; -fx-color: #fff;" text="Telemóvel" />
-                        <TableColumn fx:id="columnTipoServico" editable="false" prefWidth="98.0" style="-fx-background-color: #00568F; -fx-color: #fff;" text="Tipo de serviço" />
-                     </columns>
-                  </TableView>
+                  <TableView fx:id="locationsTbl" fixedCellSize="1.0" layoutY="40.0" prefHeight="266.0" prefWidth="836.0" style="-fx-background-radius: 10; -fx-background-color: #02223A;" />
                   <ImageView fitHeight="18.0" fitWidth="13.0" layoutX="16.0" layoutY="12.0">
                      <image>
                         <Image url="@img/icons/map-pin.png" />

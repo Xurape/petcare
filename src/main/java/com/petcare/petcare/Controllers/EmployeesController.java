@@ -1,10 +1,8 @@
 package com.petcare.petcare.Controllers;
 
-import com.petcare.petcare.Exceptions.CouldNotSerializeException;
-import com.petcare.petcare.Services.Service;
-import com.petcare.petcare.Services.ServiceType;
-import com.petcare.petcare.Services.Services;
-import com.petcare.petcare.Services.ServicesList;
+import com.petcare.petcare.Users.Company;
+import com.petcare.petcare.Users.Employee;
+import com.petcare.petcare.Users.Employees;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 import javafx.collections.FXCollections;
@@ -12,20 +10,24 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.petcare.petcare.Auth.Session;
 
-public class EmployeesController {
+public class EmployeesController implements Initializable {
     Stage thisStage;
+
+    @FXML
+    private ListView<String> employeesList;
 
     /**
      *
@@ -54,9 +56,18 @@ public class EmployeesController {
      * Initializes the controller class.
      *
      */
-    //public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<String> employees = FXCollections.observableArrayList();
+        for (Company company : Storage.getStorage().getCompanies().values()) {
+            for(Employee employee : company.getEmployees()) {
+                employees.add(employee.getName() + " " + employee.getSurname());
+            }
+        }
+        employeesList.getItems().addAll(employees);
 
-    //}
+        // TODO Adicionar click listener
+    }
 
     /**
      *

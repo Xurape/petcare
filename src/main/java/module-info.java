@@ -12,4 +12,5 @@ module com.petcare.petcare {
     opens com.petcare.petcare.Controllers to javafx.fxml;
     opens com.petcare.petcare.Services to javafx.base;
     exports com.petcare.petcare;
+    opens com.petcare.petcare.Users to javafx.base;
 }

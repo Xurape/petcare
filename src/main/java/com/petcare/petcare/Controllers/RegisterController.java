@@ -153,7 +153,7 @@ public class RegisterController {
         switch(tipo) {
             case "Prestador de serviço":
                 _user = new Company(username, password);
-                _user.setNIF(nif);
+                _user.setnif(nif);
                 _user.setAddress(address);
                 _user.setOnline(true);
                 Storage.getStorage().getCompanies().put(nif, (Company) _user);
@@ -163,7 +163,7 @@ public class RegisterController {
                 
             case "Cliente":
                 _user = new Client(username, password);
-                _user.setNIF(nif);
+                _user.setnif(nif);
                 _user.setAddress(address);
                 _user.setOnline(true);
                 Storage.getStorage().getClients().put(nif, (Client) _user);

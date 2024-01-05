@@ -1,7 +1,7 @@
 package com.petcare.petcare.Users;
 
 public class Admin extends User {
-    private String NIF, name, surname, email;
+    private String nif, name, surname, email;
 
     /**
      *
@@ -83,23 +83,23 @@ public class Admin extends User {
 
     /**
      *
-     * Get the NIF of the user
+     * Get the nif of the user
      *
-     * @return NIF of the user
+     * @return nif of the user
      *
      */
-    public String getNIF() {
-        return NIF;
+    public String getnif() {
+        return nif;
     }
 
     /**
      *
-     * Set the NIF of the user
+     * Set the nif of the user
      *
-     * @param NIF NIF of the user
+     * @param nif nif of the user
      *
      */
-    public void setNIF(String NIF) {
-        this.NIF = NIF;
+    public void setnif(String nif) {
+        this.nif = nif;
     }
 }
