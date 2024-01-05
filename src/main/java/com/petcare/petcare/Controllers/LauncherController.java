@@ -107,13 +107,12 @@ public class LauncherController {
             return;
         }
 
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/homepage.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
                 Parent root = fxmlLoader.load();
-                EmployeesController controller = fxmlLoader.getController();
-                // HomepageController controller = fxmlLoader.getController();
+                HomepageController controller = fxmlLoader.getController();
                 controller.setStage(thisStage);
                 thisStage.setScene(new Scene(root));
             } catch (IOException e) {
