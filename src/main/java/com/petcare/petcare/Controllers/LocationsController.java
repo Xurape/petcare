@@ -69,6 +69,13 @@ public class LocationsController {
      *
      */
     public void initialize() {
+        if(editService != null) {
+            editService.getItems().addAll("Banho", "Tosquia", "Hotel", "Passeio", "Veterinário", "Treino", "Babysitting", "Daycare", "Spa", "Transporte", "Outro");
+        }
+        if(createService != null) {
+            createService.getItems().addAll("Banho", "Tosquia", "Hotel", "Passeio", "Veterinário", "Treino", "Babysitting", "Daycare", "Spa", "Transporte", "Outro");
+        }
+
         this.getLocationList();
     }
 
