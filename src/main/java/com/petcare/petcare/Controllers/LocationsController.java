@@ -72,22 +72,7 @@ public class LocationsController {
      *
      */
     public void getLocationList() {
-        ObservableList<LocationModel> locationsData = FXCollections.observableArrayList();
 
-        TableColumn addressCol = new TableColumn("Morada");
-        TableColumn cityCol = new TableColumn("Cidade");
-        TableColumn phoneCol = new TableColumn("Telemóvel");
-        TableColumn serviceTypeCol = new TableColumn("Tipo de Serviço");
-        locationsTbl.getColumns().addAll(addressCol, cityCol, phoneCol, serviceTypeCol);
-        locationsTbl.getItems().clear();
-
-        for(Location location : Storage.getStorage().getLocations()) {
-            addressCol.setCellValueFactory(c -> new SimpleStringProperty(new String(location.getAddress())));
-            cityCol.setCellValueFactory(c -> new SimpleStringProperty(new String(location.getCity())));
-            phoneCol.setCellValueFactory(c -> new SimpleStringProperty(new String(String.valueOf(location.getPhone()))));
-            serviceTypeCol.setCellValueFactory(c -> new SimpleStringProperty(new String(location.getServiceType())));
-            locationsTbl.getItems().add("");
-        }
     }
 
     /**

@@ -97,6 +97,7 @@ public class Seeder {
         employee.setAddress("Rua do Funcionário");
         employee.setnif("123456789");
         employee.setEmail("employee@gmail.com");
+        employee.setCompany(company);
 
         Storage.getStorage().getAdmins().put(admin.getnif(), admin);
         Storage.getStorage().getClients().put(client.getnif(), client);

@@ -70,6 +70,16 @@ public class Storage implements Serializable {
         return storage;
     }
 
+    public Employee getEmployeeByName(String name, String surname) {
+        for (Company company : this.companies.values()) {
+            for(Employee employee : company.getEmployees()) {
+                if (employee.getName().equals(name) && employee.getSurname().equals(surname))
+                    return employee;
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * Check if the user exists in the storage

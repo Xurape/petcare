@@ -56,6 +56,10 @@ public class Session implements Serializable {
         return currentUser;
     }
 
+    public Company getCurrentUserAsCompany() {
+        return (Company) currentUser;
+    }
+
     /**
      *
      * Get session ID

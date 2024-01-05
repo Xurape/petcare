@@ -8,6 +8,15 @@ public class Employee extends User {
         super(username, password);
     }
 
+    public Employee(String nif, String name, String surname, String email, String address, Company company) {
+        this.nif = nif;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.address = address;
+        this.company = company;
+    }
+
     /**
      *
      * Get the name of the employee

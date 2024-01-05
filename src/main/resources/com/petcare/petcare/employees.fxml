@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -94,18 +97,135 @@
                   <Font name="Tahoma" size="24.0" />
                </font>
             </Text>
-            <Pane layoutX="97.0" layoutY="81.0" prefHeight="305.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
-               <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="13.0" layoutY="12.0">
+            <Pane layoutX="97.0" layoutY="81.0" prefHeight="443.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
+               <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="13.0" layoutY="13.0">
                   <image>
                      <Image url="@img/user-group.png" />
                   </image>
                </ImageView>
-               <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="37.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários">
+               <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="37.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários">
                   <font>
                      <Font name="Apple Braille" size="17.0" />
                   </font>
                </Text>
-               <ListView fx:id="employeesList" layoutX="13.0" layoutY="40.0" prefHeight="249.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
+               <ListView fx:id="employeesList" layoutX="13.0" layoutY="43.0" prefHeight="384.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
+               <Button fx:id="removeEmployeeButton" alignment="CENTER" layoutX="219.0" layoutY="10.0" mnemonicParsing="false" onAction="#removeEmployee" style="-fx-background-color: #ff7272; -fx-background-radius: 5;" text="-" textAlignment="CENTER" textFill="#eeeeee" textOverrun="CLIP">
+                  <font>
+                     <Font name="Apple Braille Outline 6 Dot" size="12.0" />
+                  </font>
+                  <effect>
+                     <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" spread="0.37" width="10.0">
+                        <color>
+                           <Color opacity="0.0630975142121315" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+               </Button>
+            </Pane>
+            <Pane fx:id="editEmployeePane" layoutX="363.0" layoutY="309.0" prefHeight="215.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="15.0" layoutY="17.0">
+                     <image>
+                        <Image url="@img/icons/pencil.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar um funcionário">
+                     <font>
+                        <Font name="Apple Braille" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="editNIF" layoutX="16.0" layoutY="67.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="16.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NIF">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="editEmail" layoutX="17.0" layoutY="131.0" prefHeight="26.0" prefWidth="275.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="17.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="editEmployeeButton" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="424.0" layoutY="175.0" mnemonicParsing="false" onAction="#editEmployee" pickOnBounds="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Editar funcionário" textAlignment="CENTER" textFill="#eeeeee">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Button>
+                  <TextField fx:id="editName" layoutX="187.0" layoutY="67.0" prefHeight="26.0" prefWidth="190.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="187.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do funcionário">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="editSurname" layoutX="386.0" layoutY="67.0" prefHeight="26.0" prefWidth="190.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="386.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sobrenome do funcionário">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="editAddress" layoutX="300.0" layoutY="131.0" prefHeight="26.0" prefWidth="275.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="300.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Morada">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="createEmployeePane" layoutX="363.0" layoutY="81.0" prefHeight="215.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="15.0" layoutY="17.0">
+                     <image>
+                        <Image url="@img/icons/plus.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Criar um funcionário">
+                     <font>
+                        <Font name="Apple Braille" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="createNIF" layoutX="16.0" layoutY="67.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="16.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NIF">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="createEmail" layoutX="17.0" layoutY="131.0" prefHeight="26.0" prefWidth="275.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="17.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="createEmployeeButton" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="424.0" layoutY="175.0" mnemonicParsing="false" onAction="#createEmployee" pickOnBounds="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Criar funcionário" textAlignment="CENTER" textFill="#eeeeee">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Button>
+                  <TextField fx:id="createName" layoutX="187.0" layoutY="67.0" prefHeight="26.0" prefWidth="190.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="187.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do funcionário">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="createSurname" layoutX="386.0" layoutY="67.0" prefHeight="26.0" prefWidth="190.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="386.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sobrenome do funcionário">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="createAddress" layoutX="300.0" layoutY="131.0" prefHeight="26.0" prefWidth="275.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="300.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Morada">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="createCompany" layoutX="261.0" layoutY="174.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@style.css" />
+               </children>
             </Pane>
          </children>
          <effect>
