@@ -3,6 +3,7 @@ package com.petcare.petcare.Controllers;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Services.Location;
 import com.petcare.petcare.Services.Service;
+import com.petcare.petcare.Users.Company;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 
@@ -33,7 +34,7 @@ public class ServicesController {
     @FXML
     private TextField createName, createDescription, createPrice, editName, editDescription, editPrice;
     @FXML
-    private ChoiceBox<String> createType, editType;
+    private ChoiceBox<String> createType, editType, createCompany, editCompany;
 
     private Service currentService;
 
@@ -77,6 +78,16 @@ public class ServicesController {
 
         servicesList.setStyle("-fx-control-inner-background: #012B49;");
 
+        if(Session.getSession().isAdmin()) {
+            createCompany.setStyle("-fx-control-inner-background: #012B49;");
+
+            for(Company company : Storage.getStorage().getCompanies().values()) {
+                createCompany.getItems().add(company.getName());
+            }
+
+            editCompany.getItems().addAll(createCompany.getItems());
+        }
+
         servicesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -91,6 +102,8 @@ public class ServicesController {
                     editDescription.setText(currentService.getDescription());
                     editType.getSelectionModel().select(Service.getTypeString(currentService.getType()));
                     editPrice.setText(String.valueOf(currentService.getPrice()));
+                    editCompany.getSelectionModel().select(currentService.getCompany().getName());
+                    editCompany.setDisable(true);
                 }
             }
         });
@@ -131,7 +144,15 @@ public class ServicesController {
         String type = (String) createType.getSelectionModel().getSelectedItem();
         double price = Double.parseDouble(createPrice.getText());
 
-        Service service = new Service(name, description, Service.getTypeFromString(type), price);
+        Company company = null;
+
+        if(Session.getSession().isAdmin()) {
+            company = Storage.getStorage().getCompanyByName(createCompany.getSelectionModel().getSelectedItem());
+        } else {
+            company = Session.getSession().getCurrentUserAsServiceProvider().getCompany();
+        }
+
+        Service service = new Service(name, description, Service.getTypeFromString(type), price, company);
         Storage.getStorage().getServices().add(service);
 
         try {

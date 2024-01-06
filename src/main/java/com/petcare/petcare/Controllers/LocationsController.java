@@ -96,6 +96,14 @@ public class LocationsController {
         locationList.setStyle("-fx-control-inner-background: #012B49;");
 
         this.getLocations();
+
+        if(Session.getSession().isServiceProvider()) {
+            createCompany.getSelectionModel().select(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName());
+            editCompany.getSelectionModel().select(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName());
+            createCompany.setDisable(true);
+            editCompany.setDisable(true);
+        }
+
         locationList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -150,7 +158,15 @@ public class LocationsController {
         int phone = Integer.parseInt(createPhone.getText());
         String serviceType = createService.getSelectionModel().getSelectedItem().toString();
 
-        Location location = new Location(address, city, zipcode, phone, serviceType);
+        Company company = null;
+
+        if(Session.getSession().isAdmin()) {
+            company = Storage.getStorage().getCompanyByName((String) createCompany.getSelectionModel().getSelectedItem());
+        } else {
+            company = Session.getSession().getCurrentUserAsServiceProvider().getCompany();
+        }
+
+        Location location = new Location(address, city, zipcode, phone, serviceType, company);
         if(Session.getSession().getCurrentUser() instanceof Admin) {
             location.setCompany(Storage.getStorage().getCompanyByName((String) createCompany.getSelectionModel().getSelectedItem()));
         } else if(Session.getSession().getCurrentUser() instanceof ServiceProvider) {
@@ -180,9 +196,7 @@ public class LocationsController {
         currentLocation.setZipcode(editZipcode.getText());
         currentLocation.setPhone(Integer.parseInt(editPhone.getText()));
         currentLocation.setServiceType(editService.getSelectionModel().getSelectedItem().toString());
-        if(Session.getSession().getCurrentUser() instanceof Admin) {
-            currentLocation.setCompany(Storage.getStorage().getCompanyByName((String) editCompany.getSelectionModel().getSelectedItem()));
-        }
+        currentLocation.setCompany(Storage.getStorage().getCompanyByName((String) editCompany.getSelectionModel().getSelectedItem()));
 
         try {
             Storage.getStorage().serialize("./src/main/resources/data/storage.db");

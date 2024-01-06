@@ -153,6 +153,61 @@ public class Session implements Serializable {
 
     /**
      *
+     * Check if the current user is a client
+     *
+     * @return True if the current user is a client, false otherwise
+     *
+     */
+    public boolean isClient() {
+        return this.getCurrentUser() instanceof Client;
+    }
+
+    /**
+     *
+     * Check if the current user is an admin
+     *
+     * @return True if the current user is an admin, false otherwise
+     *
+     */
+    public boolean isAdmin() {
+        return this.getCurrentUser() instanceof Admin;
+    }
+
+    /**
+     *
+     * Check if the current user is a service provider
+     *
+     * @return True if the current user is a service provider, false otherwise
+     *
+     */
+    public boolean isServiceProvider() {
+        return this.getCurrentUser() instanceof ServiceProvider;
+    }
+
+    /**
+     *
+     * Check if the current user is an employee
+     *
+     * @return True if the current user is an employee, false otherwise
+     *
+     */
+    public boolean isEmployee() {
+        return this.getCurrentUser() instanceof Employee;
+    }
+
+    /**
+     *
+     * Check if the current user is a desk employee
+     *
+     * @return True if the current user is a desk employee, false otherwise
+     *
+     */
+    public boolean isDeskEmployee() {
+        return this.getCurrentUser() instanceof DeskEmployee;
+    }
+
+    /**
+     *
      * Log out the current user
      *
      */

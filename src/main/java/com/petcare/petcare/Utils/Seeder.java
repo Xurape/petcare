@@ -2,6 +2,7 @@ package com.petcare.petcare.Utils;
 
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Launcher;
+import com.petcare.petcare.Services.Appointments;
 import com.petcare.petcare.Services.Location;
 import com.petcare.petcare.Services.Service;
 import com.petcare.petcare.Services.ServiceType;
@@ -86,6 +87,7 @@ public class Seeder {
         client.setEmail("cliente@gmail.com");
 
         Company company = new Company("987654321","Empresa", "empresa@gmail.com", "Rua da Empresa");
+        Company company2 = new Company("987654321","Empresa2", "empresa@gmail.com", "Rua da Empresa 2");
 
         Employee employee = new Employee("employee", "employee");
         employee.setName("Funcionário");
@@ -106,6 +108,7 @@ public class Seeder {
         Storage.getStorage().getClients().put(client.getnif(), client);
         Storage.getStorage().getCompanies().put(company.getnif(), company);
         Storage.getStorage().getCompanies().get(company.getnif()).addEmployee(employee);
+        Storage.getStorage().getCompanies().put(company.getnif(), company2);
         Storage.getStorage().getDeskEmployees().add(employee1);
     }
 
@@ -115,16 +118,19 @@ public class Seeder {
      *
      */
     public static void seedServices() {
-        Service grooming = new Service("Tosquia", "Marque uma tosquia para o seu animal!", ServiceType.GROOMING, 15.00);
-        Service bathing = new Service("Banho", "Marque um banho para o seu animal!", ServiceType.BATHING, 10.00);
-        Service veterinary = new Service("Veterinário", "Marque uma consulta para o seu animal!", ServiceType.VETERINARY, 20.00);
-        Service hotel = new Service("Hotel", "Marque uma estadia para o seu animal!", ServiceType.HOTEL, 25.00);
-        Service walking = new Service("Passeio", "Marque um passeio para o seu animal!", ServiceType.WALKING, 10.00);
-        Service training = new Service("Treino", "Marque um treino para o seu animal!", ServiceType.TRAINING, 15.00);
-        Service sitting = new Service("Babysitting", "Marque um serviço de babysitting para o seu animal!", ServiceType.SITTING, 25.00);
-        Service daycare = new Service("Creche", "Marque um serviço de creche para o seu animal!", ServiceType.DAYCARE, 45.00);
-        Service spa = new Service("Spa", "Marque um serviço de spa para o seu animal!", ServiceType.SPA, 25.00);
-        Service transport = new Service("Transporte", "Marque um serviço de transporte para o seu animal!", ServiceType.TRANSPORT, 7.50);
+        Service grooming = new Service("Tosquia", "Marque uma tosquia para o seu animal!", ServiceType.GROOMING, 15.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service grooming1 = new Service("Tosquia", "Marque uma tosquia para o seu animal!", ServiceType.GROOMING, 25.00, Storage.getStorage().getCompanyByName("Empresa2"));
+        Service bathing = new Service("Banho", "Marque um banho para o seu animal!", ServiceType.BATHING, 10.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service veterinary = new Service("Veterinário", "Marque uma consulta para o seu animal!", ServiceType.VETERINARY, 20.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service hotel = new Service("Hotel", "Marque uma estadia para o seu animal!", ServiceType.HOTEL, 25.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service walking = new Service("Passeio", "Marque um passeio para o seu animal!", ServiceType.WALKING, 10.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service training = new Service("Treino", "Marque um treino para o seu animal!", ServiceType.TRAINING, 15.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service sitting = new Service("Babysitting", "Marque um serviço de babysitting para o seu animal!", ServiceType.SITTING, 25.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service daycare = new Service("Creche", "Marque um serviço de creche para o seu animal!", ServiceType.DAYCARE, 45.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service spa = new Service("Spa", "Marque um serviço de spa para o seu animal!", ServiceType.SPA, 25.00, Storage.getStorage().getCompanyByName("Empresa"));
+        Service transport = new Service("Transporte", "Marque um serviço de transporte para o seu animal!", ServiceType.TRANSPORT, 7.50, Storage.getStorage().getCompanyByName("Empresa"));
+
+        Appointments appointment1 = new Appointments("123456789", "Tosquia", "Rua do Funcionário", "Empresa", "2020-12-12", "15.00");
 
         Storage.getStorage().getServices().add(grooming);
         Storage.getStorage().getServices().add(bathing);
@@ -136,6 +142,7 @@ public class Seeder {
         Storage.getStorage().getServices().add(daycare);
         Storage.getStorage().getServices().add(spa);
         Storage.getStorage().getServices().add(transport);
+        Storage.getStorage().getAppointments().add(appointment1);
     }
 
     /**
@@ -144,9 +151,10 @@ public class Seeder {
      *
      */
     public static void seedLocations() {
-        Location location = new Location("Rua do Funcionário", "Porto", "1000-100", 123456789, Service.getTypeString(ServiceType.GROOMING));
-        Location location1 = new Location("Rua do Funcionário 2", "Porto", "1000-100",123456789, Service.getTypeString(ServiceType.BATHING));
-        Location location2 = new Location("Rua do Funcionário 3", "Porto", "1000-100",123456789, Service.getTypeString(ServiceType.VETERINARY));
+        Location location = new Location("Rua do Funcionário", "Porto", "1000-100", 123456789, Service.getTypeString(ServiceType.GROOMING), Storage.getStorage().getCompanyByName("Empresa2"));
+        Location location1 = new Location("Rua do Funcionário 2", "Porto", "1000-100",123456789, Service.getTypeString(ServiceType.BATHING), Storage.getStorage().getCompanyByName("Empresa"));
+        Location location2 = new Location("Rua do Funcionário 3", "Porto", "1000-100",123456789, Service.getTypeString(ServiceType.VETERINARY), Storage.getStorage().getCompanyByName("Empresa2"));
+        Location location3 = new Location("Rua do Funcionário", "Porto", "1000-100", 123456789, Service.getTypeString(ServiceType.GROOMING), Storage.getStorage().getCompanyByName("Empresa"));
 
         Storage.getStorage().getLocations().add(location);
         Storage.getStorage().getLocations().add(location1);

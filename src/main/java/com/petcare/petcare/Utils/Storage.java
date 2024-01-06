@@ -2,6 +2,7 @@ package com.petcare.petcare.Utils;
 
 import com.petcare.petcare.Exceptions.CouldNotDeserializeException;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
+import com.petcare.petcare.Services.Appointments;
 import com.petcare.petcare.Services.Location;
 import com.petcare.petcare.Services.Service;
 import com.petcare.petcare.Users.*;
@@ -25,6 +26,7 @@ public class Storage implements Serializable {
     private List<DeskEmployee> deskEmployees = new ArrayList<>();
     private List<Service> services = new ArrayList<>();
     private List<Location> locations = new ArrayList<>();
+    private List<Appointments> appointments = new ArrayList<>();
 
     public Storage (){};
 
@@ -53,6 +55,10 @@ public class Storage implements Serializable {
     public List<Service> getServices() {return services;}
     public List<Location> getLocations() {
         return locations;
+    }
+
+    public List<Appointments> getAppointments() {
+        return appointments;
     }
 
     /**

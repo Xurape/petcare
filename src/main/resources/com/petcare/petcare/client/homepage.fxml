@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -56,50 +59,6 @@
                   </Text>
                   <Button fx:id="gotoServices" layoutX="12.0" layoutY="145.0" mnemonicParsing="false" onAction="#gotoServices" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
                   <Button fx:id="gotoHome" layoutX="11.0" layoutY="91.0" mnemonicParsing="false" onAction="#gotoHome" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
-                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="210.0">
-                     <image>
-                        <Image url="@../img/user-group.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="#eeeeee" layoutX="5.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários" textAlignment="CENTER" wrappingWidth="67.07869338989258">
-                     <font>
-                        <Font name="Tahoma" size="10.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="gotoEmployeesButton" layoutX="12.0" layoutY="205.0" mnemonicParsing="false" onAction="#gotoEmployees" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
-                  <ImageView fitHeight="22.0" fitWidth="17.0" layoutX="30.0" layoutY="340.0">
-                     <image>
-                        <Image url="@../img/icons/map-pin.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="#eeeeee" layoutX="5.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Localidades" textAlignment="CENTER" wrappingWidth="67.07869338989258">
-                     <font>
-                        <Font name="Tahoma" size="10.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="gotoLocationsButton" layoutX="12.0" layoutY="337.0" mnemonicParsing="false" onAction="#gotoLocations" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
-                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="25.0" layoutY="269.0">
-                     <image>
-                        <Image url="@../img/user-group.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="#eeeeee" layoutX="4.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários de Secretária" textAlignment="CENTER" wrappingWidth="67.07869338989258">
-                     <font>
-                        <Font name="Tahoma" size="10.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="gotoDeskEmployeesButton" layoutX="11.0" layoutY="264.0" mnemonicParsing="false" onAction="#gotoDeskEmployees" prefHeight="62.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
-                  <ImageView fitHeight="22.0" fitWidth="19.0" layoutX="29.0" layoutY="402.0">
-                     <image>
-                        <Image url="@../img/icons/cube.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="#eeeeee" layoutX="5.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Empresas" textAlignment="CENTER" wrappingWidth="67.07869338989258">
-                     <font>
-                        <Font name="Tahoma" size="10.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="gotoCompaniesButton" layoutX="12.0" layoutY="398.0" mnemonicParsing="false" onAction="#gotoCompanies" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
                   <Pane layoutX="-2.0" layoutY="513.0" prefHeight="84.0" prefWidth="80.0">
                      <children>
                         <Button fx:id="logOut" layoutX="3.0" layoutY="15.0" mnemonicParsing="false" onAction="#logout" opacity="0.0" prefHeight="62.0" prefWidth="77.0" text="Button" />
@@ -117,7 +76,7 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane layoutX="91.0" layoutY="83.0" prefHeight="379.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
+            <Pane layoutX="91.0" layoutY="83.0" prefHeight="483.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
                <children>
                   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="13.0" layoutY="13.0">
                      <image>
@@ -129,31 +88,7 @@
                         <Font name="Apple Braille" size="17.0" />
                      </font>
                   </Text>
-                  <ListView fx:id="servicesList" layoutX="13.0" layoutY="43.0" prefHeight="322.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
-                  <Button fx:id="rejectServiceButton" alignment="CENTER" layoutX="219.0" layoutY="10.0" mnemonicParsing="false" onAction="#rejectService" style="-fx-background-color: #ff7272; -fx-background-radius: 5;" text="-" textAlignment="CENTER" textFill="#eeeeee" textOverrun="CLIP">
-                     <font>
-                        <Font name="Apple Braille Outline 6 Dot" size="12.0" />
-                     </font>
-                     <effect>
-                        <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" spread="0.37" width="10.0">
-                           <color>
-                              <Color opacity="0.0630975142121315" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Button>
-                  <Button fx:id="acceptServiceButton" alignment="CENTER" layoutX="187.0" layoutY="10.0" mnemonicParsing="false" onAction="#acceptService" style="-fx-background-color: #4DC051; -fx-background-radius: 5;" text="✓" textAlignment="CENTER" textFill="#eeeeee" textOverrun="CLIP">
-                     <font>
-                        <Font name="Apple Braille Outline 6 Dot" size="12.0" />
-                     </font>
-                     <effect>
-                        <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" spread="0.37" width="10.0">
-                           <color>
-                              <Color opacity="0.0630975142121315" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Button>
+                  <ListView fx:id="servicesList" layoutX="13.0" layoutY="43.0" prefHeight="425.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
                </children>
             </Pane>
             <Pane fx:id="_servicePane" layoutX="357.0" layoutY="83.0" prefHeight="115.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
@@ -174,14 +109,8 @@
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="_service" editable="false" layoutX="204.0" layoutY="67.0" prefHeight="26.0" prefWidth="159.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <TextField fx:id="_service" editable="false" layoutX="204.0" layoutY="67.0" prefHeight="26.0" prefWidth="283.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
                   <Text fill="#eeeeee" layoutX="204.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço comprado">
-                     <font>
-                        <Font name="Apple Braille" size="11.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="_serviceType" editable="false" layoutX="374.0" layoutY="67.0" prefHeight="26.0" prefWidth="114.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Text fill="#eeeeee" layoutX="374.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de serviço">
                      <font>
                         <Font name="Apple Braille" size="11.0" />
                      </font>
@@ -194,6 +123,64 @@
                   </Text>
                   <Text fill="#eeeeee" layoutX="467.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data:" />
                   <Text fx:id="_date" fill="#eeeeee" layoutX="512.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--/--/----" />
+               </children>
+            </Pane>
+            <Pane fx:id="createAppointmentPane" layoutX="357.0" layoutY="213.0" prefHeight="214.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="15.0" layoutY="17.0">
+                     <image>
+                        <Image url="@../img/icons/plus.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Marcar uma consulta">
+                     <font>
+                        <Font name="Apple Braille" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="createClient" editable="false" layoutX="16.0" layoutY="67.0" prefHeight="26.0" prefWidth="325.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="18.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="createValue" editable="false" layoutX="512.0" layoutY="127.0" prefHeight="28.0" prefWidth="56.0" promptText="-- €" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="515.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A pagar">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#eeeeee" layoutX="388.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data do serviço">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="createDate" layoutX="387.0" layoutY="126.0" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Button fx:id="createAppointmentButton" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="421.0" layoutY="173.0" mnemonicParsing="false" onAction="#createAppointment" pickOnBounds="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Marcar consulta" textAlignment="CENTER" textFill="#eeeeee">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Button>
+                  <Text fill="#eeeeee" layoutX="18.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="createService" layoutX="16.0" layoutY="127.0" prefHeight="26.0" prefWidth="178.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+                  <Text fill="#eeeeee" layoutX="354.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="createCompany" layoutX="353.0" layoutY="67.0" prefHeight="26.0" prefWidth="213.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+                  <ChoiceBox fx:id="createLocation" layoutX="205.0" layoutY="127.0" prefHeight="26.0" prefWidth="176.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+                  <Text fill="#eeeeee" layoutX="207.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Localidade">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
          </children>

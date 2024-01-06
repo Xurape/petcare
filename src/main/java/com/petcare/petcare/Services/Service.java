@@ -1,11 +1,14 @@
 package com.petcare.petcare.Services;
 
+import com.petcare.petcare.Users.Company;
+
 import java.io.Serializable;
 
 public class Service implements Serializable {
     private String name, description;
     private ServiceType type;
     private double price;
+    private Company company;
 
     /**
      *
@@ -17,11 +20,20 @@ public class Service implements Serializable {
      * @param price Price of the service
      *
      */
-    public Service(String name, String description, ServiceType type, double price) {
+    public Service(String name, String description, ServiceType type, double price, Company company) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.price = price;
+        this.company = company;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public static ServiceType getTypeFromString(String type) {
