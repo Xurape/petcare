@@ -24,6 +24,33 @@ public class Service implements Serializable {
         this.price = price;
     }
 
+    public static ServiceType getTypeFromString(String type) {
+        switch(type) {
+            case "Banho":
+                return ServiceType.BATHING;
+            case "Creche":
+                return ServiceType.DAYCARE;
+            case "Tosquia":
+                return ServiceType.GROOMING;
+            case "Hotel":
+                return ServiceType.HOTEL;
+            case "Babysitting":
+                return ServiceType.SITTING;
+            case "Spa":
+                return ServiceType.SPA;
+            case "Transporte":
+                return ServiceType.TRANSPORT;
+            case "Veterinário":
+                return ServiceType.VETERINARY;
+            case "Passeio":
+                return ServiceType.WALKING;
+            case "Treino":
+                return ServiceType.TRAINING;
+            default:
+                return ServiceType.OTHER;
+        }
+    }
+
     /**
      *
      * Get the name of the service

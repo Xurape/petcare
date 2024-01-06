@@ -3,11 +3,8 @@ package com.petcare.petcare.Auth;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
-import com.petcare.petcare.Users.Admin;
-import com.petcare.petcare.Users.Client;
-import com.petcare.petcare.Users.Company;
-import com.petcare.petcare.Users.Employee;
-import com.petcare.petcare.Users.User;
+import com.petcare.petcare.Services.Service;
+import com.petcare.petcare.Users.*;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 import java.io.Serializable;
@@ -56,8 +53,8 @@ public class Session implements Serializable {
         return currentUser;
     }
 
-    public Company getCurrentUserAsCompany() {
-        return (Company) currentUser;
+    public ServiceProvider getCurrentUserAsServiceProvider() {
+        return (ServiceProvider) currentUser;
     }
 
     /**
@@ -82,8 +79,8 @@ public class Session implements Serializable {
     public boolean register(User user) {
         if (user instanceof Client)
             Storage.getStorage().getClients().put(user.getnif(), (Client) user);
-        else if (user instanceof Company)
-            Storage.getStorage().getCompanies().put(user.getnif(), (Company) user);
+        else if (user instanceof ServiceProvider)
+            Storage.getStorage().getServiceProviders().put(user.getnif(), (ServiceProvider) user);
         else if (user instanceof Employee)
             Storage.getStorage().getEmployees().put(user.getnif(), (Employee) user);
         else if (user instanceof Admin)
@@ -123,11 +120,11 @@ public class Session implements Serializable {
             }
         }
 
-        Iterable<Company> companies = Storage.getStorage().getCompanies().values();
-        for (Company company : companies) {
-            if (company.getUsername().equals(username) && company.getPassword().equals(password)) {
-                this.setCurrentUser(company);
-                Debug.success("Company " + company.getnif() + " logged in successfully!", true, true);
+        Iterable<ServiceProvider> sps = Storage.getStorage().getServiceProviders().values();
+        for (ServiceProvider sp : sps) {
+            if (sp.getUsername().equals(username) && sp.getPassword().equals(password)) {
+                this.setCurrentUser(sp);
+                Debug.success("Service provider " + sp.getnif() + " logged in successfully!", true, true);
                 return true;
             }
         }

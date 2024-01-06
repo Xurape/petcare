@@ -3,6 +3,7 @@ package com.petcare.petcare.Controllers;
 import com.petcare.petcare.Auth.Session;
 import com.petcare.petcare.Users.Client;
 import com.petcare.petcare.Users.Company;
+import com.petcare.petcare.Users.ServiceProvider;
 import com.petcare.petcare.Users.User;
 import com.petcare.petcare.Utils.Storage;
 
@@ -150,12 +151,12 @@ public class RegisterController {
 
         switch(tipo) {
             case "Prestador de serviço":
-                _user = new Company(username, password);
+                _user = new ServiceProvider(username, password);
                 _user.setnif(nif);
                 _user.setAddress(address);
                 _user.setOnline(true);
-                Storage.getStorage().getCompanies().put(nif, (Company) _user);
-                if(!Session.getSession().register((Company) _user))
+                Storage.getStorage().getServiceProviders().put(nif, (ServiceProvider) _user);
+                if(!Session.getSession().register((ServiceProvider) _user))
                     error = "Erro ao registar utilizador como prestador de serviço.";
                 break;
                 

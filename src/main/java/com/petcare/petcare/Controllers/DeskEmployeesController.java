@@ -76,7 +76,7 @@ public class DeskEmployeesController implements Initializable {
         employeesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue != null) {
+                if(newValue != null && !newValue.equals("Não existem funcionários")) {
                     currentEmployee = Storage.getStorage().getDeskEmployeeByName(newValue.split(" ")[0], newValue.split(" ")[1]);
                     editNIF.setText(currentEmployee.getnif());
                     editName.setText(currentEmployee.getName());
@@ -344,6 +344,31 @@ public class DeskEmployeesController implements Initializable {
             }
         } else {
             System.err.println("Resource 'locations.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the companies page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoCompanies(ActionEvent event) {
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/companies.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                CompaniesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'companies.fxml' not found.");
         }
     }
 }

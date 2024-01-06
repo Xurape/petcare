@@ -85,11 +85,7 @@ public class Seeder {
         client.setnif("123456789");
         client.setEmail("cliente@gmail.com");
 
-        Company company = new Company("company", "company");
-        company.setName("Empresa");
-        company.setAddress("Rua da Empresa");
-        company.setnif("987654321");
-        company.setEmail("empresa@gmail.com");
+        Company company = new Company("987654321","Empresa", "empresa@gmail.com", "Rua da Empresa");
 
         Employee employee = new Employee("employee", "employee");
         employee.setName("Funcionário");

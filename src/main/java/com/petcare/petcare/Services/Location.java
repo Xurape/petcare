@@ -1,10 +1,13 @@
 package com.petcare.petcare.Services;
 
+import com.petcare.petcare.Users.Company;
+
 import java.io.Serializable;
 
 public class Location implements Serializable {
     private String address, city, serviceType, zipcode;
     private int phone;
+    private Company company;
 
     public Location(String address, String city, String zipcode, int phone, String serviceType) {
         this.address = address;
@@ -12,6 +15,14 @@ public class Location implements Serializable {
         this.phone = phone;
         this.zipcode = zipcode;
         this.serviceType = serviceType;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public String getZipcode() {

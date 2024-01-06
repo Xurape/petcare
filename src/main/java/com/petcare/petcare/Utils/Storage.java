@@ -19,6 +19,7 @@ public class Storage implements Serializable {
 
     private Map<String, Client> clients = new HashMap<>();
     private Map<String, Company> companies = new HashMap<>();
+    private Map<String, ServiceProvider> serviceProviders = new HashMap<>();
     private Map<String, Admin> admins = new HashMap<>();
     private Map<String, Employee> employees = new HashMap<>();
     private List<DeskEmployee> deskEmployees = new ArrayList<>();
@@ -41,13 +42,14 @@ public class Storage implements Serializable {
      */
     public Map<String, Client> getClients() {return clients;}
     public Map<String, Company> getCompanies() {return companies;}
+    public Map<String, ServiceProvider> getServiceProviders() {
+        return serviceProviders;
+    }
     public Map<String, Admin> getAdmins() {return admins;}
     public Map<String, Employee> getEmployees() {return employees;}
-
     public List<DeskEmployee> getDeskEmployees() {
         return deskEmployees;
     }
-
     public List<Service> getServices() {return services;}
     public List<Location> getLocations() {
         return locations;
@@ -78,6 +80,14 @@ public class Storage implements Serializable {
                 if (employee.getName().equals(name) && employee.getSurname().equals(surname))
                     return employee;
             }
+        }
+        return null;
+    }
+
+    public Company getCompanyByName(String name) {
+        for (Company company : this.companies.values()) {
+            if (company.getName().equals(name))
+                return company;
         }
         return null;
     }

@@ -1,22 +1,18 @@
 package com.petcare.petcare.Users;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Company extends User {
+public class Company implements Serializable {
     private String nif, name, email, address;
     private List<Employee> employees = new ArrayList<>();
 
-    /**
-     *
-     * Constructor
-     *
-     * @param username Username of the company
-     * @param password Password of the company
-     *
-     */
-    public Company(String username, String password) {
-        super(username, password);
+    public Company(String nif, String name, String email, String address) {
+        this.nif = nif;
+        this.name = name;
+        this.email = email;
+        this.address = address;
     }
 
     /**

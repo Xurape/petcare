@@ -1,10 +1,10 @@
 package com.petcare.petcare.Controllers;
 
+import com.petcare.petcare.Auth.Session;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Users.Admin;
 import com.petcare.petcare.Users.Company;
 import com.petcare.petcare.Users.Employee;
-import com.petcare.petcare.Users.ServiceProvider;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 import javafx.beans.value.ChangeListener;
@@ -17,31 +17,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.petcare.petcare.Auth.Session;
-
-public class EmployeesController implements Initializable {
+public class CompaniesController implements Initializable {
     Stage thisStage;
 
-    Employee currentEmployee;
+    Company currentCompany;
 
     @FXML
-    private ListView<String> employeesList;
+    private ListView<String> companiesList;
 
     @FXML
-    private TextField editNIF, editName, editSurname, editEmail, editAddress, editUsername, editPassword;
+    private TextField editNIF, editName, editEmail, editAddress;
 
     @FXML
-    private TextField createNIF, createName, createSurname, createEmail, createAddress, createUsername, createPassword;
-
-    @FXML
-    private ChoiceBox createCompany;
+    private TextField createNIF, createName, createEmail, createAddress;
 
     /**
      *
@@ -61,7 +59,7 @@ public class EmployeesController implements Initializable {
      *
      */
     public void showStage(){
-        thisStage.setTitle("PetCare - Funcionários");
+        thisStage.setTitle("PetCare - Empresas");
         thisStage.show();
     }
 
@@ -72,189 +70,138 @@ public class EmployeesController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        employeesList.setStyle("-fx-control-inner-background: #012B49;");
+        companiesList.setStyle("-fx-control-inner-background: #012B49;");
 
-        if(createCompany != null) {
-            ObservableList<String> companies = FXCollections.observableArrayList();
-            for (Company company : Storage.getStorage().getCompanies().values()) {
-                companies.add(company.getName());
-            }
-            createCompany.getItems().addAll(companies);
-        }
+        this.getCompanies();
 
-        this.getEmployees();
-        employeesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        companiesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue != null && !newValue.equals("Não existem funcionários")) {
-                    currentEmployee = Storage.getStorage().getEmployeeByName(newValue.split(" ")[0], newValue.split(" ")[1]);
-                    editNIF.setText(currentEmployee.getnif());
-                    editName.setText(currentEmployee.getName());
-                    editSurname.setText(currentEmployee.getSurname());
-                    editEmail.setText(currentEmployee.getEmail());
-                    editAddress.setText(currentEmployee.getAddress());
-                    editUsername.setText(currentEmployee.getUsername());
-                    editPassword.setText(currentEmployee.getPassword());
+                if(newValue != null && !newValue.equals("Não existem empresas")) {
+                    currentCompany = Storage.getStorage().getCompanyByName(newValue);
+                    editNIF.setText(currentCompany.getnif());
+                    editName.setText(currentCompany.getName());
+                    editEmail.setText(currentCompany.getEmail());
+                    editAddress.setText(currentCompany.getAddress());
                 }
             }
         });
     }
 
-    public void getEmployees() {
+    public void getCompanies() {
         boolean isEmpty = false;
-        ObservableList<String> employees = FXCollections.observableArrayList();
-        for (Company company : Storage.getStorage().getCompanies().values()) {
-            if(Session.getSession().getCurrentUser() instanceof Admin) {
-                if(company.getEmployees().isEmpty()) {
-                    isEmpty = true;
-                    employeesList.setStyle("-fx-control-inner-background: #012B49;");
-                    employeesList.getItems().clear();
-                    employeesList.getItems().addAll("Não existem funcionários");
-                } else {
-                    for(Employee employee : company.getEmployees()) {
-                        employees.add(employee.getName() + " " + employee.getSurname());
-                    }
-                }
-            } else if(Session.getSession().getCurrentUser() instanceof ServiceProvider) {
-                if(company.getName().equals(Session.getSession().getCurrentUserAsServiceProvider().getName())) {
-                    if(company.getEmployees().isEmpty()) {
-                        isEmpty = true;
-                        employeesList.setStyle("-fx-control-inner-background: #012B49;");
-                        employeesList.getItems().clear();
-                        employeesList.getItems().addAll("Não existem funcionários");
-                    } else {
-                        if (company.getName().equals(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName()))
-                            for (Employee employee : company.getEmployees()) {
-                                employees.add(employee.getName() + " " + employee.getSurname());
-                            }
-                    }
-                }
-            } else {
-                Debug.print("User is not an admin or a service provider", true, true);
+        ObservableList<String> companies = FXCollections.observableArrayList();
+        if(Storage.getStorage().getCompanies().isEmpty()) {
+            isEmpty = true;
+            companiesList.setStyle("-fx-control-inner-background: #012B49;");
+            companiesList.getItems().clear();
+            companiesList.getItems().addAll("Não existem empresas");
+        } else {
+            for (Company company : Storage.getStorage().getCompanies().values()) {
+                companies.add(company.getName());
             }
         }
         if(!isEmpty) {
-            employeesList.getItems().clear();
-            employeesList.getItems().addAll(employees);
+            companiesList.getItems().clear();
+            companiesList.getItems().addAll(companies);
         }
-        employeesList.getSelectionModel().clearSelection();
+        companiesList.getSelectionModel().clearSelection();
     }
 
-
-    public void editEmployee(ActionEvent event) {
-        currentEmployee.setnif(editNIF.getText());
-        currentEmployee.setName(editName.getText());
-        currentEmployee.setSurname(editSurname.getText());
-        currentEmployee.setEmail(editEmail.getText());
-        currentEmployee.setAddress(editAddress.getText());
-        currentEmployee.setUsername(editUsername.getText());
-        currentEmployee.setPassword(editPassword.getText());
+    public void editCompany(ActionEvent event) {
+        currentCompany.setnif(editNIF.getText());
+        currentCompany.setName(editName.getText());
+        currentCompany.setEmail(editEmail.getText());
+        currentCompany.setAddress(editAddress.getText());
 
         try {
             Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-            Debug.success("Employee edited successfully", true, true);
+            Debug.success("Company edited successfully", true, true);
         } catch(CouldNotSerializeException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setHeaderText("Erro ao editar empresa");
             alert.setContentText("Não foi possível guardar");
             alert.showAndWait();
             return;
         }
 
-        this.getEmployees();
+        this.getCompanies();
     }
 
-    public void createEmployee(ActionEvent event) {
-        Company _company = null;
+    public void createCompany(ActionEvent event) {
+        Company company = new Company(createNIF.getText(), createName.getText(), createEmail.getText(), createAddress.getText());
 
-        if(Session.getSession().getCurrentUser() instanceof Admin) {
-            for(Company company : Storage.getStorage().getCompanies().values()) {
-                if(company.getName().equals((String) createCompany.getValue())) {
-                    _company = company;
-                }
-            }
-        } else {
-            _company = Session.getSession().getCurrentUserAsServiceProvider().getCompany();
-        }
-
-        Employee employee = new Employee(createNIF.getText(), createName.getText(), createSurname.getText(), createEmail.getText(), createAddress.getText(), _company);
-        employee.setUsername(createUsername.getText());
-        employee.setPassword(createPassword.getText());
-
-        for(Company company : Storage.getStorage().getCompanies().values()) {
-            assert _company != null;
+        for(Company _company : Storage.getStorage().getCompanies().values()) {
             if(company.getName().equals(_company.getName())) {
-                if(company.getEmployees().contains(employee)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao criar empresa");
+                alert.setContentText("A empresa já existe");
+                alert.showAndWait();
+                return;
+            } else {
+                Storage.getStorage().getCompanies().put(createNIF.getText(), company);
+
+                try {
+                    Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+                    Debug.success("Company created successfully", true, true);
+                } catch(CouldNotSerializeException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erro");
-                    alert.setHeaderText("Erro ao criar funcionário");
-                    alert.setContentText("O funcionário já existe");
+                    alert.setHeaderText("Erro ao criar empresa");
+                    alert.setContentText("Não foi possível guardar");
                     alert.showAndWait();
                     return;
-                } else {
-                    company.addEmployee(employee);
-
-                    try {
-                        Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-                        Debug.success("Employee created successfully", true, true);
-                    } catch(CouldNotSerializeException e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Erro");
-                        alert.setHeaderText("Erro ao criar funcionário");
-                        alert.setContentText("Não foi possível guardar");
-                        alert.showAndWait();
-                        return;
-                    }
-
-                    this.getEmployees();
                 }
+
+                this.getCompanies();
             }
         }
     }
 
-    public void removeEmployee(ActionEvent event) {
-        if(currentEmployee == null) {
+    public void removeCompany(ActionEvent event) {
+        if(currentCompany == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao remover funcionário");
-            alert.setContentText("Selecione um funcionário");
+            alert.setHeaderText("Erro ao remover empresa");
+            alert.setContentText("Selecione uma empresa");
             alert.showAndWait();
             return;
         }
+
         for(Company company : Storage.getStorage().getCompanies().values()) {
-            if(company.getName().equals(currentEmployee.getCompany().getName())) {
-                if(company.getEmployees().contains(currentEmployee)) {
-                    company.removeEmployee(currentEmployee.getnif());
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Successo!");
-                    alert.setHeaderText("Funcionário removido com sucesso!");
-                    alert.setContentText("O funcionário foi removido com sucesso da empresa" + company.getName());
-                    alert.showAndWait();
+            if(company.getName().equals(currentCompany.getName())) {
+                Storage.getStorage().getCompanies().remove(currentCompany.getnif());
 
-                    try {
-                        Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-                        Debug.success("Employee removed successfully", true, true);
-                        this.getEmployees();
-                        currentEmployee = null;
-                    } catch(CouldNotSerializeException e) {
-                        alert.setAlertType(Alert.AlertType.ERROR);
-                        alert.setTitle("Erro");
-                        alert.setHeaderText("Erro ao remover funcionário");
-                        alert.setContentText("Não foi possível guardar");
-                        alert.showAndWait();
-                        return;
-                    }
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Successo!");
+                alert.setHeaderText("Empresa removida com sucesso!");
+                alert.setContentText("A empresa foi removida com sucesso");
+                alert.showAndWait();
 
-                    return;
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                try {
+                    Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+                    Debug.success("Company removed successfully", true, true);
+                    this.getCompanies();
+                    currentCompany = null;
+                } catch(CouldNotSerializeException e) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setTitle("Erro");
-                    alert.setHeaderText("Erro ao remover funcionário");
-                    alert.setContentText("O funcionário não existe");
+                    alert.setHeaderText("Erro ao remover empresa");
+                    alert.setContentText("Não foi possível guardar");
                     alert.showAndWait();
                     return;
                 }
+
+                return;
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao remover empresa");
+                alert.setContentText("A empresa não existe");
+                alert.showAndWait();
+                return;
             }
         }
     }

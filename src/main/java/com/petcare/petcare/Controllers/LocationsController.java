@@ -2,8 +2,7 @@ package com.petcare.petcare.Controllers;
 
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Services.Location;
-import com.petcare.petcare.Users.Admin;
-import com.petcare.petcare.Users.DeskEmployee;
+import com.petcare.petcare.Users.*;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 import javafx.beans.value.ChangeListener;
@@ -39,7 +38,7 @@ public class LocationsController {
     private TextField createAddress, createCity, createZipcode, createPhone;
 
     @FXML
-    private ChoiceBox editService, createService;
+    private ChoiceBox editService, createService, createCompany, editCompany;
 
     /**
      *
@@ -76,6 +75,15 @@ public class LocationsController {
             createService.getItems().addAll("Banho", "Tosquia", "Hotel", "Passeio", "Veterinário", "Treino", "Babysitting", "Daycare", "Spa", "Transporte", "Outro");
         }
 
+        if(createCompany != null && editCompany != null) {
+            ObservableList<String> companies = FXCollections.observableArrayList();
+            for (Company company : Storage.getStorage().getCompanies().values()) {
+                companies.add(company.getName());
+            }
+            createCompany.getItems().addAll(companies);
+            editCompany.getItems().addAll(companies);
+        }
+
         this.getLocationList();
     }
 
@@ -91,13 +99,14 @@ public class LocationsController {
         locationList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue != null) {
+                if(newValue != null && !newValue.equals("Não existem localidades")) {
                     currentLocation = Storage.getStorage().getLocationByAddress(newValue);
                     editAddress.setText(currentLocation.getAddress());
                     editCity.setText(currentLocation.getCity());
                     editZipcode.setText(currentLocation.getZipcode());
                     editPhone.setText(String.valueOf(currentLocation.getPhone()));
                     editService.getSelectionModel().select(currentLocation.getServiceType());
+                    editCompany.getSelectionModel().select(currentLocation.getCompany().getName());
                 }
             }
         });
@@ -113,8 +122,15 @@ public class LocationsController {
             locationList.getItems().clear();
             locationList.getItems().addAll("Não existem localidades");
         } else {
-            for(Location location : Storage.getStorage().getLocations()) {
-                locations.add(location.getAddress());
+            if(Session.getSession().getCurrentUser() instanceof Admin) {
+                for(Location location : Storage.getStorage().getLocations()) {
+                    locations.add(location.getAddress());
+                }
+            } else {
+                for(Location location : Storage.getStorage().getLocations()) {
+                    if(location.getCompany().getName().equals(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName()))
+                        locations.add(location.getAddress());
+                }
             }
         }
 
@@ -135,6 +151,11 @@ public class LocationsController {
         String serviceType = createService.getSelectionModel().getSelectedItem().toString();
 
         Location location = new Location(address, city, zipcode, phone, serviceType);
+        if(Session.getSession().getCurrentUser() instanceof Admin) {
+            location.setCompany(Storage.getStorage().getCompanyByName((String) createCompany.getSelectionModel().getSelectedItem()));
+        } else if(Session.getSession().getCurrentUser() instanceof ServiceProvider) {
+            location.setCompany((Session.getSession().getCurrentUserAsServiceProvider().getCompany()));
+        }
         Storage.getStorage().getLocations().add(location);
 
         try {
@@ -159,6 +180,9 @@ public class LocationsController {
         currentLocation.setZipcode(editZipcode.getText());
         currentLocation.setPhone(Integer.parseInt(editPhone.getText()));
         currentLocation.setServiceType(editService.getSelectionModel().getSelectedItem().toString());
+        if(Session.getSession().getCurrentUser() instanceof Admin) {
+            currentLocation.setCompany(Storage.getStorage().getCompanyByName((String) editCompany.getSelectionModel().getSelectedItem()));
+        }
 
         try {
             Storage.getStorage().serialize("./src/main/resources/data/storage.db");
@@ -218,7 +242,6 @@ public class LocationsController {
             }
         }
     }
-
     /**
      *
      * Logout
@@ -320,6 +343,7 @@ public class LocationsController {
             System.err.println("Resource 'employees.fxml' not found.");
         }
     }
+
     /**
      *
      * Go to the employees page
@@ -367,6 +391,31 @@ public class LocationsController {
             }
         } else {
             System.err.println("Resource 'locations.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the companies page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoCompanies(ActionEvent event) {
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/companies.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                CompaniesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'companies.fxml' not found.");
         }
     }
 }

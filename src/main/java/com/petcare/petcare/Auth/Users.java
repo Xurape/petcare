@@ -85,8 +85,8 @@ public class Users implements Serializable {
 
         if(user instanceof Admin)
             Storage.getStorage().getAdmins().put(user.getnif(), (Admin) user);
-        else if(user instanceof Company)
-            Storage.getStorage().getCompanies().put(user.getnif(), (Company) user);
+        else if(user instanceof ServiceProvider)
+            Storage.getStorage().getServiceProviders().put(user.getnif(), (ServiceProvider) user);
         else if(user instanceof Employee)
             Storage.getStorage().getEmployees().put(user.getnif(), (Employee) user);
         else if(user instanceof Client)

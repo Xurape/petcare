@@ -1,13 +1,13 @@
 package com.petcare.petcare.Controllers;
 
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
+import com.petcare.petcare.Services.Location;
 import com.petcare.petcare.Services.Service;
-import com.petcare.petcare.Services.ServiceType;
-import com.petcare.petcare.Services.Services;
-import com.petcare.petcare.Services.ServicesList;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,38 +29,13 @@ public class ServicesController {
     Stage thisStage;
 
     @FXML
-    private TableView<Services> servicesTable;
+    private ListView<String> servicesList;
     @FXML
-    private TableColumn<Services, String> columnCliente;
+    private TextField createName, createDescription, createPrice, editName, editDescription, editPrice;
     @FXML
-    private TableColumn<Services, String> columnServico;
-    @FXML
-    private TableColumn<Services, String> columnTipoServico;
-    @FXML
-    private TableColumn<Services, String> columnData;
-    @FXML
-    private TableColumn<Services, Integer> columnValor;
+    private ChoiceBox<String> createType, editType;
 
-    @FXML
-    private TableView<ServicesList> serviceListTable;
-    @FXML
-    private TableColumn<ServicesList, String> _columnTipoServico;
-    @FXML
-    private TableColumn<ServicesList, String> _columnServico;
-    @FXML
-    private TableColumn<ServicesList, Integer> _columnValor;
-
-
-    @FXML
-    private Pane createServicePane;
-    @FXML
-    private TextField _nomeServico;
-    @FXML
-    private TextField _descricaoServico;
-    @FXML
-    private TextField _valorServico;
-    @FXML
-    private ChoiceBox<String> _tipoServico;
+    private Service currentService;
 
     /**
      *
@@ -90,25 +65,35 @@ public class ServicesController {
      *
      */
     public void initialize() {
-        _columnTipoServico.setCellValueFactory(new PropertyValueFactory<>("ServiceType"));
-        _columnServico.setCellValueFactory(new PropertyValueFactory<>("Service"));
-        _columnValor.setCellValueFactory(new PropertyValueFactory<>("Value"));
-
         this.getServicesList();
 
-        if(_tipoServico != null) {
-            _tipoServico.getItems().addAll("Banho", "Tosquia", "Hotel", "Passeio", "Veterinário", "Treino", "Babysitting", "Daycare", "Spa", "Transporte", "Outro");
+        if(createType != null) {
+            createType.getItems().addAll("Banho", "Tosquia", "Hotel", "Passeio", "Veterinário", "Treino", "Babysitting", "Daycare", "Spa", "Transporte", "Outro");
         }
-    }
 
-    /**
-     *
-     * Get the requested services list
-     *
-     */
-    public void getServices() {
-        // TODO all
-        // TODO Apenas fazer quando a parte do cliente estiver terminada
+        if(editType != null) {
+            editType.getItems().addAll("Banho", "Tosquia", "Hotel", "Passeio", "Veterinário", "Treino", "Babysitting", "Daycare", "Spa", "Transporte", "Outro");
+        }
+
+        servicesList.setStyle("-fx-control-inner-background: #012B49;");
+
+        servicesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue != null && !newValue.equals("Não existem serviços")) {
+                    for(Service service : Storage.getStorage().getServices()) {
+                        if(service.getName().equals(newValue)) {
+                            currentService = service;
+                            break;
+                        }
+                    }
+                    editName.setText(currentService.getName());
+                    editDescription.setText(currentService.getDescription());
+                    editType.getSelectionModel().select(Service.getTypeString(currentService.getType()));
+                    editPrice.setText(String.valueOf(currentService.getPrice()));
+                }
+            }
+        });
     }
 
     /**
@@ -117,16 +102,136 @@ public class ServicesController {
      *
      */
     public void getServicesList() {
-        ObservableList<ServicesList> servicesData = FXCollections.observableArrayList();
-        for(Service service : Storage.getStorage().getServices()) {
-            servicesData.add(new ServicesList(service.getType().toString(), service.getName(), service.getPrice()));
+        boolean isEmpty = false;
+
+        ObservableList<String> services = FXCollections.observableArrayList();
+        if(Storage.getStorage().getServices().isEmpty()) {
+            isEmpty = true;
+            servicesList.setStyle("-fx-control-inner-background: #012B49;");
+            servicesList.getItems().clear();
+            servicesList.getItems().addAll("Não existem serviços");
+        } else {
+            for(Service service : Storage.getStorage().getServices()) {
+                services.add(service.getName());
+            }
         }
-        serviceListTable.setItems(servicesData);
+
+        if(!isEmpty) {
+            servicesList.getItems().clear();
+            servicesList.getItems().addAll(services);
+        }
+
+        servicesList.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    protected void createService(ActionEvent event) {
+        String name = createName.getText();
+        String description = createDescription.getText();
+        String type = (String) createType.getSelectionModel().getSelectedItem();
+        double price = Double.parseDouble(createPrice.getText());
+
+        Service service = new Service(name, description, Service.getTypeFromString(type), price);
+        Storage.getStorage().getServices().add(service);
+
+        try {
+            Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+            Debug.success("Service created successfully", true, true);
+        } catch(CouldNotSerializeException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar serviço");
+            alert.setContentText("Não foi possível guardar");
+            alert.showAndWait();
+            return;
+        }
+
+        this.getServicesList();
+    }
+
+    @FXML
+    protected void editService(ActionEvent event) {
+        if(currentService == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar serviço");
+            alert.setContentText("Selecione um serviço");
+            alert.showAndWait();
+            return;
+        }
+
+        String name = editName.getText();
+        String description = editDescription.getText();
+        String type = (String) editType.getSelectionModel().getSelectedItem();
+        double price = Double.parseDouble(editPrice.getText());
+
+        currentService.setName(name);
+        currentService.setDescription(description);
+        currentService.setType(Service.getTypeFromString(type));
+        currentService.setPrice(price);
+
+        try {
+            Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+            Debug.success("Service edited successfully", true, true);
+        } catch(CouldNotSerializeException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar serviço");
+            alert.setContentText("Não foi possível guardar");
+            alert.showAndWait();
+            return;
+        }
+
+        this.getServicesList();
+    }
+
+    @FXML
+    protected void removeService(ActionEvent event) {
+        if(currentService == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao remover serviço");
+            alert.setContentText("Selecione um serviço");
+            alert.showAndWait();
+            return;
+        }
+        for(Service service : Storage.getStorage().getServices()) {
+            if(service.equals(currentService)) {
+                Storage.getStorage().getServices().remove(service);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Successo!");
+                alert.setHeaderText("Serviço removido com sucesso!");
+                alert.setContentText("O serviço foi removido com sucesso!");
+                alert.showAndWait();
+
+                try {
+                    Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+                    Debug.success("Service removed successfully", true, true);
+                    this.getServicesList();
+                    currentService = null;
+                } catch(CouldNotSerializeException e) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setTitle("Erro");
+                    alert.setHeaderText("Erro ao remover serviço");
+                    alert.setContentText("Não foi possível guardar");
+                    alert.showAndWait();
+                    return;
+                }
+                return;
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao remover serviço");
+                alert.setContentText("O serviço não existe");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     /**
      *
-     * Initializes the controller class.
+     * Logout
      *
      * @param event Event
      * @throws Exception Exception
@@ -173,7 +278,7 @@ public class ServicesController {
             }
         } else {
             System.err.println("Resource 'homepage.fxml' not found.");
-        } 
+        }
     }
 
     /**
@@ -198,7 +303,7 @@ public class ServicesController {
             }
         } else {
             System.err.println("Resource 'services.fxml' not found.");
-        } 
+        }
     }
 
     /**
@@ -225,6 +330,7 @@ public class ServicesController {
             System.err.println("Resource 'employees.fxml' not found.");
         }
     }
+
     /**
      *
      * Go to the employees page
@@ -271,88 +377,32 @@ public class ServicesController {
                 e.printStackTrace();
             }
         } else {
-            System.err.println("Resource 'employees.fxml' not found.");
+            System.err.println("Resource 'locations.fxml' not found.");
         }
     }
 
+    /**
+     *
+     * Go to the companies page
+     *
+     * @param event Event
+     *
+     */
     @FXML
-    protected void createServiceToggle(ActionEvent event) {
-        if(createServicePane.getOpacity() == 0) {
-            createServicePane.setOpacity(1);
-        } else {
-            createServicePane.setOpacity(0);
-        }
-    }
-
-    @FXML
-    protected void editService(ActionEvent event) {
-
-    }
-
-    @FXML
-    protected void createService(ActionEvent event) {
-        String name = _nomeServico.getText();
-        String description = _descricaoServico.getText();
-        String price = _valorServico.getText();
-        double _price = Double.parseDouble(price);
-        String type = (String) _tipoServico.getValue();
-
-        if(name.isEmpty() || description.isEmpty() || price.isEmpty() || type == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao criar serviço");
-            alert.setContentText("Por favor preencha todos os campos.");
-            alert.showAndWait();
-        } else {
-            ServiceType _type;
-            switch(type) {
-                case "Banho":
-                    _type = ServiceType.BATHING;
-                    break;
-                case "Tosquia":
-                    _type = ServiceType.GROOMING;
-                    break;
-                case "Hotel":
-                    _type = ServiceType.HOTEL;
-                    break;
-                case "Passeio":
-                    _type = ServiceType.WALKING;
-                    break;
-                case "Veterinário":
-                    _type = ServiceType.VETERINARY;
-                    break;
-                case "Treino":
-                    _type = ServiceType.TRAINING;
-                    break;
-                case "Babysitting":
-                    _type = ServiceType.SITTING;
-                    break;
-                case "Daycare":
-                    _type = ServiceType.DAYCARE;
-                    break;
-                case "Spa":
-                    _type = ServiceType.SPA;
-                    break;
-                case "Transporte":
-                    _type = ServiceType.TRANSPORT;
-                    break;
-                default:
-                    _type = ServiceType.OTHER;
-                    break;
-            }
-            Service service = new Service(name, description, _type, _price);
-            Storage.getStorage().getServices().add(service);
+    protected void gotoCompanies(ActionEvent event) {
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/companies.fxml");
+        if (resourceUrl != null) {
             try {
-                Debug.warning("Serializing data into storage...", true, true);
-                Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-            } catch (CouldNotSerializeException e) {
-                Debug.print("Could not serialize storage! " + e.getMessage(), true, true);
-                return;
-            } finally {
-                Debug.success("Data serialized successfully!", true, true);
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                CompaniesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            this.getServicesList();
-            createServiceToggle(event);
+        } else {
+            System.err.println("Resource 'companies.fxml' not found.");
         }
     }
 }
