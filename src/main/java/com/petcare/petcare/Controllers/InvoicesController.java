@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,10 +30,7 @@ public class InvoicesController implements Initializable {
     Stage thisStage;
 
     @FXML
-    private Text welcomeText;
-
-    @FXML
-    private ListView<String> servicesList;
+    private ListView<String> invoicesList;
 
     @FXML
     private TextField _client, _service, _value, _date, _dateC, _company, _location, _timestamp, _status;
@@ -132,7 +130,7 @@ public class InvoicesController implements Initializable {
             _client.setText(Session.getSession().getCurrentUser().getUsername());
 
             pay_Method.getItems().addAll("MBWay", "PayPal", "Cartão de Crédito", "Dinheiro");
-            //pay_Button.setDisable(true);
+            pay_Button.setDisable(true);
 
             this.getAppointments();
         } else {
@@ -159,7 +157,8 @@ public class InvoicesController implements Initializable {
                     }
                     _client.setText(currentService.getClient());
                     _service.setText(currentService.getService());
-                    _value.setText(currentService.getValue());
+                    Double productsPrice = getProductPrice();
+                    _value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
                     _date.setText(currentService.getDate());
                 }
             }
@@ -171,6 +170,34 @@ public class InvoicesController implements Initializable {
         String service = _service.getText();
         String value = _value.getText();
         String date = _date.getText();
+
+        Popup popup = new Popup();
+        popup.setX(300);
+        popup.setY(200);
+        popup.getContent().add(new Label("Razão para rejeitar:"));
+        TextField reason = new TextField();
+        popup.getContent().add(reason);
+        Button confirm = new Button("Confirmar");
+        popup.getContent().add(confirm);
+        confirm.setOnAction(e -> {
+            if (client.isEmpty() || service.isEmpty() || value.isEmpty() || date.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao rejeitar serviço");
+                alert.setContentText("Por favor escolha um serviço.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Successo");
+                alert.setHeaderText("Serviço rejeitado");
+                alert.setContentText("O serviço foi rejeitado com sucesso.");
+                alert.showAndWait();
+                currentService.setStatus(AppointmentsStatus.REJECTED);
+                currentService.setReason(reason.getText());
+            }
+            popup.hide();
+        });
+
         if (client.isEmpty() || service.isEmpty() || value.isEmpty() || date.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
@@ -184,6 +211,17 @@ public class InvoicesController implements Initializable {
             alert.setContentText("O serviço foi rejeitado com sucesso.");
             alert.showAndWait();
             currentService.setStatus(AppointmentsStatus.REJECTED);
+        }
+
+        try {
+            Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+            Debug.success("Appointment status changed successfully", true, true);
+        } catch(CouldNotSerializeException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao rejeitar marcação");
+            alert.setContentText("Não foi possível guardar");
+            alert.showAndWait();
         }
     }
 
@@ -205,6 +243,18 @@ public class InvoicesController implements Initializable {
             alert.setContentText("O serviço foi aceite com sucesso.");
             alert.showAndWait();
             currentService.setStatus(AppointmentsStatus.ACCEPTED);
+        }
+
+
+        try {
+            Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+            Debug.success("Appointment status changed successfully", true, true);
+        } catch(CouldNotSerializeException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao aceitar marcação");
+            alert.setContentText("Não foi possível guardar");
+            alert.showAndWait();
         }
     }
 
@@ -243,7 +293,8 @@ public class InvoicesController implements Initializable {
 
                     _client.setText(currentService.getClient());
                     _service.setText(currentService.getService());
-                    _value.setText(currentService.getValue());
+                    Double productsPrice = getProductPrice();
+                    _value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
                     _dateC.setText(currentService.getDate());
                     _location.setText(currentService.getLocation());
                     _company.setText(currentService.getCompany());
@@ -252,7 +303,7 @@ public class InvoicesController implements Initializable {
 
                     if(currentService.getStatus() == AppointmentsStatus.PENDING) {
                         pay_Pane.setOpacity(1);
-                        pay_Value.setText(currentService.getValue());
+                        pay_Value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
                         pay_Button.setDisable(false);
                     } else {
                         pay_Pane.setOpacity(0.60);
@@ -291,8 +342,13 @@ public class InvoicesController implements Initializable {
             alert.setHeaderText("Consulta marcada");
             alert.setContentText("A consulta foi marcada com sucesso.");
             alert.showAndWait();
+
+            Invoice invoice = new Invoice(null, client, service, location, company, value, "N/A");
             Appointments appointment = new Appointments(client, service, location, company, date, value);
+            appointment.setInvoice(invoice);
+
             Storage.getStorage().getAppointments().add(appointment);
+            Storage.getStorage().getInvoices().add(invoice);
             this.getAppointments();
         }
 
@@ -306,7 +362,6 @@ public class InvoicesController implements Initializable {
             alert.setContentText("Não foi possível guardar");
             alert.showAndWait();
         }
-
     }
 
     @FXML
@@ -329,10 +384,16 @@ public class InvoicesController implements Initializable {
             currentService.setStatus(AppointmentsStatus.PAID);
             _status.setText("Pago");
 
-            Storage.getStorage().getCompanyByName(currentService.getCompany()).setBalance(Storage.getStorage().getCompanyByName(currentService.getCompany()).getBalance() + Double.parseDouble(currentService.getValue()) - (Double.parseDouble(currentService.getValue()) * 0.07));
+            Double productsPrice = getProductPrice();
+            Storage.getStorage().getCompanyByName(currentService.getCompany()).setBalance(Storage.getStorage().getCompanyByName(currentService.getCompany()).getBalance() + Double.parseDouble(currentService.getValue()) + productsPrice - (Double.parseDouble(currentService.getValue()) * 0.07));
             Storage.getStorage().setPetcareBalance(Storage.getStorage().getPetcareBalance() + (Double.parseDouble(currentService.getValue()) * 0.07));
-            Invoice invoice = new Invoice(currentService.getClient(), currentService.getService(), currentService.getLocation(), currentService.getCompany(), currentService.getValue());
-            Storage.getStorage().getInvoices().add(invoice);
+
+            for(Appointments appointment : Storage.getStorage().getAppointments()) {
+                if(appointment.getClient().equals(currentService.getClient()) && appointment.getService().equals(currentService.getService()) && appointment.getDate().equals(currentService.getDate()) && appointment.getTimestamp().equals(currentService.getTimestamp())) {
+                    appointment.setStatus(AppointmentsStatus.PAID);
+                    appointment.getInvoice().setStatus(InvoiceStatus.PAID);
+                }
+            }
 
             pay_Pane.setOpacity(0.60);
             pay_Value.setText("--");
@@ -349,6 +410,23 @@ public class InvoicesController implements Initializable {
                 alert2.showAndWait();
             }
         }
+    }
+
+    private Double getProductPrice() {
+        Double productsPrice = 0.0;
+
+        for(Company company : Storage.getStorage().getCompanies().values()) {
+            if(company.getName().equals(currentService.getCompany())) {
+                for(Service service : Storage.getStorage().getServices()) {
+                    if(service.getCompany().getName().equals(currentService.getCompany())) {
+                        for(Product product : service.getProducts()) {
+                            productsPrice += product.getPrice();
+                        }
+                    }
+                }
+            }
+        }
+        return productsPrice;
     }
 
     /**
@@ -576,6 +654,31 @@ public class InvoicesController implements Initializable {
             }
         } else {
             System.err.println("Resource 'companies.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the profile page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoProfile(ActionEvent event) {
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/client/profile.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                ProfileController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'profile.fxml' not found.");
         }
     }
 }

@@ -10,6 +10,7 @@ public class Appointments implements Serializable {
     private AppointmentsStatus status = AppointmentsStatus.PENDING;
     private String timestamp;
     private String reason;
+    private Invoice invoice;
 
     public Appointments(String client, String service, String location, String company, String date, String value) {
         this.client = client;
@@ -35,6 +36,14 @@ public class Appointments implements Serializable {
         } else {
             this.timestamp += d.getSeconds();
         }
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     public String getReason() {

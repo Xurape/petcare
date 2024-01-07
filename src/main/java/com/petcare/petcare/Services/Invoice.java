@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Invoice implements Serializable {
+    private Appointments appointment;
     private String client, service, date, value;
-    private String location, company;
+    private String location, company, method;
     private InvoiceStatus status = InvoiceStatus.PENDING;
     private String timestamp;
 
-    public Invoice(String client, String service, String location, String company, String value) {
+    public Invoice(Appointments appointment, String client, String service, String location, String company, String value, String method) {
         this.client = client;
         this.service = service;
         this.location = location;
@@ -17,6 +18,8 @@ public class Invoice implements Serializable {
         Date d = new Date();
         this.date = date;
         this.value = value;
+        this.method = method;
+        this.appointment = appointment;
 
         if (d.getHours() < 10) {
             this.timestamp = "0" + d.getHours() + ":";
@@ -33,6 +36,86 @@ public class Invoice implements Serializable {
         } else {
             this.timestamp += d.getSeconds();
         }
+    }
+
+    public Appointments getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointments appointment) {
+        this.appointment = appointment;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public InvoiceStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(InvoiceStatus status) {
+        this.status = status;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public String getStatusAsString() {

@@ -3,7 +3,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -25,65 +24,19 @@
                </image>
             </ImageView>
             <Pane layoutX="67.0" prefHeight="63.0" prefWidth="895.0" style="-fx-background-color: #02223A;" />
-            <Text fx:id="welcomeText" fill="#eeeeee" layoutX="80.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{{welcomeText}}" wrappingWidth="660.3887481689453">
+            <Text fx:id="welcomeText" fill="#eeeeee" layoutX="80.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faturas" wrappingWidth="660.3887481689453">
                <font>
                   <Font name="Tahoma" size="24.0" />
                </font>
             </Text>
-            <Pane layoutX="-2.0" prefHeight="600.0" prefWidth="74.0" style="-fx-background-color: #02223A;">
-               <children>
-                  <ImageView fitHeight="63.0" fitWidth="62.0" layoutX="7.0" layoutY="11.0">
-                     <image>
-                        <Image url="@../img/logo_nobg_eee.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="25.0" layoutY="94.0">
-                     <image>
-                        <Image url="@../img/icons/home-icon.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="#eeeeee" layoutX="11.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" textAlignment="CENTER" wrappingWidth="53.08499526977539">
-                     <font>
-                        <Font name="Tahoma" size="10.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="150.0">
-                     <image>
-                        <Image url="@../img/icons/credit-card.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="#eeeeee" layoutX="12.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faturas" textAlignment="CENTER" wrappingWidth="53.08499526977539">
-                     <font>
-                        <Font name="Tahoma" size="10.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="gotoInvoices" layoutX="12.0" layoutY="145.0" mnemonicParsing="false" onAction="#gotoInvoices" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
-                  <Button fx:id="gotoHome" layoutX="11.0" layoutY="91.0" mnemonicParsing="false" onAction="#gotoHomeClient" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
-                  <Pane layoutX="-2.0" layoutY="513.0" prefHeight="84.0" prefWidth="80.0">
-                     <children>
-                        <Button fx:id="logOut" layoutX="3.0" layoutY="15.0" mnemonicParsing="false" onAction="#logout" opacity="0.0" prefHeight="62.0" prefWidth="77.0" text="Button" />
-                        <Text fill="#eeeeee" layoutX="15.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminar sessão" textAlignment="CENTER" wrappingWidth="53.08499526977539">
-                           <font>
-                              <Font name="Apple Braille Outline 8 Dot" size="9.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="32.0" layoutY="20.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons/leave.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
             <Pane layoutX="91.0" layoutY="83.0" prefHeight="483.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
                <children>
                   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="13.0" layoutY="13.0">
                      <image>
-                        <Image url="@../img/icons/services.png" />
+                        <Image url="@../img/icons/credit-card.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="37.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultas">
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="37.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faturas">
                      <font>
                         <Font name="Apple Braille" size="17.0" />
                      </font>
@@ -91,14 +44,14 @@
                   <ListView fx:id="servicesList" layoutX="13.0" layoutY="43.0" prefHeight="425.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
                </children>
             </Pane>
-            <Pane fx:id="_servicePane" layoutX="356.0" layoutY="87.0" prefHeight="174.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+            <Pane fx:id="_servicePane" layoutX="356.0" layoutY="83.0" prefHeight="174.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
                <children>
                   <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="15.0" layoutY="17.0">
                      <image>
                         <Image url="@../img/icons/cube.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dados do serviço">
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dados da fatura">
                      <font>
                         <Font name="Apple Braille" size="15.0" />
                      </font>
@@ -148,72 +101,14 @@
                   <TextField fx:id="_status" editable="false" layoutX="446.0" layoutY="12.0" prefHeight="26.0" prefWidth="125.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
                </children>
             </Pane>
-            <Pane fx:id="createAppointmentPane" layoutX="357.0" layoutY="352.0" prefHeight="214.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
-               <children>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="15.0" layoutY="17.0">
-                     <image>
-                        <Image url="@../img/icons/plus.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Marcar uma consulta">
-                     <font>
-                        <Font name="Apple Braille" size="15.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="createClient" editable="false" layoutX="16.0" layoutY="67.0" prefHeight="26.0" prefWidth="325.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Text fill="#eeeeee" layoutX="18.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente">
-                     <font>
-                        <Font name="Apple Braille" size="11.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="createValue" editable="false" layoutX="512.0" layoutY="127.0" prefHeight="28.0" prefWidth="56.0" promptText="-- €" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Text fill="#eeeeee" layoutX="515.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A pagar">
-                     <font>
-                        <Font name="Apple Braille" size="11.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#eeeeee" layoutX="388.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data do serviço">
-                     <font>
-                        <Font name="Apple Braille" size="11.0" />
-                     </font>
-                  </Text>
-                  <DatePicker fx:id="createDate" layoutX="387.0" layoutY="126.0" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Button fx:id="createAppointmentButton" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="421.0" layoutY="173.0" mnemonicParsing="false" onAction="#createAppointment" pickOnBounds="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Marcar consulta" textAlignment="CENTER" textFill="#eeeeee">
-                     <font>
-                        <Font name="Tahoma" size="12.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                     </cursor>
-                  </Button>
-                  <Text fill="#eeeeee" layoutX="18.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
-                     <font>
-                        <Font name="Apple Braille" size="11.0" />
-                     </font>
-                  </Text>
-                  <ChoiceBox fx:id="createService" layoutX="16.0" layoutY="127.0" prefHeight="26.0" prefWidth="178.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
-                  <Text fill="#eeeeee" layoutX="354.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa">
-                     <font>
-                        <Font name="Apple Braille" size="11.0" />
-                     </font>
-                  </Text>
-                  <ChoiceBox fx:id="createCompany" layoutX="353.0" layoutY="67.0" prefHeight="26.0" prefWidth="213.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
-                  <ChoiceBox fx:id="createLocation" layoutX="205.0" layoutY="127.0" prefHeight="26.0" prefWidth="176.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
-                  <Text fill="#eeeeee" layoutX="207.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Localidade">
-                     <font>
-                        <Font name="Apple Braille" size="11.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="pay_Pane" layoutX="356.0" layoutY="272.0" opacity="0.6" prefHeight="71.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+            <Pane fx:id="pay_Pane" layoutX="356.0" layoutY="268.0" opacity="0.6" prefHeight="71.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
                <children>
                   <ImageView fitHeight="16.0" fitWidth="22.0" layoutX="15.0" layoutY="27.0">
                      <image>
                         <Image url="@../img/icons/credit-card.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="52.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pagar serviço">
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="52.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pagar fatura">
                      <font>
                         <Font name="Apple Braille" size="15.0" />
                      </font>
@@ -228,6 +123,63 @@
                      </cursor>
                   </Button>
                   <ChoiceBox fx:id="pay_Method" layoutX="330.0" layoutY="23.0" prefHeight="26.0" prefWidth="118.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+               </children>
+            </Pane>
+            <Pane layoutX="-3.0" prefHeight="600.0" prefWidth="74.0" style="-fx-background-color: #02223A;">
+               <children>
+                  <ImageView fitHeight="63.0" fitWidth="62.0" layoutX="7.0" layoutY="11.0">
+                     <image>
+                        <Image url="@../img/logo_nobg_eee.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="25.0" layoutY="94.0">
+                     <image>
+                        <Image url="@../img/icons/home-icon.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="11.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="150.0">
+                     <image>
+                        <Image url="@../img/icons/credit-card.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="12.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faturas" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="gotoInvoices" layoutX="12.0" layoutY="145.0" mnemonicParsing="false" onAction="#gotoInvoices" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+                  <Button fx:id="gotoHome" layoutX="11.0" layoutY="91.0" mnemonicParsing="false" onAction="#gotoHomeClient" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+                  <Pane layoutX="-2.0" layoutY="514.0" prefHeight="84.0" prefWidth="80.0">
+                     <children>
+                        <Button fx:id="logOut" layoutX="3.0" layoutY="15.0" mnemonicParsing="false" onAction="#logout" opacity="0.0" prefHeight="62.0" prefWidth="77.0" text="Button" />
+                        <Text fill="#eeeeee" layoutX="15.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminar sessão" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                           <font>
+                              <Font name="Apple Braille Outline 8 Dot" size="9.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="32.0" layoutY="20.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons/leave.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="479.0">
+                     <image>
+                        <Image url="@../img/user-group.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="12.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meu perfil" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="gotoProfileButton" layoutX="12.0" layoutY="474.0" mnemonicParsing="false" onAction="#gotoProfile" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
                </children>
             </Pane>
          </children>

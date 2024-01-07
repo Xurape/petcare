@@ -215,6 +215,8 @@
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
+                  <Text fill="#ff3232" layoutX="556.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="#ff3232" layoutX="99.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* O valor a pagar não inclui valor acrescido dos produtos" />
                </children>
             </Pane>
             <Pane fx:id="pay_Pane" layoutX="356.0" layoutY="272.0" opacity="0.6" prefHeight="71.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">

@@ -133,7 +133,7 @@ public class HomepageController implements Initializable {
             _client.setText(Session.getSession().getCurrentUser().getUsername());
 
             pay_Method.getItems().addAll("MBWay", "PayPal", "Cartão de Crédito", "Dinheiro");
-            //pay_Button.setDisable(true);
+            pay_Button.setDisable(true);
 
             this.getAppointments();
         } else {
@@ -160,7 +160,8 @@ public class HomepageController implements Initializable {
                     }
                     _client.setText(currentService.getClient());
                     _service.setText(currentService.getService());
-                    _value.setText(currentService.getValue());
+                    Double productsPrice = getProductPrice();
+                    _value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
                     _date.setText(currentService.getDate());
                 }
             }
@@ -295,7 +296,8 @@ public class HomepageController implements Initializable {
 
                     _client.setText(currentService.getClient());
                     _service.setText(currentService.getService());
-                    _value.setText(currentService.getValue());
+                    Double productsPrice = getProductPrice();
+                    _value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
                     _dateC.setText(currentService.getDate());
                     _location.setText(currentService.getLocation());
                     _company.setText(currentService.getCompany());
@@ -304,7 +306,7 @@ public class HomepageController implements Initializable {
 
                     if(currentService.getStatus() == AppointmentsStatus.PENDING) {
                         pay_Pane.setOpacity(1);
-                        pay_Value.setText(currentService.getValue());
+                        pay_Value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
                         pay_Button.setDisable(false);
                     } else {
                         pay_Pane.setOpacity(0.60);
@@ -343,8 +345,13 @@ public class HomepageController implements Initializable {
             alert.setHeaderText("Consulta marcada");
             alert.setContentText("A consulta foi marcada com sucesso.");
             alert.showAndWait();
+
+            Invoice invoice = new Invoice(null, client, service, location, company, value, "N/A");
             Appointments appointment = new Appointments(client, service, location, company, date, value);
+            appointment.setInvoice(invoice);
+
             Storage.getStorage().getAppointments().add(appointment);
+            Storage.getStorage().getInvoices().add(invoice);
             this.getAppointments();
         }
 
@@ -383,8 +390,13 @@ public class HomepageController implements Initializable {
             Double productsPrice = getProductPrice();
             Storage.getStorage().getCompanyByName(currentService.getCompany()).setBalance(Storage.getStorage().getCompanyByName(currentService.getCompany()).getBalance() + Double.parseDouble(currentService.getValue()) + productsPrice - (Double.parseDouble(currentService.getValue()) * 0.07));
             Storage.getStorage().setPetcareBalance(Storage.getStorage().getPetcareBalance() + (Double.parseDouble(currentService.getValue()) * 0.07));
-            Invoice invoice = new Invoice(currentService.getClient(), currentService.getService(), currentService.getLocation(), currentService.getCompany(), currentService.getValue());
-            Storage.getStorage().getInvoices().add(invoice);
+
+            for(Appointments appointment : Storage.getStorage().getAppointments()) {
+                if(appointment.getClient().equals(currentService.getClient()) && appointment.getService().equals(currentService.getService()) && appointment.getDate().equals(currentService.getDate()) && appointment.getTimestamp().equals(currentService.getTimestamp())) {
+                    appointment.setStatus(AppointmentsStatus.PAID);
+                    appointment.getInvoice().setStatus(InvoiceStatus.PAID);
+                }
+            }
 
             pay_Pane.setOpacity(0.60);
             pay_Value.setText("--");
