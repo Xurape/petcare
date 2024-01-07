@@ -180,8 +180,8 @@
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="_serviceType" editable="false" layoutX="374.0" layoutY="67.0" prefHeight="26.0" prefWidth="114.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Text fill="#eeeeee" layoutX="374.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de serviço">
+                  <TextField fx:id="_date" editable="false" layoutX="374.0" layoutY="67.0" prefHeight="26.0" prefWidth="114.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="374.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data">
                      <font>
                         <Font name="Apple Braille" size="11.0" />
                      </font>
@@ -192,8 +192,6 @@
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
-                  <Text fill="#eeeeee" layoutX="467.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data:" />
-                  <Text fx:id="_date" fill="#eeeeee" layoutX="512.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--/--/----" />
                </children>
             </Pane>
          </children>

@@ -41,7 +41,7 @@ public class EmployeesController implements Initializable {
     private TextField createNIF, createName, createSurname, createEmail, createAddress, createUsername, createPassword;
 
     @FXML
-    private ChoiceBox createCompany;
+    private ChoiceBox<String> createCompany, createType;
 
     /**
      *
@@ -81,6 +81,8 @@ public class EmployeesController implements Initializable {
             }
             createCompany.getItems().addAll(companies);
         }
+
+        createType.getItems().addAll("Veterinário", "Tosquiador", "Passeador", "Auxiliar");
 
         this.getEmployees();
         employeesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -178,7 +180,7 @@ public class EmployeesController implements Initializable {
             _company = Session.getSession().getCurrentUserAsServiceProvider().getCompany();
         }
 
-        Employee employee = new Employee(createNIF.getText(), createName.getText(), createSurname.getText(), createEmail.getText(), createAddress.getText(), _company);
+        Employee employee = new Employee(createNIF.getText(), createName.getText(), createSurname.getText(), createEmail.getText(), createAddress.getText(), _company, Employee.convertStringToEmployeeType(createType.getValue()));
         employee.setUsername(createUsername.getText());
         employee.setPassword(createPassword.getText());
 

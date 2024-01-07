@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 
 import com.petcare.petcare.Auth.Session;
 
-public class HomepageController implements Initializable {
+public class InvoicesController implements Initializable {
     Stage thisStage;
 
     @FXML

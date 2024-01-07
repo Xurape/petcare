@@ -7,12 +7,29 @@ import java.util.List;
 public class Company implements Serializable {
     private String nif, name, email, address;
     private List<Employee> employees = new ArrayList<>();
+    private double balance = 0.0;
 
     public Company(String nif, String name, String email, String address) {
         this.nif = nif;
         this.name = name;
         this.email = email;
         this.address = address;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     /**

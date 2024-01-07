@@ -98,6 +98,8 @@
                      </font>
                   </Text>
                   <ChoiceBox fx:id="createType" layoutX="16.0" layoutY="131.0" prefHeight="26.0" prefWidth="159.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+                  <ChoiceBox fx:id="createCompany" layoutX="423.0" layoutY="13.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+                  <ChoiceBox fx:id="createCompany1" layoutX="423.0" layoutY="223.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
                </children>
             </Pane>
             <Pane layoutX="-2.0" prefHeight="600.0" prefWidth="74.0" style="-fx-background-color: #02223A;">
@@ -234,6 +236,7 @@
                      </font>
                   </Text>
                   <ChoiceBox fx:id="editType" layoutX="16.0" layoutY="131.0" prefHeight="26.0" prefWidth="159.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+                  <ChoiceBox fx:id="editCompany" layoutX="424.0" layoutY="15.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
                </children>
             </Pane>
          </children>

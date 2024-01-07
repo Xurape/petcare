@@ -3,18 +3,76 @@ package com.petcare.petcare.Users;
 public class Employee extends User {
     private String nif, name, surname, email, address;
     private Company company;
-
+    private EmployeeType employeeType;
+    private String professionalNumber;
     public Employee(String username, String password) {
         super(username, password);
     }
 
-    public Employee(String nif, String name, String surname, String email, String address, Company company) {
+    public Employee(String nif, String name, String surname, String email, String address, Company company, EmployeeType employeeType) {
         this.nif = nif;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.address = address;
         this.company = company;
+        this.employeeType = employeeType;
+    }
+
+    public String getProfessionalNumber() {
+        return professionalNumber;
+    }
+
+    public void setProfessionalNumber(String professionalNumber) {
+        this.professionalNumber = professionalNumber;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public static EmployeeType convertStringToEmployeeType(String employeeType) {
+        switch (employeeType) {
+            case "Veterinário":
+                return EmployeeType.VETERINARIO;
+            case "Auxiliar":
+                return EmployeeType.AUXILIAR;
+            case "Tosquiador":
+                return EmployeeType.TOSQUIADOR;
+            case "Passeador":
+                return EmployeeType.PASSEADOR;
+            default:
+                return null;
+        }
+    }
+
+
+
+    public String getEmployeeTypeAsString() {
+        switch (employeeType) {
+            case VETERINARIO:
+                return "Veterinário";
+            case AUXILIAR:
+                return "Auxiliar";
+            case TOSQUIADOR:
+                return "Tosquiador";
+            case PASSEADOR:
+                return "Passeador";
+            default:
+                return "Outro";
+        }
+    }
+
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
+
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
     }
 
     /**

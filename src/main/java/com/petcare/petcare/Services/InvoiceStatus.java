@@ -1,6 +1,6 @@
 package com.petcare.petcare.Services;
 
-public enum AppointmentsStatus {
+public enum InvoiceStatus {
     PENDING,
     ACCEPTED,
     PAID,

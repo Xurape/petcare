@@ -79,13 +79,15 @@ public class ServicesController {
         servicesList.setStyle("-fx-control-inner-background: #012B49;");
 
         if(Session.getSession().isAdmin()) {
-            createCompany.setStyle("-fx-control-inner-background: #012B49;");
+            if(createCompany != null) {
+                createCompany.setStyle("-fx-control-inner-background: #012B49;");
 
-            for(Company company : Storage.getStorage().getCompanies().values()) {
-                createCompany.getItems().add(company.getName());
+                for(Company company : Storage.getStorage().getCompanies().values()) {
+                    createCompany.getItems().add(company.getName());
+                }
+
+                editCompany.getItems().addAll(createCompany.getItems());
             }
-
-            editCompany.getItems().addAll(createCompany.getItems());
         }
 
         servicesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {

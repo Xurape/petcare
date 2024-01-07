@@ -1,11 +1,14 @@
 package com.petcare.petcare.Services;
 
 import java.io.Serializable;
+import java.security.Timestamp;
+import java.util.Date;
 
 public class Appointments implements Serializable {
     private String client, service, date, value;
     private String location, company;
     private AppointmentsStatus status = AppointmentsStatus.PENDING;
+    private String timestamp;
 
     public Appointments(String client, String service, String location, String company, String date, String value) {
         this.client = client;
@@ -14,6 +17,47 @@ public class Appointments implements Serializable {
         this.company = company;
         this.date = date;
         this.value = value;
+        Date d = new Date();
+
+        if (d.getHours() < 10) {
+            this.timestamp = "0" + d.getHours() + ":";
+        } else {
+            this.timestamp = d.getHours() + ":";
+        }
+        if (d.getMinutes() < 10) {
+            this.timestamp += "0" + d.getMinutes() + ":";
+        } else {
+            this.timestamp += d.getMinutes() + ":";
+        }
+        if (d.getSeconds() < 10) {
+            this.timestamp += "0" + d.getSeconds();
+        } else {
+            this.timestamp += d.getSeconds();
+        }
+    }
+
+    public String getStatusAsString() {
+        switch (status) {
+            case PENDING:
+                return "Pendente";
+            case PAID:
+                return "Pago";
+            case ACCEPTED:
+                return "Aceite";
+            case REJECTED:
+                return "Rejeitado";
+            default:
+                return "Pendente";
+        }
+    }
+
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getClient() {

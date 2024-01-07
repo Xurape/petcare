@@ -118,7 +118,7 @@
                         <Font name="Apple Braille" size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="createNIF" layoutX="16.0" layoutY="67.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <TextField fx:id="createNIF" layoutX="16.0" layoutY="67.0" prefHeight="26.0" prefWidth="103.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
                   <Text fill="#eeeeee" layoutX="16.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NIF">
                      <font>
                         <Font name="Apple Braille" size="11.0" />
@@ -138,14 +138,14 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                   </Button>
-                  <TextField fx:id="createName" layoutX="187.0" layoutY="67.0" prefHeight="26.0" prefWidth="190.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Text fill="#eeeeee" layoutX="187.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do funcionário">
+                  <TextField fx:id="createName" layoutX="132.0" layoutY="67.0" prefHeight="26.0" prefWidth="144.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="132.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do funcionário">
                      <font>
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="createSurname" layoutX="386.0" layoutY="67.0" prefHeight="26.0" prefWidth="190.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Text fill="#eeeeee" layoutX="386.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sobrenome do funcionário">
+                  <TextField fx:id="createSurname" layoutX="286.0" layoutY="67.0" prefHeight="26.0" prefWidth="137.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="286.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sobrenome do funcionário">
                      <font>
                         <Font name="Apple Braille" size="11.0" />
                      </font>
@@ -161,6 +161,12 @@
                   <TextField fx:id="createPassword" layoutX="149.0" layoutY="174.0" prefHeight="26.0" prefWidth="120.0" promptText="Password" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
                   <TextField fx:id="editUsername" layoutX="18.0" layoutY="401.0" prefHeight="26.0" prefWidth="120.0" promptText="Username" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
                   <TextField fx:id="editPassword" layoutX="149.0" layoutY="401.0" prefHeight="26.0" prefWidth="120.0" promptText="Password" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <ChoiceBox fx:id="createType" layoutX="436.0" layoutY="67.0" prefHeight="26.0" prefWidth="137.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+                  <Text fill="#eeeeee" layoutX="436.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de funcionário">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
             <Pane layoutX="-3.0" prefHeight="600.0" prefWidth="74.0" style="-fx-background-color: #02223A;">

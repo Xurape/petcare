@@ -87,7 +87,7 @@ public class Seeder {
         client.setEmail("cliente@gmail.com");
 
         Company company = new Company("987654321","Empresa", "empresa@gmail.com", "Rua da Empresa");
-        Company company2 = new Company("987654321","Empresa2", "empresa@gmail.com", "Rua da Empresa 2");
+        Company company2 = new Company("123456789","Empresa2", "empresa2@gmail.com", "Rua da Empresa 2");
 
         Employee employee = new Employee("employee", "employee");
         employee.setName("Funcionário");
@@ -108,7 +108,7 @@ public class Seeder {
         Storage.getStorage().getClients().put(client.getnif(), client);
         Storage.getStorage().getCompanies().put(company.getnif(), company);
         Storage.getStorage().getCompanies().get(company.getnif()).addEmployee(employee);
-        Storage.getStorage().getCompanies().put(company.getnif(), company2);
+        Storage.getStorage().getCompanies().put(company2.getnif(), company2);
         Storage.getStorage().getDeskEmployees().add(employee1);
     }
 
@@ -118,6 +118,7 @@ public class Seeder {
      *
      */
     public static void seedServices() {
+        Debug.print(Storage.getStorage().getCompanyByName("Empresa").getName(), true, true);
         Service grooming = new Service("Tosquia", "Marque uma tosquia para o seu animal!", ServiceType.GROOMING, 15.00, Storage.getStorage().getCompanyByName("Empresa"));
         Service grooming1 = new Service("Tosquia", "Marque uma tosquia para o seu animal!", ServiceType.GROOMING, 25.00, Storage.getStorage().getCompanyByName("Empresa2"));
         Service bathing = new Service("Banho", "Marque um banho para o seu animal!", ServiceType.BATHING, 10.00, Storage.getStorage().getCompanyByName("Empresa"));
@@ -133,6 +134,7 @@ public class Seeder {
         Appointments appointment1 = new Appointments("123456789", "Tosquia", "Rua do Funcionário", "Empresa", "2020-12-12", "15.00");
 
         Storage.getStorage().getServices().add(grooming);
+        Storage.getStorage().getServices().add(grooming1);
         Storage.getStorage().getServices().add(bathing);
         Storage.getStorage().getServices().add(veterinary);
         Storage.getStorage().getServices().add(hotel);

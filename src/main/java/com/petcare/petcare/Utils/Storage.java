@@ -3,6 +3,7 @@ package com.petcare.petcare.Utils;
 import com.petcare.petcare.Exceptions.CouldNotDeserializeException;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Services.Appointments;
+import com.petcare.petcare.Services.Invoice;
 import com.petcare.petcare.Services.Location;
 import com.petcare.petcare.Services.Service;
 import com.petcare.petcare.Users.*;
@@ -18,6 +19,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Storage implements Serializable {
     private static Storage storage = null;
 
+    private Double petcareBalance = 0.0;
+
     private Map<String, Client> clients = new HashMap<>();
     private Map<String, Company> companies = new HashMap<>();
     private Map<String, ServiceProvider> serviceProviders = new HashMap<>();
@@ -27,6 +30,7 @@ public class Storage implements Serializable {
     private List<Service> services = new ArrayList<>();
     private List<Location> locations = new ArrayList<>();
     private List<Appointments> appointments = new ArrayList<>();
+    private List<Invoice> invoices = new ArrayList<>();
 
     public Storage (){};
 
@@ -57,8 +61,20 @@ public class Storage implements Serializable {
         return locations;
     }
 
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
     public List<Appointments> getAppointments() {
         return appointments;
+    }
+
+    public Double getPetcareBalance() {
+        return petcareBalance;
+    }
+
+    public void setPetcareBalance(Double petcareBalance) {
+        this.petcareBalance = petcareBalance;
     }
 
     /**
