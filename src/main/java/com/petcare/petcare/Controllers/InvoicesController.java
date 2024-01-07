@@ -35,16 +35,7 @@ public class InvoicesController implements Initializable {
     @FXML
     private TextField _client, _service, _value, _date, _dateC, _company, _location, _timestamp, _status;
 
-    @FXML
-    private TextField createClient, createValue;
-
-    @FXML
-    private ChoiceBox<String> createService, createCompany, createLocation;
-
-    @FXML
-    private DatePicker createDate;
-
-    private Appointments currentService;
+    private Invoice currentInvoice;
 
     @FXML
     private Pane pay_Pane;
@@ -73,7 +64,7 @@ public class InvoicesController implements Initializable {
      *
      */
     public void showStage(){
-        thisStage.setTitle("PetCare - Bem-vindo");
+        thisStage.setTitle("PetCare - Faturas");
         thisStage.show();
     }
 
@@ -84,178 +75,13 @@ public class InvoicesController implements Initializable {
      */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        if(welcomeText != null)
-            welcomeText.setText("Bem-vindo, " + Session.getSession().getCurrentUser().getUsername() + "!");
+        invoicesList.setStyle("-fx-control-inner-background: #012B49;");
+        _client.setText(Session.getSession().getCurrentUser().getUsername());
 
-        if(url.equals(getClass().getResource("/com/petcare/petcare/client/homepage.fxml"))) {
-            for(Company company : Storage.getStorage().getCompanies().values()) {
-                createCompany.getItems().add(company.getName());
-            }
+        pay_Method.getItems().addAll("MBWay", "PayPal", "Cartão de Crédito", "Dinheiro");
+        pay_Button.setDisable(true);
 
-            createCompany.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    for(Company company : Storage.getStorage().getCompanies().values()) {
-                        createLocation.getItems().clear();
-                        createService.getItems().clear();
-
-                        for(Service service : Storage.getStorage().getServices()) {
-                            if (service.getCompany().getName().equals(company.getName())) {
-                                createService.getItems().add(service.getName());
-                            }
-                        }
-                    }
-
-                    for(Location location : Storage.getStorage().getLocations()) {
-                        if(location.getCompany().getName().equals(newValue)) {
-                            createLocation.getItems().add(location.getAddress());
-                        }
-                    }
-
-                    createService.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-                        @Override
-                        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
-                            createValue.setText("");
-                            for(Service service : Storage.getStorage().getServices()) {
-                                if(service.getName().equals(newValue) && service.getCompany().getName().equals(createCompany.getValue())) {
-                                    createValue.setText(String.valueOf(service.getPrice()));
-                                }
-                            }
-                        }
-                    });
-                }
-            });
-
-            createClient.setText(Session.getSession().getCurrentUser().getUsername());
-            _client.setText(Session.getSession().getCurrentUser().getUsername());
-
-            pay_Method.getItems().addAll("MBWay", "PayPal", "Cartão de Crédito", "Dinheiro");
-            pay_Button.setDisable(true);
-
-            this.getAppointments();
-        } else {
-            this.getServices();
-        }
-
-    }
-
-    public void getServices() {
-        servicesList.setStyle("-fx-control-inner-background: #012B49;");
-
-        for(Appointments appointment : Storage.getStorage().getAppointments()) {
-            servicesList.getItems().add(appointment.getClient() + " - " + appointment.getService() + " | " + appointment.getDate() + " | " + appointment.getTimestamp());
-        }
-
-        servicesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue != null && !newValue.equals("Não existem consultas")) {
-                    for(Appointments appointment : Storage.getStorage().getAppointments()) {
-                        if((appointment.getClient() + " - " + appointment.getService() + " | " + appointment.getDate() + " | " + appointment.getTimestamp()).equals(newValue)) {
-                            currentService = appointment;
-                        }
-                    }
-                    _client.setText(currentService.getClient());
-                    _service.setText(currentService.getService());
-                    Double productsPrice = getProductPrice();
-                    _value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
-                    _date.setText(currentService.getDate());
-                }
-            }
-        });
-    }
-
-    public void rejectService(ActionEvent event) {
-        String client = _client.getText();
-        String service = _service.getText();
-        String value = _value.getText();
-        String date = _date.getText();
-
-        Popup popup = new Popup();
-        popup.setX(300);
-        popup.setY(200);
-        popup.getContent().add(new Label("Razão para rejeitar:"));
-        TextField reason = new TextField();
-        popup.getContent().add(reason);
-        Button confirm = new Button("Confirmar");
-        popup.getContent().add(confirm);
-        confirm.setOnAction(e -> {
-            if (client.isEmpty() || service.isEmpty() || value.isEmpty() || date.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erro");
-                alert.setHeaderText("Erro ao rejeitar serviço");
-                alert.setContentText("Por favor escolha um serviço.");
-                alert.showAndWait();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Successo");
-                alert.setHeaderText("Serviço rejeitado");
-                alert.setContentText("O serviço foi rejeitado com sucesso.");
-                alert.showAndWait();
-                currentService.setStatus(AppointmentsStatus.REJECTED);
-                currentService.setReason(reason.getText());
-            }
-            popup.hide();
-        });
-
-        if (client.isEmpty() || service.isEmpty() || value.isEmpty() || date.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao rejeitar serviço");
-            alert.setContentText("Por favor escolha um serviço.");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Successo");
-            alert.setHeaderText("Serviço rejeitado");
-            alert.setContentText("O serviço foi rejeitado com sucesso.");
-            alert.showAndWait();
-            currentService.setStatus(AppointmentsStatus.REJECTED);
-        }
-
-        try {
-            Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-            Debug.success("Appointment status changed successfully", true, true);
-        } catch(CouldNotSerializeException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao rejeitar marcação");
-            alert.setContentText("Não foi possível guardar");
-            alert.showAndWait();
-        }
-    }
-
-    public void acceptService(ActionEvent event) {
-        String client = _client.getText();
-        String service = _service.getText();
-        String value = _value.getText();
-        String date = _date.getText();
-        if (client.isEmpty() || service.isEmpty() || value.isEmpty() || date.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao aceitar serviço");
-            alert.setContentText("Por favor escolha um serviço.");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Successo");
-            alert.setHeaderText("Serviço aceite");
-            alert.setContentText("O serviço foi aceite com sucesso.");
-            alert.showAndWait();
-            currentService.setStatus(AppointmentsStatus.ACCEPTED);
-        }
-
-
-        try {
-            Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-            Debug.success("Appointment status changed successfully", true, true);
-        } catch(CouldNotSerializeException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao aceitar marcação");
-            alert.setContentText("Não foi possível guardar");
-            alert.showAndWait();
-        }
+        this.getInvoices();
     }
 
     /****
@@ -265,45 +91,39 @@ public class InvoicesController implements Initializable {
      *
      *
      */
-    public void getAppointments() {
-        servicesList.setStyle("-fx-control-inner-background: #012B49;");
+    public void getInvoices() {
+        invoicesList.getItems().clear();
 
-        servicesList.getItems().clear();
-
-        List<Appointments> appointments = Storage.getStorage().getAppointments();
-        for(Appointments appointment : appointments) {
-            if(appointment.getClient().equals(Session.getSession().getCurrentUser().getUsername())) {
-                servicesList.getItems().add(appointment.getService() + " | " + appointment.getDate() + " | " + appointment.getTimestamp());
+        List<Invoice> invoices = Storage.getStorage().getInvoices();
+        for(Invoice invoice : invoices) {
+            if(invoice.getClient().equals(Session.getSession().getCurrentUser().getUsername())) {
+                invoicesList.getItems().add(invoice.getService() + " | " + invoice.getDate() + " | " + invoice.getTimestamp());
             }
         }
 
-        if(servicesList.getItems().isEmpty()) {
-            servicesList.getItems().add("Não existem consultas");
-        }
-
-        servicesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        invoicesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
-                if(newValue != null && !newValue.equals("Não existem consultas")) {
-                    for(Appointments appointment : appointments) {
-                        if(appointment.getClient().equals(Session.getSession().getCurrentUser().getUsername()) && (appointment.getService() + " | " + appointment.getDate() + " | " + appointment.getTimestamp()).equals(newValue)) {
-                            currentService = appointment;
+                if(newValue != null && !newValue.equals("Não existem faturas")) {
+                    for(Invoice invoice : invoices) {
+                        if(invoice.getClient().equals(Session.getSession().getCurrentUser().getUsername()) && (invoice.getService() + " | " + invoice.getDate() + " | " + invoice.getTimestamp()).equals(newValue)) {
+                            currentInvoice = invoice;
                         }
                     }
 
-                    _client.setText(currentService.getClient());
-                    _service.setText(currentService.getService());
+                    _client.setText(currentInvoice.getClient());
+                    _service.setText(currentInvoice.getService());
                     Double productsPrice = getProductPrice();
-                    _value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
-                    _dateC.setText(currentService.getDate());
-                    _location.setText(currentService.getLocation());
-                    _company.setText(currentService.getCompany());
-                    _timestamp.setText(currentService.getTimestamp());
-                    _status.setText(currentService.getStatusAsString());
+                    _value.setText(String.valueOf(Double.parseDouble(currentInvoice.getValue()) + productsPrice));
+                    _date.setText(currentInvoice.getDate());
+                    _location.setText(currentInvoice.getLocation());
+                    _company.setText(currentInvoice.getCompany());
+                    _timestamp.setText(currentInvoice.getTimestamp());
+                    _status.setText(currentInvoice.getStatusAsString());
 
-                    if(currentService.getStatus() == AppointmentsStatus.PENDING) {
+                    if(currentInvoice.getStatus() == InvoiceStatus.PENDING) {
                         pay_Pane.setOpacity(1);
-                        pay_Value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
+                        pay_Value.setText(String.valueOf(Double.parseDouble(currentInvoice.getValue()) + productsPrice));
                         pay_Button.setDisable(false);
                     } else {
                         pay_Pane.setOpacity(0.60);
@@ -313,55 +133,6 @@ public class InvoicesController implements Initializable {
                 }
             }
         });
-    }
-
-    @FXML
-    public void createAppointment(ActionEvent event) {
-        String client = createClient.getText();
-        String service = (String) createService.getValue();
-        String location = (String) createLocation.getValue();
-        String company = (String) createCompany.getValue();
-        String date = createDate.getValue().toString();
-        String value = createValue.getText();
-
-        if(client.isEmpty() || service.isEmpty() || location.isEmpty() || company.isEmpty() || date.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao marcar consulta");
-            alert.setContentText("Por favor preencha todos os campos.");
-            alert.showAndWait();
-        } else if (value.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao marcar consulta");
-            alert.setContentText("Essa empresa não faz esse serviço!");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Successo");
-            alert.setHeaderText("Consulta marcada");
-            alert.setContentText("A consulta foi marcada com sucesso.");
-            alert.showAndWait();
-
-            Invoice invoice = new Invoice(null, client, service, location, company, value, "N/A");
-            Appointments appointment = new Appointments(client, service, location, company, date, value);
-            appointment.setInvoice(invoice);
-
-            Storage.getStorage().getAppointments().add(appointment);
-            Storage.getStorage().getInvoices().add(invoice);
-            this.getAppointments();
-        }
-
-        try {
-            Storage.getStorage().serialize("./src/main/resources/data/storage.db");
-            Debug.success("Appointment created successfully", true, true);
-        } catch(CouldNotSerializeException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao marcar consulta");
-            alert.setContentText("Não foi possível guardar");
-            alert.showAndWait();
-        }
     }
 
     @FXML
@@ -381,15 +152,15 @@ public class InvoicesController implements Initializable {
             alert.setHeaderText("Consulta paga");
             alert.setContentText("A consulta foi paga com sucesso.");
             alert.showAndWait();
-            currentService.setStatus(AppointmentsStatus.PAID);
+            currentInvoice.setStatus(InvoiceStatus.PAID);
             _status.setText("Pago");
 
             Double productsPrice = getProductPrice();
-            Storage.getStorage().getCompanyByName(currentService.getCompany()).setBalance(Storage.getStorage().getCompanyByName(currentService.getCompany()).getBalance() + Double.parseDouble(currentService.getValue()) + productsPrice - (Double.parseDouble(currentService.getValue()) * 0.07));
-            Storage.getStorage().setPetcareBalance(Storage.getStorage().getPetcareBalance() + (Double.parseDouble(currentService.getValue()) * 0.07));
+            Storage.getStorage().getCompanyByName(currentInvoice.getCompany()).setBalance(Storage.getStorage().getCompanyByName(currentInvoice.getCompany()).getBalance() + Double.parseDouble(currentInvoice.getValue()) + productsPrice - (Double.parseDouble(currentInvoice.getValue()) * 0.07));
+            Storage.getStorage().setPetcareBalance(Storage.getStorage().getPetcareBalance() + (Double.parseDouble(currentInvoice.getValue()) * 0.07));
 
             for(Appointments appointment : Storage.getStorage().getAppointments()) {
-                if(appointment.getClient().equals(currentService.getClient()) && appointment.getService().equals(currentService.getService()) && appointment.getDate().equals(currentService.getDate()) && appointment.getTimestamp().equals(currentService.getTimestamp())) {
+                if(appointment.getClient().equals(currentInvoice.getClient()) && appointment.getService().equals(currentInvoice.getService()) && appointment.getDate().equals(currentInvoice.getDate()) && appointment.getTimestamp().equals(currentInvoice.getTimestamp())) {
                     appointment.setStatus(AppointmentsStatus.PAID);
                     appointment.getInvoice().setStatus(InvoiceStatus.PAID);
                 }
@@ -416,9 +187,9 @@ public class InvoicesController implements Initializable {
         Double productsPrice = 0.0;
 
         for(Company company : Storage.getStorage().getCompanies().values()) {
-            if(company.getName().equals(currentService.getCompany())) {
+            if(company.getName().equals(currentInvoice.getCompany())) {
                 for(Service service : Storage.getStorage().getServices()) {
-                    if(service.getCompany().getName().equals(currentService.getCompany())) {
+                    if(service.getCompany().getName().equals(currentInvoice.getCompany())) {
                         for(Product product : service.getProducts()) {
                             productsPrice += product.getPrice();
                         }
