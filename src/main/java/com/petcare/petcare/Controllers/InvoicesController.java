@@ -31,7 +31,7 @@ public class InvoicesController implements Initializable {
     private ListView<String> invoicesList;
 
     @FXML
-    private TextField _client, _service, _value, _date, _dateC, _company, _location, _timestamp, _status;
+    private TextField _client, _service, _value, _date, _company, _location, _timestamp, _status;
 
     private Invoice currentInvoice;
 
@@ -158,7 +158,7 @@ public class InvoicesController implements Initializable {
             Storage.getStorage().setPetcareBalance(Storage.getStorage().getPetcareBalance() + (Double.parseDouble(currentInvoice.getValue()) * 0.07));
 
             for(Appointments appointment : Storage.getStorage().getAppointments()) {
-                if(appointment.getClient().equals(currentInvoice.getClient()) && appointment.getService().equals(currentInvoice.getService()) && appointment.getDate().equals(currentInvoice.getDate()) && appointment.getTimestamp().equals(currentInvoice.getTimestamp())) {
+                if(appointment.getClient().equals(currentInvoice.getClient()) && appointment.getService().equals(currentInvoice.getService()) && appointment.getTimestamp().equals(currentInvoice.getTimestamp())) {
                     appointment.setStatus(AppointmentsStatus.PAID);
                     appointment.getInvoice().setStatus(InvoiceStatus.PAID);
                 }

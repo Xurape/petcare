@@ -18,6 +18,8 @@ public class ServiceProvider extends User implements Serializable {
         this.address = address;
     }
 
+
+
     public String getNif() {
         return nif;
     }

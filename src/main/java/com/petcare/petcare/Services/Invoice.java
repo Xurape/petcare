@@ -16,7 +16,8 @@ public class Invoice implements Serializable {
         this.location = location;
         this.company = company;
         Date d = new Date();
-        this.date = date;
+        // get date as dd/MM/yyyy
+        this.date = d.getDate() + "/" + (d.getMonth() + 1) + "/" + (d.getYear() + 1900);
         this.value = value;
         this.method = method;
         this.appointment = appointment;

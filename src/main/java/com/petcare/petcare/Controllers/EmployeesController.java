@@ -35,7 +35,7 @@ public class EmployeesController implements Initializable {
     private ListView<String> employeesList;
 
     @FXML
-    private TextField editNIF, editName, editSurname, editEmail, editAddress, editUsername, editPassword;
+    private TextField editNIF, editName, editSurname, editEmail, editAddress, editUsername, editPassword, editProfessionalNumber;
 
     @FXML
     private TextField createNIF, createName, createSurname, createEmail, createAddress, createUsername, createPassword;
@@ -97,6 +97,8 @@ public class EmployeesController implements Initializable {
                     editAddress.setText(currentEmployee.getAddress());
                     editUsername.setText(currentEmployee.getUsername());
                     editPassword.setText(currentEmployee.getPassword());
+                    if(currentEmployee.getProfessionalNumber() != null)
+                        editProfessionalNumber.setText(currentEmployee.getProfessionalNumber());
                 }
             }
         });
@@ -186,6 +188,7 @@ public class EmployeesController implements Initializable {
 
         currentEmployee.setEmail(editEmail.getText());
         currentEmployee.setAddress(editAddress.getText());
+        currentEmployee.setProfessionalNumber(editProfessionalNumber.getText());
 
         for (Company company : Storage.getStorage().getCompanies().values()) {
             for (Employee employee : company.getEmployees()) {

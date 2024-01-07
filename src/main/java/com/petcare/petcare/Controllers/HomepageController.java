@@ -39,7 +39,7 @@ public class HomepageController implements Initializable {
     private TextField _client, _service, _value, _date, _dateC, _company, _location, _timestamp, _status;
 
     @FXML
-    private TextField createClient, createValue;
+    private TextField createClient, createValue, companyBalance;
 
     @FXML
     private ChoiceBox<String> createService, createCompany, createLocation;
@@ -90,37 +90,41 @@ public class HomepageController implements Initializable {
         if(welcomeText != null)
             welcomeText.setText("Bem-vindo, " + Session.getSession().getCurrentUser().getUsername() + "!");
 
+        if(companyBalance != null && Session.getSession().getCurrentUserAsServiceProvider() != null && Session.getSession().getCurrentUserAsServiceProvider().getCompany() != null) {
+            companyBalance.setText(String.valueOf(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getBalance()));
+        }
+
         if(url.equals(getClass().getResource("/com/petcare/petcare/client/homepage.fxml"))) {
-            for(Company company : Storage.getStorage().getCompanies().values()) {
+            for (Company company : Storage.getStorage().getCompanies().values()) {
                 createCompany.getItems().add(company.getName());
             }
 
             createCompany.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    for(Company company : Storage.getStorage().getCompanies().values()) {
+                    for (Company company : Storage.getStorage().getCompanies().values()) {
                         createLocation.getItems().clear();
                         createService.getItems().clear();
 
-                        for(Service service : Storage.getStorage().getServices()) {
+                        for (Service service : Storage.getStorage().getServices()) {
                             if (service.getCompany().getName().equals(company.getName())) {
                                 createService.getItems().add(service.getName());
                             }
                         }
                     }
 
-                    for(Location location : Storage.getStorage().getLocations()) {
-                        if(location.getCompany().getName().equals(newValue)) {
+                    for (Location location : Storage.getStorage().getLocations()) {
+                        if (location.getCompany().getName().equals(newValue)) {
                             createLocation.getItems().add(location.getAddress());
                         }
                     }
 
                     createService.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                         @Override
-                        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
+                        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                             createValue.setText("");
-                            for(Service service : Storage.getStorage().getServices()) {
-                                if(service.getName().equals(newValue) && service.getCompany().getName().equals(createCompany.getValue())) {
+                            for (Service service : Storage.getStorage().getServices()) {
+                                if (service.getName().equals(newValue) && service.getCompany().getName().equals(createCompany.getValue())) {
                                     createValue.setText(String.valueOf(service.getPrice()));
                                 }
                             }
@@ -136,6 +140,8 @@ public class HomepageController implements Initializable {
             pay_Button.setDisable(true);
 
             this.getAppointments();
+        } else if(url.equals(getClass().getResource("/com/petcare/petcare/serviceProvider/homepage.fxml"))) {
+            this.getServicesSP();
         } else {
             this.getServices();
         }
@@ -168,7 +174,44 @@ public class HomepageController implements Initializable {
         });
     }
 
+    public void getServicesSP() {
+        servicesList.setStyle("-fx-control-inner-background: #012B49;");
+
+        for(Appointments appointment : Storage.getStorage().getAppointments()) {
+            if(appointment.getCompany().equals(Session.getSession().getCurrentUser().getUsername())) {
+                servicesList.getItems().add(appointment.getClient() + " - " + appointment.getService() + " | " + appointment.getDate() + " | " + appointment.getTimestamp());
+            }
+        }
+
+        servicesList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue != null && !newValue.equals("Não existem consultas")) {
+                    for(Appointments appointment : Storage.getStorage().getAppointments()) {
+                        if((appointment.getClient() + " - " + appointment.getService() + " | " + appointment.getDate() + " | " + appointment.getTimestamp()).equals(newValue)) {
+                            currentService = appointment;
+                        }
+                    }
+                    _client.setText(currentService.getClient());
+                    _service.setText(currentService.getService());
+                    Double productsPrice = getProductPrice();
+                    _value.setText(String.valueOf(Double.parseDouble(currentService.getValue()) + productsPrice));
+                    _date.setText(currentService.getDate());
+                }
+            }
+        });
+    }
+
     public void rejectService(ActionEvent event) {
+        if(!Session.getSession().isAdmin() || Session.getSession().isDeskEmployee()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao rejeitar serviço");
+            alert.setContentText("Não tem permissões para rejeitar serviços.");
+            alert.showAndWait();
+            return;
+        }
+
         String client = _client.getText();
         String service = _service.getText();
         String value = _value.getText();
@@ -229,6 +272,15 @@ public class HomepageController implements Initializable {
     }
 
     public void acceptService(ActionEvent event) {
+        if(!Session.getSession().isAdmin() || Session.getSession().isDeskEmployee()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao aceitar serviço");
+            alert.setContentText("Não tem permissões para aceitar serviços.");
+            alert.showAndWait();
+            return;
+        }
+
         String client = _client.getText();
         String service = _service.getText();
         String value = _value.getText();

@@ -86,7 +86,7 @@
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="_dateC" editable="false" layoutX="367.0" layoutY="67.0" prefHeight="26.0" prefWidth="121.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <TextField fx:id="_date" editable="false" layoutX="367.0" layoutY="67.0" prefHeight="26.0" prefWidth="121.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
                   <Text fill="#eeeeee" layoutX="368.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data">
                      <font>
                         <Font name="Apple Braille" size="11.0" />

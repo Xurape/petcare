@@ -36,6 +36,8 @@ public class RegisterController {
     @FXML
     private TextField fieldPhone;
     @FXML
+    private TextField fieldEmail;
+    @FXML
     private Label errorText;
 
     /**
@@ -111,6 +113,7 @@ public class RegisterController {
 
         String username = fieldUsername.getText();
         String password = fieldPassword.getText();
+        String email = fieldEmail.getText();
         String passwordAgain = fieldPasswordAgain.getText();
         String nif = fieldNIF.getText();
         String address = fieldAddress.getText();
@@ -138,7 +141,7 @@ public class RegisterController {
         if(phone.length() != 9)
             error = "O número de telefone tem de ter 9 dígitos.";
 
-        if(!username.contains("@"))
+        if(!email.contains("@"))
             error = "O email tem de conter @";
 
         if(error != null) {
@@ -156,6 +159,7 @@ public class RegisterController {
             case "Prestador de serviço":
                 _user = new ServiceProvider(username, password);
                 _user.setnif(nif);
+                ((ServiceProvider) _user).setEmail(email);
                 _user.setAddress(address);
                 _user.setOnline(true);
                 Storage.getStorage().getServiceProviders().put(nif, (ServiceProvider) _user);
@@ -166,6 +170,8 @@ public class RegisterController {
             case "Cliente":
                 _user = new Client(username, password);
                 _user.setnif(nif);
+                ((Client) _user).setEmail(email);
+                ((Client) _user).setPhone(Integer.parseInt(phone));
                 _user.setAddress(address);
                 _user.setOnline(true);
                 Storage.getStorage().getClients().put(nif, (Client) _user);
@@ -192,7 +198,16 @@ public class RegisterController {
 
         Session.getSession().setCurrentUser(_user);
 
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/homepage.fxml");
+        URL resourceUrl = null;
+        if(Session.getSession().isAdmin())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/homepage.fxml");
+        else if(Session.getSession().isServiceProvider())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/serviceProvider/homepage.fxml");
+        else if (Session.getSession().isDeskEmployee())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/homepage.fxml");
+        else
+            resourceUrl = getClass().getResource("/com/petcare/petcare/client/homepage.fxml");
+
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
