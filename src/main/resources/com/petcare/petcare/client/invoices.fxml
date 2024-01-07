@@ -41,7 +41,7 @@
                         <Font name="Apple Braille" size="17.0" />
                      </font>
                   </Text>
-                  <ListView fx:id="servicesList" layoutX="13.0" layoutY="43.0" prefHeight="425.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
+                  <ListView fx:id="invoicesList" layoutX="13.0" layoutY="43.0" prefHeight="425.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
                </children>
             </Pane>
             <Pane fx:id="_servicePane" layoutX="356.0" layoutY="83.0" prefHeight="174.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">

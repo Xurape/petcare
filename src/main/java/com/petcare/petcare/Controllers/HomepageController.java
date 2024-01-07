@@ -524,7 +524,7 @@ public class HomepageController implements Initializable {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
                 Parent root = fxmlLoader.load();
-                HomepageController controller = fxmlLoader.getController();
+                InvoicesController controller = fxmlLoader.getController();
                 controller.setStage(thisStage);
                 thisStage.setScene(new Scene(root));
             } catch (IOException e) {
