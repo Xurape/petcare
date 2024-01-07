@@ -79,12 +79,18 @@ public class Seeder {
      */
     public static void seedUsers() {
         Admin admin = new Admin("admin", "admin");
+        admin.setNif("123456789");
+        admin.setName("Administrador");
+        admin.setAddress("Rua do Administrador");
+        admin.setEmail("admin@gmail.com");
+        admin.setPhone(123456789);
 
         Client client = new Client("client", "client");
         client.setName("Cliente");
         client.setAddress("Rua do Cliente");
         client.setnif("123456789");
         client.setEmail("cliente@gmail.com");
+        client.setPhone(123456789);
 
         Company company = new Company("987654321","Empresa", "empresa@gmail.com", "Rua da Empresa");
         Company company2 = new Company("123456789","Empresa2", "empresa2@gmail.com", "Rua da Empresa 2");

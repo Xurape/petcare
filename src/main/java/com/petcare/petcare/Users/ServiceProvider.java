@@ -3,7 +3,8 @@ package com.petcare.petcare.Users;
 import java.io.Serializable;
 
 public class ServiceProvider extends User implements Serializable {
-    private String nif, name, email, address;
+    private String nif, name, surname, email, address;
+    private int phone;
     private Company company;
 
     public ServiceProvider(String username, String password) {
@@ -18,7 +19,21 @@ public class ServiceProvider extends User implements Serializable {
         this.address = address;
     }
 
+    public String getSurname() {
+        return surname;
+    }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
 
     public String getNif() {
         return nif;

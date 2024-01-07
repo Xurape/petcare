@@ -38,7 +38,7 @@ public class LocationsController {
     private TextField createAddress, createCity, createZipcode, createPhone;
 
     @FXML
-    private ChoiceBox editService, createService, createCompany, editCompany;
+    private ChoiceBox<String> editService, createService, createCompany, editCompany;
 
     /**
      *
@@ -84,7 +84,18 @@ public class LocationsController {
             editCompany.getItems().addAll(companies);
         }
 
-        this.getLocationList();
+        if(Session.getSession().isServiceProvider()) {
+            if(Session.getSession().getCurrentUserAsServiceProvider().getCompany() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao obter localidades");
+                alert.setContentText("Por favor, associa-te a uma empresa no \"Meu Perfil\".");
+                alert.showAndWait();
+                return;
+            }
+
+            this.getLocationList();
+        }
     }
 
     /**
@@ -97,13 +108,6 @@ public class LocationsController {
 
         this.getLocations();
 
-        if(Session.getSession().isServiceProvider()) {
-            createCompany.getSelectionModel().select(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName());
-            editCompany.getSelectionModel().select(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName());
-            createCompany.setDisable(true);
-            editCompany.setDisable(true);
-        }
-
         locationList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -114,7 +118,10 @@ public class LocationsController {
                     editZipcode.setText(currentLocation.getZipcode());
                     editPhone.setText(String.valueOf(currentLocation.getPhone()));
                     editService.getSelectionModel().select(currentLocation.getServiceType());
-                    editCompany.getSelectionModel().select(currentLocation.getCompany().getName());
+                    if(Session.getSession().isAdmin())
+                        editCompany.getSelectionModel().select(currentLocation.getCompany().getName());
+                    else if(Session.getSession().isDeskEmployee())
+                        editCompany.getSelectionModel().select(currentLocation.getCompany().getName());
                 }
             }
         });
@@ -155,6 +162,15 @@ public class LocationsController {
         String address = createAddress.getText();
         String city = createCity.getText();
         String zipcode = createZipcode.getText();
+
+        if(Session.getSession().getCurrentUserAsServiceProvider().getCompany() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar localidade");
+            alert.setContentText("Por favor, associa-te a uma empresa no \"Meu Perfil\".");
+            alert.showAndWait();
+            return;
+        }
 
         if(createPhone.getText().length() != 9) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -225,7 +241,9 @@ public class LocationsController {
 
         currentLocation.setPhone(Integer.parseInt(editPhone.getText()));
         currentLocation.setServiceType(editService.getSelectionModel().getSelectedItem().toString());
-        currentLocation.setCompany(Storage.getStorage().getCompanyByName((String) editCompany.getSelectionModel().getSelectedItem()));
+        if(Session.getSession().isAdmin() || Session.getSession().isDeskEmployee())
+            currentLocation.setCompany(Storage.getStorage().getCompanyByName((String) editCompany.getSelectionModel().getSelectedItem()));
+
 
         try {
             Storage.getStorage().serialize("./src/main/resources/data/storage.db");
@@ -247,8 +265,8 @@ public class LocationsController {
         if(currentLocation == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
-            alert.setHeaderText("Erro ao remover funcionário");
-            alert.setContentText("Selecione um funcionário");
+            alert.setHeaderText("Erro ao remover localidade");
+            alert.setContentText("Selecione um localidade");
             alert.showAndWait();
             return;
         }
@@ -274,15 +292,14 @@ public class LocationsController {
                     alert.showAndWait();
                     return;
                 }
-                return;
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erro");
-                alert.setHeaderText("Erro ao remover localidade");
-                alert.setContentText("O funcionário não existe");
-                alert.showAndWait();
-                return;
             }
+        }
+        if(currentLocation != null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao remover localidade");
+            alert.setContentText("A localidade não existe");
+            alert.showAndWait();
         }
     }
 
@@ -495,7 +512,7 @@ public class LocationsController {
     protected void gotoLocations(ActionEvent event) {
         URL resourceUrl = null;
         if(Session.getSession().isAdmin())
-            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/locations.fxml");
         else if(Session.getSession().isDeskEmployee())
             resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/locations.fxml");
         else if(Session.getSession().isServiceProvider())

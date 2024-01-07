@@ -2,6 +2,7 @@ package com.petcare.petcare.Users;
 
 public class Admin extends User {
     private String nif, name, surname, email;
+    private int phone;
 
     /**
      *
@@ -13,6 +14,22 @@ public class Admin extends User {
      */
     public Admin(String username, String password) {
         super(username, password);
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     /**

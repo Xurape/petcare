@@ -2,7 +2,7 @@ package com.petcare.petcare.Controllers;
 
 import com.petcare.petcare.Auth.Session;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
-import com.petcare.petcare.Users.Client;
+import com.petcare.petcare.Users.*;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 import javafx.event.ActionEvent;
@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -25,6 +26,9 @@ public class ProfileController implements Initializable {
 
     @FXML
     private TextField _nif, _name, _surname, _email, _address, _phone, _username, _password;
+
+    @FXML
+    private ChoiceBox<String> _company;
 
     /**
      *
@@ -49,19 +53,58 @@ public class ProfileController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
-        Client client = (Client) Session.getSession().getCurrentUser();
+        User client = null;
+        client = Session.getSession().getCurrentUser();
+
+        if(location.equals(getClass().getResource("/com/petcare/petcare/admin/profile.fxml"))) {
+            _name.setText(((Admin) client).getName());
+            _surname.setText(((Admin) client).getSurname());
+            _email.setText(((Admin) client).getEmail());
+            _phone.setText(String.valueOf(((Admin) client).getPhone()));
+            if(_company != null) {
+                _company.setValue("PetCare");
+                _company.setDisable(true);
+            }
+        } else if (location.equals(getClass().getResource("/com/petcare/petcare/deskEmployee/profile.fxml"))) {
+            _name.setText(((DeskEmployee) client).getName());
+            _surname.setText(((DeskEmployee) client).getSurname());
+            _email.setText(((DeskEmployee) client).getEmail());
+            _phone.setText(String.valueOf(((DeskEmployee) client).getPhone()));
+            if(_company != null) {
+                _company.setValue("PetCare");
+                _company.setDisable(true);
+            }
+        } else if (location.equals(getClass().getResource("/com/petcare/petcare/serviceProvider/profile.fxml"))) {
+            _name.setText(((ServiceProvider) client).getName());
+            _surname.setText(((ServiceProvider) client).getSurname());
+            _email.setText(((ServiceProvider) client).getEmail());
+            _phone.setText(String.valueOf(((ServiceProvider) client).getPhone()));
+            if(_company != null) {
+                for(Company company : Storage.getStorage().getCompanies().values()) {
+                    _company.getItems().add(company.getName());
+                }
+
+                if(((ServiceProvider) client).getCompany() != null)
+                    _company.setValue(((ServiceProvider) client).getCompany().getName());
+            }
+        } else {
+            _name.setText(((Client) client).getName());
+            _surname.setText(((Client) client).getSurname());
+            _email.setText(((Client) client).getEmail());
+            _phone.setText(String.valueOf(((Client) client).getPhone()));
+            if(_company != null)
+                _company.setDisable(true);
+        }
 
         _nif.setText(client.getnif());
-        _name.setText(client.getName());
-        _surname.setText(client.getSurname());
-        _email.setText(client.getEmail());
         _address.setText(client.getAddress());
-        _phone.setText(String.valueOf(client.getPhone()));
+        _username.setText(client.getUsername());
     }
 
     @FXML
     protected void editProfile() {
-        Client client = (Client) Session.getSession().getCurrentUser();
+        User client = null;
+        client = Session.getSession().getCurrentUser();
 
         if(Storage.getStorage().userExists(_nif.getText()) && !_nif.getText().equals(client.getnif())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -73,8 +116,6 @@ public class ProfileController implements Initializable {
         }
 
         client.setnif(_nif.getText());
-        client.setName(_name.getText());
-        client.setSurname(_surname.getText());
 
         if(!_email.getText().contains("@")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -85,9 +126,6 @@ public class ProfileController implements Initializable {
             return;
         }
 
-        client.setEmail(_email.getText());
-        client.setAddress(_address.getText());
-
         if(_phone.getText().length() != 9) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
@@ -97,13 +135,37 @@ public class ProfileController implements Initializable {
             return;
         }
 
-        client.setPhone(Integer.parseInt(_phone.getText()));
+        if(Session.getSession().isAdmin()) {
+            ((Admin) client).setName(_name.getText());
+            ((Admin) client).setSurname(_surname.getText());
+            ((Admin) client).setEmail(_email.getText());
+            ((Admin) client).setAddress(_address.getText());
+            ((Admin) client).setPhone(Integer.parseInt(_phone.getText()));
+        } else if(Session.getSession().isDeskEmployee()) {
+            ((DeskEmployee) client).setName(_name.getText());
+            ((DeskEmployee) client).setSurname(_surname.getText());
+            ((DeskEmployee) client).setEmail(_email.getText());
+            ((DeskEmployee) client).setAddress(_address.getText());
+            ((DeskEmployee) client).setPhone(Integer.parseInt(_phone.getText()));
+        } else if(Session.getSession().isServiceProvider()) {
+            ((ServiceProvider) client).setName(_name.getText());
+            ((ServiceProvider) client).setSurname(_surname.getText());
+            ((ServiceProvider) client).setEmail(_email.getText());
+            ((ServiceProvider) client).setAddress(_address.getText());
+            ((ServiceProvider) client).setPhone(Integer.parseInt(_phone.getText()));
+        } else {
+            ((Client) client).setName(_name.getText());
+            ((Client) client).setSurname(_surname.getText());
+            ((Client) client).setEmail(_email.getText());
+            ((Client) client).setAddress(_address.getText());
+            ((Client) client).setPhone(Integer.parseInt(_phone.getText()));
+        }
 
         if(!_password.getText().isEmpty())
             client.setPassword(_password.getText());
 
         for (Client c : Storage.getStorage().getClients().values()) {
-            if (c.getUsername().equals(_username.getText())) {
+            if (c.getUsername().equals(_username.getText()) && !c.getnif().equals(client.getnif())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erro");
                 alert.setHeaderText("Erro ao editar perfil");
@@ -114,6 +176,17 @@ public class ProfileController implements Initializable {
         }
 
         client.setUsername(_username.getText());
+
+        if(Session.getSession().isServiceProvider()) {
+            if(_company.getValue() != null) {
+                for (Company company : Storage.getStorage().getCompanies().values()) {
+                    if (company.getName().equals(_company.getValue())) {
+                        ((ServiceProvider) client).setCompany(company);
+                        break;
+                    }
+                }
+            }
+        }
 
         Session.getSession().setCurrentUser(client);
 
@@ -343,7 +416,7 @@ public class ProfileController implements Initializable {
     protected void gotoLocations(ActionEvent event) {
         URL resourceUrl = null;
         if(Session.getSession().isAdmin())
-            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/locations.fxml");
         else if(Session.getSession().isDeskEmployee())
             resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/locations.fxml");
         else if(Session.getSession().isServiceProvider())

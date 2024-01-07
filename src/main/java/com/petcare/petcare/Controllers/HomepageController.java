@@ -3,6 +3,7 @@ package com.petcare.petcare.Controllers;
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Services.*;
 import com.petcare.petcare.Users.Company;
+import com.petcare.petcare.Users.ServiceProvider;
 import com.petcare.petcare.Utils.Debug;
 import com.petcare.petcare.Utils.Storage;
 import javafx.beans.value.ChangeListener;
@@ -145,7 +146,6 @@ public class HomepageController implements Initializable {
         } else {
             this.getServices();
         }
-
     }
 
     public void getServices() {
@@ -177,8 +177,13 @@ public class HomepageController implements Initializable {
     public void getServicesSP() {
         servicesList.setStyle("-fx-control-inner-background: #012B49;");
 
+        if(((ServiceProvider) Session.getSession().getCurrentUser()).getCompany() == null) {
+            servicesList.getItems().add("Por favor, associa uma empresa primeiro");
+            return;
+        }
+
         for(Appointments appointment : Storage.getStorage().getAppointments()) {
-            if(appointment.getCompany().equals(Session.getSession().getCurrentUser().getUsername())) {
+            if(appointment.getCompany().equals(((ServiceProvider) Session.getSession().getCurrentUser()).getCompany().getName())) {
                 servicesList.getItems().add(appointment.getClient() + " - " + appointment.getService() + " | " + appointment.getDate() + " | " + appointment.getTimestamp());
             }
         }
@@ -693,7 +698,7 @@ public class HomepageController implements Initializable {
     protected void gotoLocations(ActionEvent event) {
         URL resourceUrl = null;
         if(Session.getSession().isAdmin())
-            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/locations.fxml");
         else if(Session.getSession().isDeskEmployee())
             resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/locations.fxml");
         else if(Session.getSession().isServiceProvider())

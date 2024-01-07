@@ -120,7 +120,7 @@ public class EmployeesController implements Initializable {
                     }
                 }
             } else if(Session.getSession().getCurrentUser() instanceof ServiceProvider) {
-                if(company.getName().equals(Session.getSession().getCurrentUserAsServiceProvider().getName())) {
+                if(company.getName().equals(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName())) {
                     if(company.getEmployees().isEmpty()) {
                         isEmpty = true;
                         employeesList.setStyle("-fx-control-inner-background: #012B49;");
@@ -555,7 +555,7 @@ public class EmployeesController implements Initializable {
     protected void gotoLocations(ActionEvent event) {
         URL resourceUrl = null;
         if(Session.getSession().isAdmin())
-            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/locations.fxml");
         else if(Session.getSession().isDeskEmployee())
             resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/locations.fxml");
         else if(Session.getSession().isServiceProvider())

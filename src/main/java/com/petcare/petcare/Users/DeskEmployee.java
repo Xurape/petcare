@@ -2,6 +2,7 @@ package com.petcare.petcare.Users;
 
 public class DeskEmployee extends User {
     private String nif, name, surname, email, address;
+    private int phone;
 
     public DeskEmployee(String username, String password) {
         super(username, password);
@@ -13,6 +14,22 @@ public class DeskEmployee extends User {
         this.surname = surname;
         this.email = email;
         this.address = address;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     /**

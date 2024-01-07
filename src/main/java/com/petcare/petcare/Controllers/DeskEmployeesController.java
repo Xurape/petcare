@@ -33,13 +33,13 @@ public class DeskEmployeesController implements Initializable {
     private ListView<String> employeesList;
 
     @FXML
-    private TextField editNIF, editName, editSurname, editEmail, editAddress;
+    private TextField editNIF, editName, editSurname, editEmail, editAddress, editUsername, editPassword;
 
     @FXML
-    private TextField createNIF, createName, createSurname, createEmail, createAddress;
+    private TextField createNIF, createName, createSurname, createEmail, createAddress, createUsername, createPassword;
 
     @FXML
-    private ChoiceBox createCompany;
+    private ChoiceBox<String> createCompany;
 
     /**
      *
@@ -83,6 +83,7 @@ public class DeskEmployeesController implements Initializable {
                     editSurname.setText(currentEmployee.getSurname());
                     editEmail.setText(currentEmployee.getEmail());
                     editAddress.setText(currentEmployee.getAddress());
+                    editUsername.setText(currentEmployee.getUsername());
                 }
             }
         });
@@ -111,9 +112,9 @@ public class DeskEmployeesController implements Initializable {
             employeesList.getItems().clear();
             employeesList.getItems().addAll(employees);
         }
+        
         employeesList.getSelectionModel().clearSelection();
     }
-
 
     public void editEmployee(ActionEvent event) {
         if(currentEmployee == null) {
@@ -159,6 +160,12 @@ public class DeskEmployeesController implements Initializable {
         currentEmployee.setEmail(editEmail.getText());
         currentEmployee.setAddress(editAddress.getText());
 
+        if(!editUsername.getText().isEmpty())
+            currentEmployee.setUsername(editUsername.getText());
+
+        if(!editPassword.getText().isEmpty())
+            currentEmployee.setPassword(editPassword.getText());
+
         try {
             Storage.getStorage().serialize("./src/main/resources/data/storage.db");
             Debug.success("Employee edited successfully", true, true);
@@ -175,6 +182,15 @@ public class DeskEmployeesController implements Initializable {
     }
 
     public void createEmployee(ActionEvent event) {
+        if(createUsername.getText().isEmpty() || createPassword.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar funcionário");
+            alert.setContentText("O username e a password não podem estar vazios");
+            alert.showAndWait();
+            return;
+        }
+
         if(createNIF.getText().length() != 9) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
@@ -203,6 +219,9 @@ public class DeskEmployeesController implements Initializable {
         }
 
         DeskEmployee employee = new DeskEmployee(createNIF.getText(), createName.getText(), createSurname.getText(), createEmail.getText(), createAddress.getText());
+        employee.setUsername(createUsername.getText());
+        employee.setPassword(createPassword.getText());
+
         if(Storage.getStorage().getDeskEmployees().contains(employee)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
@@ -468,7 +487,7 @@ public class DeskEmployeesController implements Initializable {
     protected void gotoLocations(ActionEvent event) {
         URL resourceUrl = null;
         if(Session.getSession().isAdmin())
-            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/locations.fxml");
         else if(Session.getSession().isDeskEmployee())
             resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/locations.fxml");
         else if(Session.getSession().isServiceProvider())

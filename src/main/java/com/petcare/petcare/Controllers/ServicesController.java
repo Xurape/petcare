@@ -106,8 +106,13 @@ public class ServicesController {
                     editDescription.setText(currentService.getDescription());
                     editType.getSelectionModel().select(Service.getTypeString(currentService.getType()));
                     editPrice.setText(String.valueOf(currentService.getPrice()));
-                    editCompany.getSelectionModel().select(currentService.getCompany().getName());
-                    editCompany.setDisable(true);
+                    if(Session.getSession().isAdmin()) {
+                        editCompany.getSelectionModel().select(currentService.getCompany().getName());
+                        editCompany.setDisable(false);
+                    } else if (Session.getSession().isDeskEmployee()) {
+                        editCompany.getSelectionModel().select(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName());
+                        editCompany.setDisable(false);
+                    }
                     for(Product product : currentService.getProducts()) {
                         productList.getItems().add(product.getName());
                     }
@@ -146,8 +151,15 @@ public class ServicesController {
             servicesList.getItems().clear();
             servicesList.getItems().addAll("Não existem serviços");
         } else {
-            for(Service service : Storage.getStorage().getServices()) {
-                services.add(service.getName());
+            if (Session.getSession().isServiceProvider()) {
+                for (Service service : Storage.getStorage().getServices()) {
+                    if (service.getCompany().getName().equals(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getName()))
+                        services.add(service.getName());
+                }
+            } else {
+                for (Service service : Storage.getStorage().getServices()) {
+                    services.add(service.getName());
+                }
             }
         }
 
@@ -578,7 +590,7 @@ public class ServicesController {
     protected void gotoLocations(ActionEvent event) {
         URL resourceUrl = null;
         if(Session.getSession().isAdmin())
-            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/locations.fxml");
         else if(Session.getSession().isDeskEmployee())
             resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/locations.fxml");
         else if(Session.getSession().isServiceProvider())
