@@ -109,8 +109,45 @@ public class CompaniesController implements Initializable {
     }
 
     public void editCompany(ActionEvent event) {
+        if(Storage.getStorage().getCompanies().containsKey(editNIF.getText()) && !editNIF.getText().equals(currentCompany.getnif())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar empresa");
+            alert.setContentText("O NIF já existe");
+            alert.showAndWait();
+            return;
+        }
+
+        if(editNIF.getText().length() != 9) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar empresa");
+            alert.setContentText("O NIF tem de ter 9 dígitos");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!editNIF.getText().matches("[0-9]+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar empresa");
+            alert.setContentText("O NIF só pode conter números");
+            alert.showAndWait();
+            return;
+        }
+
         currentCompany.setnif(editNIF.getText());
         currentCompany.setName(editName.getText());
+
+        if(!editEmail.getText().contains("@")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar empresa");
+            alert.setContentText("O email tem de conter @");
+            alert.showAndWait();
+            return;
+        }
+
         currentCompany.setEmail(editEmail.getText());
         currentCompany.setAddress(editAddress.getText());
 
@@ -130,6 +167,33 @@ public class CompaniesController implements Initializable {
     }
 
     public void createCompany(ActionEvent event) {
+        if(createNIF.getText().length() != 9) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar empresa");
+            alert.setContentText("O NIF tem de ter 9 dígitos");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!createNIF.getText().matches("[0-9]+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar empresa");
+            alert.setContentText("O NIF só pode conter números");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!createEmail.getText().contains("@")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar empresa");
+            alert.setContentText("O email tem de conter @");
+            alert.showAndWait();
+            return;
+        }
+
         Company company = new Company(createNIF.getText(), createName.getText(), createEmail.getText(), createAddress.getText());
 
         for(Company _company : Storage.getStorage().getCompanies().values()) {

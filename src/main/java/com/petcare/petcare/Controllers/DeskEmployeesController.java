@@ -116,9 +116,46 @@ public class DeskEmployeesController implements Initializable {
 
 
     public void editEmployee(ActionEvent event) {
+        if(currentEmployee == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setContentText("Selecione um funcionário");
+            alert.showAndWait();
+            return;
+        }
+
+        if(Storage.getStorage().userExists(editNIF.getText()) && !editNIF.getText().equals(currentEmployee.getnif())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setContentText("Já existe um funcionário com esse NIF");
+            alert.showAndWait();
+            return;
+        }
+
+        if(editNIF.getText().length() != 9) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setContentText("O NIF tem de ter 9 dígitos");
+            alert.showAndWait();
+            return;
+        }
+
         currentEmployee.setnif(editNIF.getText());
         currentEmployee.setName(editName.getText());
         currentEmployee.setSurname(editSurname.getText());
+
+        if(!editEmail.getText().contains("@")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setContentText("O email tem de conter @");
+            alert.showAndWait();
+            return;
+        }
+
         currentEmployee.setEmail(editEmail.getText());
         currentEmployee.setAddress(editAddress.getText());
 
@@ -138,6 +175,33 @@ public class DeskEmployeesController implements Initializable {
     }
 
     public void createEmployee(ActionEvent event) {
+        if(createNIF.getText().length() != 9) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar funcionário");
+            alert.setContentText("O NIF tem de ter 9 dígitos");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!createNIF.getText().matches("[0-9]+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar funcionário");
+            alert.setContentText("O NIF só pode conter números");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!createEmail.getText().contains("@")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar funcionário");
+            alert.setContentText("O email tem de conter @");
+            alert.showAndWait();
+            return;
+        }
+
         DeskEmployee employee = new DeskEmployee(createNIF.getText(), createName.getText(), createSurname.getText(), createEmail.getText(), createAddress.getText());
         if(Storage.getStorage().getDeskEmployees().contains(employee)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

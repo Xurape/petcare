@@ -74,6 +74,17 @@
                         </ImageView>
                      </children>
                   </Pane>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="479.0">
+                     <image>
+                        <Image url="@../img/user-group.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="12.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meu perfil" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="gotoProfileButton" layoutX="12.0" layoutY="474.0" mnemonicParsing="false" onAction="#gotoProfile" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
                </children>
             </Pane>
             <Pane layoutX="91.0" layoutY="83.0" prefHeight="483.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
@@ -177,7 +188,7 @@
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="createDate" layoutX="387.0" layoutY="126.0" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <DatePicker fx:id="createDate" layoutX="387.0" layoutY="126.0" prefHeight="30.0" prefWidth="119.0" style="-fx-control-inner-background: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
                   <Button fx:id="createAppointmentButton" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="421.0" layoutY="173.0" mnemonicParsing="false" onAction="#createAppointment" pickOnBounds="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Marcar consulta" textAlignment="CENTER" textFill="#eeeeee">
                      <font>
                         <Font name="Tahoma" size="12.0" />

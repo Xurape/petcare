@@ -9,6 +9,7 @@ public class Appointments implements Serializable {
     private String location, company;
     private AppointmentsStatus status = AppointmentsStatus.PENDING;
     private String timestamp;
+    private String reason;
 
     public Appointments(String client, String service, String location, String company, String date, String value) {
         this.client = client;
@@ -34,6 +35,14 @@ public class Appointments implements Serializable {
         } else {
             this.timestamp += d.getSeconds();
         }
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getStatusAsString() {

@@ -155,6 +155,16 @@ public class LocationsController {
         String address = createAddress.getText();
         String city = createCity.getText();
         String zipcode = createZipcode.getText();
+
+        if(createPhone.getText().length() != 9) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar localidade");
+            alert.setContentText("O número de telefone tem de ter 9 dígitos.");
+            alert.showAndWait();
+            return;
+        }
+
         int phone = Integer.parseInt(createPhone.getText());
         String serviceType = createService.getSelectionModel().getSelectedItem().toString();
 
@@ -191,9 +201,28 @@ public class LocationsController {
 
     @FXML
     protected void editLocation(ActionEvent event) {
+        if(currentLocation == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar localidade");
+            alert.setContentText("Selecione uma localidade");
+            alert.showAndWait();
+            return;
+        }
+
         currentLocation.setAddress(editAddress.getText());
         currentLocation.setCity(editCity.getText());
         currentLocation.setZipcode(editZipcode.getText());
+
+        if(editPhone.getText().length() != 9) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar localidade");
+            alert.setContentText("O número de telefone tem de ter 9 dígitos.");
+            alert.showAndWait();
+            return;
+        }
+
         currentLocation.setPhone(Integer.parseInt(editPhone.getText()));
         currentLocation.setServiceType(editService.getSelectionModel().getSelectedItem().toString());
         currentLocation.setCompany(Storage.getStorage().getCompanyByName((String) editCompany.getSelectionModel().getSelectedItem()));

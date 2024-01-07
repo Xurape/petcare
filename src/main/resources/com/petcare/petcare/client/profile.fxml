@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="962.0" style="-fx-background-color: #100;" styleClass="background-color: #000" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.petcare.Controllers.ProfileController">
+   <children>
+      <Pane prefHeight="385.0" prefWidth="67.0" style="-fx-background-color: #fff;">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="962.0">
+               <image>
+                  <Image url="@../img/background-counter-892.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="67.0" prefHeight="63.0" prefWidth="895.0" style="-fx-background-color: #02223A;" />
+            <Text fx:id="welcomeText" fill="#eeeeee" layoutX="80.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meu perfil" wrappingWidth="660.3887481689453">
+               <font>
+                  <Font name="Tahoma" size="24.0" />
+               </font>
+            </Text>
+            <Pane layoutX="-2.0" prefHeight="600.0" prefWidth="74.0" style="-fx-background-color: #02223A;">
+               <children>
+                  <ImageView fitHeight="63.0" fitWidth="62.0" layoutX="7.0" layoutY="11.0">
+                     <image>
+                        <Image url="@../img/logo_nobg_eee.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="25.0" layoutY="94.0">
+                     <image>
+                        <Image url="@../img/icons/home-icon.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="11.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="150.0">
+                     <image>
+                        <Image url="@../img/icons/credit-card.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="12.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faturas" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="gotoInvoices" layoutX="12.0" layoutY="145.0" mnemonicParsing="false" onAction="#gotoInvoices" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+                  <Button fx:id="gotoHome" layoutX="11.0" layoutY="91.0" mnemonicParsing="false" onAction="#gotoHomeClient" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+                  <Pane layoutX="-2.0" layoutY="513.0" prefHeight="84.0" prefWidth="80.0">
+                     <children>
+                        <Button fx:id="logOut" layoutX="3.0" layoutY="15.0" mnemonicParsing="false" onAction="#logout" opacity="0.0" prefHeight="62.0" prefWidth="77.0" text="Button" />
+                        <Text fill="#eeeeee" layoutX="15.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Terminar sessão" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                           <font>
+                              <Font name="Apple Braille Outline 8 Dot" size="9.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="32.0" layoutY="20.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons/leave.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="26.0" layoutY="480.0">
+                     <image>
+                        <Image url="@../img/user-group.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" layoutX="12.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meu perfil" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+                     <font>
+                        <Font name="Tahoma" size="10.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="gotoProfileButton" layoutX="12.0" layoutY="475.0" mnemonicParsing="false" onAction="#gotoProfile" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+               </children>
+            </Pane>
+            <Pane fx:id="_servicePane" layoutX="89.0" layoutY="87.0" prefHeight="247.0" prefWidth="854.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="15.0" layoutY="17.0">
+                     <image>
+                        <Image url="@../img/icons/cube.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar perfil">
+                     <font>
+                        <Font name="Apple Braille" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="_nif" layoutX="16.0" layoutY="67.0" prefHeight="26.0" prefWidth="178.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="18.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NIF">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="_name" layoutX="216.0" layoutY="67.0" prefHeight="26.0" prefWidth="300.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="216.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="_email" layoutX="16.0" layoutY="127.0" prefHeight="26.0" prefWidth="339.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="18.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="_address" layoutX="364.0" layoutY="127.0" prefHeight="26.0" prefWidth="339.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="364.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Morada">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="_surname" layoutX="537.0" layoutY="67.0" prefHeight="26.0" prefWidth="300.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="538.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sobrenome">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="_phone" layoutX="715.0" layoutY="127.0" prefHeight="26.0" prefWidth="121.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="716.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de telemovel">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="editProfileButton" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="685.0" layoutY="187.0" mnemonicParsing="false" onAction="#editProfile" pickOnBounds="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Editar perfil" textAlignment="CENTER" textFill="#eeeeee">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Button>
+                  <TextField fx:id="_username" layoutX="16.0" layoutY="187.0" prefHeight="26.0" prefWidth="178.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="18.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="_password" layoutX="216.0" layoutY="187.0" prefHeight="26.0" prefWidth="178.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="216.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+         <effect>
+            <DropShadow height="23.95" radius="12.21" spread="0.19" width="26.89">
+               <color>
+                  <Color opacity="0.252390056848526" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Pane>
+   </children>
+</HBox>

@@ -144,11 +144,62 @@ public class EmployeesController implements Initializable {
 
 
     public void editEmployee(ActionEvent event) {
+        if(currentEmployee == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setContentText("Selecione um funcionário");
+            alert.showAndWait();
+            return;
+        }
+
+        if(Storage.getStorage().userExists(editNIF.getText()) && !editNIF.getText().equals(currentEmployee.getnif())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setContentText("Já existe um utilizador com esse NIF");
+            alert.showAndWait();
+            return;
+        }
+
+        if(editNIF.getText().length() != 9) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setContentText("O NIF tem de ter 9 dígitos");
+            alert.showAndWait();
+            return;
+        }
+
         currentEmployee.setnif(editNIF.getText());
         currentEmployee.setName(editName.getText());
         currentEmployee.setSurname(editSurname.getText());
+
+        if(!editEmail.getText().contains("@")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao editar funcionário");
+            alert.setContentText("O email tem de conter @");
+            alert.showAndWait();
+            return;
+        }
+
         currentEmployee.setEmail(editEmail.getText());
         currentEmployee.setAddress(editAddress.getText());
+
+        for (Company company : Storage.getStorage().getCompanies().values()) {
+            for (Employee employee : company.getEmployees()) {
+                if (employee.getUsername().equals(editUsername.getText()) && !employee.getnif().equals(currentEmployee.getnif())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erro");
+                    alert.setHeaderText("Erro ao editar funcionário");
+                    alert.setContentText("Já existe um utilizador com esse username");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+        }
+
         currentEmployee.setUsername(editUsername.getText());
         currentEmployee.setPassword(editPassword.getText());
 
@@ -178,6 +229,37 @@ public class EmployeesController implements Initializable {
             }
         } else {
             _company = Session.getSession().getCurrentUserAsServiceProvider().getCompany();
+        }
+
+        if(createNIF.getText().length() != 9) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar funcionário");
+            alert.setContentText("O NIF tem de ter 9 dígitos");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!createEmail.getText().contains("@")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao criar funcionário");
+            alert.setContentText("O email tem de conter @");
+            alert.showAndWait();
+            return;
+        }
+
+        for (Company company : Storage.getStorage().getCompanies().values()) {
+            for (Employee employee : company.getEmployees()) {
+                if (employee.getUsername().equals(createUsername.getText())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erro");
+                    alert.setHeaderText("Erro ao criar funcionário");
+                    alert.setContentText("Já existe um utilizador com esse username");
+                    alert.showAndWait();
+                    return;
+                }
+            }
         }
 
         Employee employee = new Employee(createNIF.getText(), createName.getText(), createSurname.getText(), createEmail.getText(), createAddress.getText(), _company, Employee.convertStringToEmployeeType(createType.getValue()));

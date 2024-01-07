@@ -2,6 +2,7 @@ package com.petcare.petcare.Controllers;
 
 import com.petcare.petcare.Exceptions.CouldNotSerializeException;
 import com.petcare.petcare.Services.Location;
+import com.petcare.petcare.Services.Product;
 import com.petcare.petcare.Services.Service;
 import com.petcare.petcare.Users.Company;
 import com.petcare.petcare.Utils.Debug;
@@ -30,9 +31,9 @@ public class ServicesController {
     Stage thisStage;
 
     @FXML
-    private ListView<String> servicesList;
+    private ListView<String> servicesList, productList;
     @FXML
-    private TextField createName, createDescription, createPrice, editName, editDescription, editPrice;
+    private TextField createName, createDescription, createPrice, editName, editDescription, editPrice, productName, productPrice;
     @FXML
     private ChoiceBox<String> createType, editType, createCompany, editCompany;
 
@@ -77,6 +78,7 @@ public class ServicesController {
         }
 
         servicesList.setStyle("-fx-control-inner-background: #012B49;");
+        productList.setStyle("-fx-control-inner-background: #012B49;");
 
         if(Session.getSession().isAdmin()) {
             if(createCompany != null) {
@@ -106,6 +108,24 @@ public class ServicesController {
                     editPrice.setText(String.valueOf(currentService.getPrice()));
                     editCompany.getSelectionModel().select(currentService.getCompany().getName());
                     editCompany.setDisable(true);
+                    for(Product product : currentService.getProducts()) {
+                        productList.getItems().add(product.getName());
+                    }
+                }
+            }
+        });
+
+        productList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String old, String newValue) {
+                if(newValue != null) {
+                    for(Product product : currentService.getProducts()) {
+                        if(product.getName().equals(newValue)) {
+                            productName.setText(product.getName());
+                            productPrice.setText(String.valueOf(product.getPrice()));
+                            break;
+                        }
+                    }
                 }
             }
         });
@@ -246,6 +266,103 @@ public class ServicesController {
                 alert.setTitle("Erro");
                 alert.setHeaderText("Erro ao remover serviço");
                 alert.setContentText("O serviço não existe");
+                alert.showAndWait();
+                return;
+            }
+        }
+    }
+
+    @FXML
+    public void product(ActionEvent event) {
+        if(currentService == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao adicionar produto");
+            alert.setContentText("Selecione um serviço");
+            alert.showAndWait();
+            return;
+        }
+
+        String name = productName.getText();
+        double price = Double.parseDouble(productPrice.getText());
+
+        Product product = null;
+
+        for(Product p : currentService.getProducts()) {
+            if(p.getName().equals(name)) {
+                product = p;
+            }
+        }
+
+        if(product != null) {
+            product.setPrice(price);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Sucesso");
+            alert.setHeaderText("Produto editado com sucesso");
+            alert.setContentText("O produto foi editado com sucesso");
+            alert.showAndWait();
+            return;
+        }
+
+        product = new Product(name, price);
+        currentService.getProducts().add(product);
+
+        try {
+            Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+            Debug.success("Product added successfully", true, true);
+        } catch(CouldNotSerializeException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao adicionar produto");
+            alert.setContentText("Não foi possível guardar");
+            alert.showAndWait();
+            return;
+        }
+
+        this.getServicesList();
+    }
+
+    @FXML
+    public void removeProduct(ActionEvent event) {
+        if(currentService == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao remover produto");
+            alert.setContentText("Selecione um serviço");
+            alert.showAndWait();
+            return;
+        }
+
+        String name = productName.getText();
+
+        for(Product product : currentService.getProducts()) {
+            if(product.getName().equals(name)) {
+                currentService.getProducts().remove(product);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Successo!");
+                alert.setHeaderText("Produto removido com sucesso!");
+                alert.setContentText("O produto foi removido com sucesso!");
+                alert.showAndWait();
+
+                try {
+                    Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+                    Debug.success("Product removed successfully", true, true);
+                    this.getServicesList();
+                    currentService = null;
+                } catch(CouldNotSerializeException e) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setTitle("Erro");
+                    alert.setHeaderText("Erro ao remover produto");
+                    alert.setContentText("Não foi possível guardar");
+                    alert.showAndWait();
+                    return;
+                }
+                return;
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao remover produto");
+                alert.setContentText("O produto não existe");
                 alert.showAndWait();
                 return;
             }

@@ -29,7 +29,7 @@
                   <Font name="Tahoma" size="24.0" />
                </font>
             </Text>
-            <Pane layoutX="97.0" layoutY="81.0" prefHeight="379.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
+            <Pane layoutX="97.0" layoutY="81.0" prefHeight="347.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
                <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="13.0" layoutY="13.0">
                   <image>
                      <Image url="@../img/icons/services.png" />
@@ -40,7 +40,7 @@
                      <Font name="Apple Braille" size="17.0" />
                   </font>
                </Text>
-               <ListView fx:id="servicesList" layoutX="13.0" layoutY="43.0" prefHeight="322.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
+               <ListView fx:id="servicesList" layoutX="13.0" layoutY="43.0" prefHeight="287.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
                <Button fx:id="removeServiceButton" alignment="CENTER" layoutX="219.0" layoutY="10.0" mnemonicParsing="false" onAction="#removeService" style="-fx-background-color: #ff7272; -fx-background-radius: 5;" text="-" textAlignment="CENTER" textFill="#eeeeee" textOverrun="CLIP">
                   <font>
                      <Font name="Apple Braille Outline 6 Dot" size="12.0" />
@@ -237,6 +237,67 @@
                   </Text>
                   <ChoiceBox fx:id="editType" layoutX="16.0" layoutY="131.0" prefHeight="26.0" prefWidth="159.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
                   <ChoiceBox fx:id="editCompany" layoutX="424.0" layoutY="15.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-radius: 6; -fx-background-color: #0E2A47; -fx-text-fill: #eee;" stylesheets="@../style.css" />
+               </children>
+            </Pane>
+            <Pane fx:id="productPane" layoutX="363.0" layoutY="471.0" prefHeight="117.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="15.0" layoutY="17.0">
+                     <image>
+                        <Image url="@../img/icons/pencil.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar ou criar um produto">
+                     <font>
+                        <Font name="Apple Braille" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="productName" layoutX="16.0" layoutY="67.0" prefHeight="26.0" prefWidth="228.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="16.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="product" defaultButton="true" depthTest="ENABLE" graphicTextGap="7.0" layoutX="373.0" layoutY="67.0" mnemonicParsing="false" onAction="#product" pickOnBounds="false" prefHeight="25.0" prefWidth="201.0" style="-fx-background-color: #1163f5; -fx-background-radius: 6;" text="Criar ou editar produto" textAlignment="CENTER" textFill="#eeeeee">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Button>
+                  <TextField fx:id="productPrice" layoutX="252.0" layoutY="67.0" prefHeight="26.0" prefWidth="111.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="257.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preço">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane layoutX="97.0" layoutY="435.0" prefHeight="153.0" prefWidth="254.0" style="-fx-background-color: #00233C; -fx-background-radius: 10;">
+               <children>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="13.0" layoutY="13.0">
+                     <image>
+                        <Image url="@../img/icons/cube.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="37.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produtos">
+                     <font>
+                        <Font name="Apple Braille" size="17.0" />
+                     </font>
+                  </Text>
+                  <ListView fx:id="productList" layoutX="13.0" layoutY="43.0" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: #012B49; -fx-background-radius: 8;" />
+                  <Button fx:id="removeProductButton" alignment="CENTER" layoutX="219.0" layoutY="10.0" mnemonicParsing="false" onAction="#removeProduct" style="-fx-background-color: #ff7272; -fx-background-radius: 5;" text="-" textAlignment="CENTER" textFill="#eeeeee" textOverrun="CLIP">
+                     <font>
+                        <Font name="Apple Braille Outline 6 Dot" size="12.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" spread="0.37" width="10.0">
+                           <color>
+                              <Color opacity="0.0630975142121315" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Button>
                </children>
             </Pane>
          </children>

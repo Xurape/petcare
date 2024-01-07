@@ -138,6 +138,9 @@ public class RegisterController {
         if(phone.length() != 9)
             error = "O número de telefone tem de ter 9 dígitos.";
 
+        if(!username.contains("@"))
+            error = "O email tem de conter @";
+
         if(error != null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
@@ -156,7 +159,7 @@ public class RegisterController {
                 _user.setAddress(address);
                 _user.setOnline(true);
                 Storage.getStorage().getServiceProviders().put(nif, (ServiceProvider) _user);
-                if(!Session.getSession().register((ServiceProvider) _user))
+                if(!Session.getSession().register(_user))
                     error = "Erro ao registar utilizador como prestador de serviço.";
                 break;
                 
@@ -166,7 +169,7 @@ public class RegisterController {
                 _user.setAddress(address);
                 _user.setOnline(true);
                 Storage.getStorage().getClients().put(nif, (Client) _user);
-                if(!Session.getSession().register((Client) _user))
+                if(!Session.getSession().register(_user))
                     error = "Erro ao registar utilizador como cliente.";
                 break;
         }

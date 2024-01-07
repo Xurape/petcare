@@ -3,12 +3,15 @@ package com.petcare.petcare.Services;
 import com.petcare.petcare.Users.Company;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Service implements Serializable {
     private String name, description;
     private ServiceType type;
     private double price;
     private Company company;
+    private List<Product> products = new ArrayList<>();
 
     /**
      *
@@ -26,6 +29,14 @@ public class Service implements Serializable {
         this.type = type;
         this.price = price;
         this.company = company;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Company getCompany() {
