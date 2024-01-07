@@ -136,6 +136,66 @@ public class ProfileController implements Initializable {
 
     /**
      *
+     * Logout
+     *
+     * @param event Event
+     * @throws Exception Exception
+     *
+     */
+    @FXML
+    protected void logout(ActionEvent event) throws Exception {
+        Session.getSession().logout();
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/login.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                LauncherController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'login.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the homepage
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoHome(ActionEvent event) {
+        URL resourceUrl = null;
+        if(Session.getSession().isAdmin())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/homepage.fxml");
+        else if(Session.getSession().isDeskEmployee())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/homepage.fxml");
+        else if(Session.getSession().isServiceProvider())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/serviceProvider/homepage.fxml");
+        else
+            resourceUrl = getClass().getResource("/com/petcare/petcare/client/homepage.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                HomepageController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'homepage.fxml' not found.");
+        }
+    }
+
+    /**
+     *
      * Go to the homepage
      *
      * @param event Event
@@ -158,6 +218,7 @@ public class ProfileController implements Initializable {
             System.err.println("Resource 'homepage.fxml' not found.");
         }
     }
+
 
     /**
      *
@@ -184,6 +245,152 @@ public class ProfileController implements Initializable {
         }
     }
 
+    /**
+     *
+     * Go to the services page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoServices(ActionEvent event) {
+        URL resourceUrl = null;
+        if(Session.getSession().isAdmin())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/services.fxml");
+        else if(Session.getSession().isDeskEmployee())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/services.fxml");
+        else if(Session.getSession().isServiceProvider())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/serviceProvider/services.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                ServicesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'services.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the employees page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoEmployees(ActionEvent event) {
+        URL resourceUrl = null;
+        if(Session.getSession().isAdmin())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+        else if(Session.getSession().isDeskEmployee())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/employees.fxml");
+        else if(Session.getSession().isServiceProvider())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/serviceProvider/employees.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                EmployeesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'employees.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the employees page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoDeskEmployees(ActionEvent event) {
+        URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/deskemployees.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                DeskEmployeesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'deskemployees.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the locations page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoLocations(ActionEvent event) {
+        URL resourceUrl = null;
+        if(Session.getSession().isAdmin())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/employees.fxml");
+        else if(Session.getSession().isDeskEmployee())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/locations.fxml");
+        else if(Session.getSession().isServiceProvider())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/serviceProvider/locations.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                LocationsController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'locations.fxml' not found.");
+        }
+    }
+
+    /**
+     *
+     * Go to the companies page
+     *
+     * @param event Event
+     *
+     */
+    @FXML
+    protected void gotoCompanies(ActionEvent event) {
+        URL resourceUrl = null;
+        if(Session.getSession().isAdmin())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/companies.fxml");
+        else if(Session.getSession().isDeskEmployee())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/companies.fxml");
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                CompaniesController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Resource 'companies.fxml' not found.");
+        }
+    }
 
     /**
      *
@@ -194,7 +401,15 @@ public class ProfileController implements Initializable {
      */
     @FXML
     protected void gotoProfile(ActionEvent event) {
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/client/profile.fxml");
+        URL resourceUrl = null;
+        if(Session.getSession().isAdmin())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/profile.fxml");
+        else if(Session.getSession().isDeskEmployee())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/profile.fxml");
+        else if(Session.getSession().isServiceProvider())
+            resourceUrl = getClass().getResource("/com/petcare/petcare/serviceProvider/profile.fxml");
+        else
+            resourceUrl = getClass().getResource("/com/petcare/petcare/client/profile.fxml");
         if (resourceUrl != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
@@ -207,34 +422,6 @@ public class ProfileController implements Initializable {
             }
         } else {
             System.err.println("Resource 'profile.fxml' not found.");
-        }
-    }
-
-
-    /**
-     *
-     * Logout
-     *
-     * @param event Event
-     * @throws Exception Exception
-     *
-     */
-    @FXML
-    protected void logout(ActionEvent event) throws Exception {
-        Session.getSession().logout();
-        URL resourceUrl = getClass().getResource("/com/petcare/petcare/login.fxml");
-        if (resourceUrl != null) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
-                Parent root = fxmlLoader.load();
-                LauncherController controller = fxmlLoader.getController();
-                controller.setStage(thisStage);
-                thisStage.setScene(new Scene(root));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.err.println("Resource 'login.fxml' not found.");
         }
     }
 }

@@ -194,6 +194,17 @@
                   </Text>
                </children>
             </Pane>
+            <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="24.0" layoutY="480.0">
+               <image>
+                  <Image url="@../img/user-group.png" />
+               </image>
+            </ImageView>
+            <Text fill="#eeeeee" layoutX="10.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meu perfil" textAlignment="CENTER" wrappingWidth="53.08499526977539">
+               <font>
+                  <Font name="Tahoma" size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="gotoProfileButton" layoutX="10.0" layoutY="475.0" mnemonicParsing="false" onAction="#gotoProfile" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
          </children>
          <effect>
             <DropShadow height="23.95" radius="12.21" spread="0.19" width="26.89">
