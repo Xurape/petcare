@@ -25,7 +25,7 @@ public class ProfileController implements Initializable {
     private Stage thisStage;
 
     @FXML
-    private TextField _nif, _name, _surname, _email, _address, _phone, _username, _password;
+    private TextField _nif, _name, _surname, _email, _address, _phone, _username, _password, _number;
 
     @FXML
     private ChoiceBox<String> _company;
@@ -99,6 +99,7 @@ public class ProfileController implements Initializable {
         _nif.setText(client.getnif());
         _address.setText(client.getAddress());
         _username.setText(client.getUsername());
+        _number.setText(client.getCitizenNumber());
     }
 
     @FXML
@@ -141,24 +142,28 @@ public class ProfileController implements Initializable {
             ((Admin) client).setEmail(_email.getText());
             ((Admin) client).setAddress(_address.getText());
             ((Admin) client).setPhone(Integer.parseInt(_phone.getText()));
+            ((Admin) client).setCitizenNumber(_number.getText());
         } else if(Session.getSession().isDeskEmployee()) {
             ((DeskEmployee) client).setName(_name.getText());
             ((DeskEmployee) client).setSurname(_surname.getText());
             ((DeskEmployee) client).setEmail(_email.getText());
             ((DeskEmployee) client).setAddress(_address.getText());
             ((DeskEmployee) client).setPhone(Integer.parseInt(_phone.getText()));
+            ((DeskEmployee) client).setCitizenNumber(_number.getText());
         } else if(Session.getSession().isServiceProvider()) {
             ((ServiceProvider) client).setName(_name.getText());
             ((ServiceProvider) client).setSurname(_surname.getText());
             ((ServiceProvider) client).setEmail(_email.getText());
             ((ServiceProvider) client).setAddress(_address.getText());
             ((ServiceProvider) client).setPhone(Integer.parseInt(_phone.getText()));
+            ((ServiceProvider) client).setCitizenNumber(_number.getText());
         } else {
             ((Client) client).setName(_name.getText());
             ((Client) client).setSurname(_surname.getText());
             ((Client) client).setEmail(_email.getText());
             ((Client) client).setAddress(_address.getText());
             ((Client) client).setPhone(Integer.parseInt(_phone.getText()));
+            ((Client) client).setCitizenNumber(_number.getText());
         }
 
         if(!_password.getText().isEmpty())

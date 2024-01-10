@@ -5,6 +5,7 @@ public class Employee extends User {
     private Company company;
     private EmployeeType employeeType;
     private String professionalNumber;
+
     public Employee(String username, String password) {
         super(username, password);
     }

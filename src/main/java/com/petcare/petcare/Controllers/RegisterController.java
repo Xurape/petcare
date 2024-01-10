@@ -38,6 +38,12 @@ public class RegisterController {
     @FXML
     private TextField fieldEmail;
     @FXML
+    private TextField fieldName;
+    @FXML
+    private TextField fieldSurname;
+    @FXML
+    private TextField fieldNumber;
+    @FXML
     private Label errorText;
 
     /**
@@ -119,11 +125,14 @@ public class RegisterController {
         String address = fieldAddress.getText();
         String tipo = (String) tipoConta.getValue();
         String phone = fieldPhone.getText();
+        String surname = fieldSurname.getText();
+        String name = fieldName.getText();
+        String citizenNumber = fieldNumber.getText();
 
         if(!password.equals(passwordAgain))
             error = "Password não coincide";
 
-        if(username.isEmpty() || password.isEmpty() || passwordAgain.isEmpty() || nif.isEmpty() || address.isEmpty() || phone.isEmpty() || tipo == null)
+        if(username.isEmpty() || password.isEmpty() || passwordAgain.isEmpty() || nif.isEmpty() || address.isEmpty() || phone.isEmpty() || tipo == null || name.isEmpty() || surname.isEmpty() || citizenNumber.isEmpty())
             error = "Por favor preencha todos os campos.";
 
         if(Storage.getStorage().userExists(nif))
@@ -162,6 +171,10 @@ public class RegisterController {
                 ((ServiceProvider) _user).setEmail(email);
                 _user.setAddress(address);
                 _user.setOnline(true);
+                ((ServiceProvider) _user).setName(name);
+                ((ServiceProvider) _user).setSurname(surname);
+                ((ServiceProvider) _user).setCitizenNumber(citizenNumber);
+                ((ServiceProvider) _user).setPhone(Integer.parseInt(phone));
                 Storage.getStorage().getServiceProviders().put(nif, (ServiceProvider) _user);
                 if(!Session.getSession().register(_user))
                     error = "Erro ao registar utilizador como prestador de serviço.";
@@ -172,6 +185,9 @@ public class RegisterController {
                 _user.setnif(nif);
                 ((Client) _user).setEmail(email);
                 ((Client) _user).setPhone(Integer.parseInt(phone));
+                ((Client) _user).setName(name);
+                ((Client) _user).setSurname(surname);
+                _user.setCitizenNumber(citizenNumber);
                 _user.setAddress(address);
                 _user.setOnline(true);
                 Storage.getStorage().getClients().put(nif, (Client) _user);

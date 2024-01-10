@@ -68,7 +68,8 @@ public class Launcher extends Application {
         controller.setStage(stage);
         controller.showStage();
 
-        Debug.print("Application started - Thread [ 0 - 0x000000 ]", true, true);
+        long pid = ProcessHandle.current().pid();
+        Debug.print("Application started - Process [ " + pid + " ]", true, true);
 
         Seeder.seed();
     }

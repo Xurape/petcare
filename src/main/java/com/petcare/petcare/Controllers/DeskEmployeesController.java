@@ -112,7 +112,7 @@ public class DeskEmployeesController implements Initializable {
             employeesList.getItems().clear();
             employeesList.getItems().addAll(employees);
         }
-        
+
         employeesList.getSelectionModel().clearSelection();
     }
 

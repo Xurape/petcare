@@ -102,8 +102,8 @@
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="_name" layoutX="216.0" layoutY="67.0" prefHeight="26.0" prefWidth="300.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Text fill="#eeeeee" layoutX="216.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+                  <TextField fx:id="_name" layoutX="412.0" layoutY="67.0" prefHeight="26.0" prefWidth="204.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="415.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
                      <font>
                         <Font name="Apple Braille" size="11.0" />
                      </font>
@@ -120,8 +120,8 @@
                         <Font name="Apple Braille" size="11.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="_surname" layoutX="537.0" layoutY="67.0" prefHeight="26.0" prefWidth="300.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
-                  <Text fill="#eeeeee" layoutX="538.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sobrenome">
+                  <TextField fx:id="_surname" layoutX="631.0" layoutY="67.0" prefHeight="26.0" prefWidth="204.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="632.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sobrenome">
                      <font>
                         <Font name="Apple Braille" size="11.0" />
                      </font>
@@ -148,6 +148,12 @@
                   </Text>
                   <TextField fx:id="_password" layoutX="216.0" layoutY="187.0" prefHeight="26.0" prefWidth="178.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
                   <Text fill="#eeeeee" layoutX="216.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+                     <font>
+                        <Font name="Apple Braille" size="11.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="_number" layoutX="207.0" layoutY="67.0" prefHeight="26.0" prefWidth="193.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+                  <Text fill="#eeeeee" layoutX="209.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número do cartão de cidadão">
                      <font>
                         <Font name="Apple Braille" size="11.0" />
                      </font>
