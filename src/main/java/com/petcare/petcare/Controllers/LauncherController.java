@@ -49,7 +49,7 @@ public class LauncherController {
      *
      */
     public void showStage(){
-        thisStage.setTitle("PetCare - Por favor, autentique-se!");
+        thisStage.setTitle("PetCare - Bem-vindo!");
         thisStage.show();
     }
 

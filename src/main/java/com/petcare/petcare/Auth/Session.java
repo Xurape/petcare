@@ -138,6 +138,15 @@ public class Session implements Serializable {
             }
         }
 
+        Iterable<DeskEmployee> deskEmployees = Storage.getStorage().getDeskEmployees();
+        for (DeskEmployee employee : deskEmployees) {
+            if (employee.getUsername().equals(username) && employee.getPassword().equals(password)) {
+                this.setCurrentUser(employee);
+                Debug.success("Employee " + employee.getnif() + " logged in successfully!", true, true);
+                return true;
+            }
+        }
+
         Iterable<Admin> admins = Storage.getStorage().getAdmins().values();
         for (Admin admin : admins) {
             if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {

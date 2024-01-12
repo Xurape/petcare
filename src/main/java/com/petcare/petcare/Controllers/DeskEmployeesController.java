@@ -228,9 +228,19 @@ public class DeskEmployeesController implements Initializable {
             alert.setHeaderText("Erro ao criar funcionário");
             alert.setContentText("O funcionário já existe");
             alert.showAndWait();
-            return;
         } else {
-            Storage.getStorage().getDeskEmployees().add(employee);
+            try {
+                Storage.getStorage().serialize("./src/main/resources/data/storage.db");
+                Storage.getStorage().getDeskEmployees().add(employee);
+                Debug.success("Employee created successfully", true, true);
+            } catch (CouldNotSerializeException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao criar funcionário");
+                alert.setContentText("Não foi possível guardar");
+                alert.showAndWait();
+                return;
+            }
             this.getEmployees();
         }
     }
