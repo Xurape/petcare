@@ -30,25 +30,6 @@ public interface IUser {
 
     /**
      *
-     * Set the online status of the user
-     *
-     * @param isOnline Online status of the user
-     *
-     */
-    void setOnline(boolean isOnline);
-
-    /**
-     *
-     * Get the online status of the user
-     *
-     * @return True if the user is online, false otherwise
-     * @see #isOnline()
-     *
-     */
-    boolean isOnline();
-
-    /**
-     *
      * Get the password of the user
      *
      * @return String with the password
@@ -58,24 +39,12 @@ public interface IUser {
 
     /**
      *
-     * Check if the password is correct
-     *
-     * @param password Password to check
-     *
-     * @return True if the password is correct, false otherwise
-     * @throws Exception Exception
-     *
-     */
-    boolean checkPassword(String password) throws Exception;
-
-    /**
-     *
      * Get the nif of the user
      *
      * @return nif of the user
      *
      */
-    public String getnif();
+    String getnif();
 
     /**
      *
@@ -84,5 +53,5 @@ public interface IUser {
      * @param nif nif of the user
      *
      */
-    public void setnif(String nif);
+    void setnif(String nif);
 }

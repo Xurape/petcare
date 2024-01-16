@@ -12,6 +12,18 @@ public class Appointments implements Serializable {
     private String reason;
     private Invoice invoice;
 
+    /**
+     *
+     * Constructor
+     *
+     * @param client Client
+     * @param service Service
+     * @param location Location
+     * @param company Company
+     * @param date Date
+     * @param value Value
+     *
+     */
     public Appointments(String client, String service, String location, String company, String date, String value) {
         this.client = client;
         this.service = service;
@@ -38,22 +50,57 @@ public class Appointments implements Serializable {
         }
     }
 
+    /**
+     *
+     * Get invoice
+     *
+     * @return Invoice
+     *
+     */
     public Invoice getInvoice() {
         return invoice;
     }
 
+    /**
+     *
+     * Set invoice
+     *
+     * @param invoice Invoice
+     *
+     */
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
 
+    /**
+     *
+     * Get reason
+     *
+     * @return Reason
+     *
+     */
     public String getReason() {
         return reason;
     }
 
+    /**
+     *
+     * Set reason
+     *
+     * @param reason Reason
+     *
+     */
     public void setReason(String reason) {
         this.reason = reason;
     }
 
+    /**
+     *
+     * Get status as string
+     *
+     * @return Status as string
+     *
+     */
     public String getStatusAsString() {
         switch (status) {
             case PENDING:
@@ -69,39 +116,101 @@ public class Appointments implements Serializable {
         }
     }
 
-
+    /**
+     *
+     * Get timestamp
+     *
+     * @return Timestamp
+     *
+     */
     public String getTimestamp() {
         return timestamp;
     }
 
+    /**
+     *
+     * Set timestamp
+     *
+     * @param timestamp Timestamp
+     *
+     */
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
+    /**
+     *
+     * Get client
+     *
+     * @return Client
+     *
+     */
     public String getClient() {
         return client;
     }
 
+    /**
+     *
+     * Set client as string
+     *
+     * @param client Client as string
+     *
+     */
     public void setClient(String client) {
         this.client = client;
     }
 
+    /**
+     *
+     * Get service
+     *
+     * @return Service
+     *
+     */
     public String getService() {
         return service;
     }
 
+    /**
+     *
+     * Set service
+     *
+     * @param service Service
+     *
+     */
     public void setService(String service) {
         this.service = service;
     }
 
+    /**
+     *
+     * Set location
+     *
+     * @param location Location
+     *
+     */
     public void setLocation(String location) {
         this.location = location;
     }
 
+    /**
+     *
+     * Get company
+     *
+     * @return Company
+     *
+     */
     public String getCompany() {
         return company;
     }
 
+    /**
+     *
+     * Set company
+     *
+     * @param company Company
+     *
+     */
     public void setCompany(String company) {
         this.company = company;
     }
@@ -150,14 +259,35 @@ public class Appointments implements Serializable {
         this.value = value;
     }
 
+    /**
+     *
+     * Get status
+     *
+     * @return Status
+     *
+     */
     public AppointmentsStatus getStatus() {
         return status;
     }
 
+    /**
+     *
+     * Set status
+     *
+     * @param status Status
+     *
+     */
     public void setStatus(AppointmentsStatus status) {
         this.status = status;
     }
 
+    /**
+     *
+     * Get location
+     *
+     * @return Location
+     *
+     */
     public String getLocation() {
         return location;
     }

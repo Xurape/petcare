@@ -88,6 +88,11 @@ public class CompaniesController implements Initializable {
         });
     }
 
+    /**
+     *
+     * Get companies
+     *
+     */
     public void getCompanies() {
         boolean isEmpty = false;
         ObservableList<String> companies = FXCollections.observableArrayList();
@@ -108,6 +113,13 @@ public class CompaniesController implements Initializable {
         companiesList.getSelectionModel().clearSelection();
     }
 
+    /**
+     *
+     * Edit company
+     *
+     * @param event Event
+     *
+     */
     public void editCompany(ActionEvent event) {
         if(Storage.getStorage().getCompanies().containsKey(editNIF.getText()) && !editNIF.getText().equals(currentCompany.getnif())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -166,6 +178,13 @@ public class CompaniesController implements Initializable {
         this.getCompanies();
     }
 
+    /**
+     *
+     * Create company
+     *
+     * @param event Event
+     *
+     */
     public void createCompany(ActionEvent event) {
         if(createNIF.getText().length() != 9) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -224,6 +243,14 @@ public class CompaniesController implements Initializable {
         }
     }
 
+
+    /**
+     *
+     * Remove company
+     *
+     * @param event Event
+     *
+     */
     public void removeCompany(ActionEvent event) {
         if(currentCompany == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -141,18 +141,46 @@ public class User implements IUser, Serializable {
         this.address = address;
     }
 
+    /**
+     *
+     * Get the NIF
+     *
+     * @return NIF
+     *
+     */
     public String getNif() {
         return nif;
     }
 
+    /**
+     *
+     * Set the NIF
+     *
+     * @param nif NIF
+     *
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
 
+    /**
+     *
+     * Get the citizen number of the user
+     *
+     * @return Citizen number of the user
+     *
+     */
     public String getCitizenNumber() {
         return citizenNumber;
     }
 
+    /**
+     *
+     * Set the citizen number of the user
+     *
+     * @param citizenNumber Citizen number of the user
+     *
+     */
     public void setCitizenNumber(String citizenNumber) {
         this.citizenNumber = citizenNumber;
     }

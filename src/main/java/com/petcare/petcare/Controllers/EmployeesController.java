@@ -104,6 +104,11 @@ public class EmployeesController implements Initializable {
         });
     }
 
+    /**
+     *
+     * Get employees
+     *
+     */
     public void getEmployees() {
         boolean isEmpty = false;
         ObservableList<String> employees = FXCollections.observableArrayList();
@@ -144,7 +149,13 @@ public class EmployeesController implements Initializable {
         employeesList.getSelectionModel().clearSelection();
     }
 
-
+    /**
+     *
+     * Edit employees
+     *
+     * @param event Event
+     *
+     */
     public void editEmployee(ActionEvent event) {
         if(currentEmployee == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -221,6 +232,13 @@ public class EmployeesController implements Initializable {
         this.getEmployees();
     }
 
+    /**
+     *
+     * Create employee
+     *
+     * @param event Event
+     *
+     */
     public void createEmployee(ActionEvent event) {
         Company _company = null;
 
@@ -300,6 +318,13 @@ public class EmployeesController implements Initializable {
         }
     }
 
+    /**
+     *
+     * Remove employee
+     *
+     * @param event Event
+     *
+     */
     public void removeEmployee(ActionEvent event) {
         if(currentEmployee == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

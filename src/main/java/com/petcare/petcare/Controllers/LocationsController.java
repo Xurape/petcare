@@ -127,6 +127,11 @@ public class LocationsController {
         });
     }
 
+    /**
+     *
+     * Get the locations
+     *
+     */
     public void getLocations() {
         boolean isEmpty = false;
 
@@ -157,6 +162,13 @@ public class LocationsController {
         locationList.getSelectionModel().clearSelection();
     }
 
+    /**
+     *
+     * Create a location
+     *
+     * @param event Event
+     *
+     */
     @FXML
     protected void createLocation(ActionEvent event) {
         String address = createAddress.getText();
@@ -215,6 +227,13 @@ public class LocationsController {
         this.getLocations();
     }
 
+    /**
+     *
+     * Edit a location
+     *
+     * @param event Event
+     *
+     */
     @FXML
     protected void editLocation(ActionEvent event) {
         if(currentLocation == null) {
@@ -260,6 +279,13 @@ public class LocationsController {
         this.getLocations();
     }
 
+    /**
+     *
+     * Remove a location
+     *
+     * @param event Event
+     *
+     */
     @FXML
     protected void removeLocation(ActionEvent event) {
         if(currentLocation == null) {

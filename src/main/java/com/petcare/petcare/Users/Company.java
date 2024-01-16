@@ -9,6 +9,15 @@ public class Company implements Serializable {
     private List<Employee> employees = new ArrayList<>();
     private double balance = 0.0;
 
+    /**
+     *
+     * Constructor
+     *
+     * @param nif NIF
+     * @param name Name
+     * @param email Email
+     * @param address Address
+     */
     public Company(String nif, String name, String email, String address) {
         this.nif = nif;
         this.name = name;
@@ -16,18 +25,46 @@ public class Company implements Serializable {
         this.address = address;
     }
 
+    /**
+     *
+     * Get NIF
+     *
+     * @return NIF
+     *
+     */
     public String getNif() {
         return nif;
     }
 
+    /**
+     *
+     * Set NIF
+     *
+     * @param nif NIF
+     *
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
 
+    /**
+     *
+     * Get the balance of the company
+     *
+     * @return Balance of the company
+     *
+     */
     public double getBalance() {
         return balance;
     }
 
+    /**
+     *
+     * Set the balance of the company
+     *
+     * @param balance Balance of the company
+     *
+     */
     public void setBalance(double balance) {
         this.balance = balance;
     }

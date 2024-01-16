@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -95,6 +96,12 @@ public class HomepageController implements Initializable {
             companyBalance.setText(String.valueOf(Session.getSession().getCurrentUserAsServiceProvider().getCompany().getBalance()));
         }
 
+        if(companyBalance != null && Session.getSession().isAdmin()) {
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(2);
+            companyBalance.setText(df.format(Storage.getStorage().getPetcareBalance()));
+        }
+
         if(url.equals(getClass().getResource("/com/petcare/petcare/client/homepage.fxml"))) {
             for (Company company : Storage.getStorage().getCompanies().values()) {
                 createCompany.getItems().add(company.getName());
@@ -148,6 +155,11 @@ public class HomepageController implements Initializable {
         }
     }
 
+    /**
+     *
+     * Get services
+     *
+     */
     public void getServices() {
         servicesList.setStyle("-fx-control-inner-background: #012B49;");
 
@@ -174,6 +186,11 @@ public class HomepageController implements Initializable {
         });
     }
 
+    /**
+     *
+     * Get services as service provider
+     *
+     */
     public void getServicesSP() {
         servicesList.setStyle("-fx-control-inner-background: #012B49;");
 
@@ -207,6 +224,13 @@ public class HomepageController implements Initializable {
         });
     }
 
+    /**
+     *
+     * Reject service
+     *
+     * @param event Event
+     *
+     */
     public void rejectService(ActionEvent event) {
         if(!Session.getSession().isAdmin() || Session.getSession().isDeskEmployee()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -276,6 +300,13 @@ public class HomepageController implements Initializable {
         }
     }
 
+    /**
+     *
+     * Accept service
+     *
+     * @param event Event
+     *
+     */
     public void acceptService(ActionEvent event) {
         if(!Session.getSession().isAdmin() || Session.getSession().isDeskEmployee()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -318,11 +349,9 @@ public class HomepageController implements Initializable {
         }
     }
 
-    /****
+    /**
      *
-     *
-     * CLIENTS
-     *
+     * Get appointments
      *
      */
     public void getAppointments() {
@@ -375,6 +404,13 @@ public class HomepageController implements Initializable {
         });
     }
 
+    /**
+     *
+     * Create appointment
+     *
+     * @param event Event
+     *
+     */
     @FXML
     public void createAppointment(ActionEvent event) {
         String client = createClient.getText();
@@ -424,6 +460,13 @@ public class HomepageController implements Initializable {
         }
     }
 
+    /**
+     *
+     * Pay
+     *
+     * @param event Event
+     *
+     */
     @FXML
     public void pay(ActionEvent event) {
         String value = pay_Value.getText();
@@ -472,6 +515,13 @@ public class HomepageController implements Initializable {
         }
     }
 
+    /**
+     *
+     * Get product price
+     *
+     * @return Product price
+     *
+     */
     private Double getProductPrice() {
         Double productsPrice = 0.0;
 

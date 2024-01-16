@@ -89,6 +89,12 @@ public class DeskEmployeesController implements Initializable {
         });
     }
 
+
+    /**
+     *
+     * Get employees
+     *
+     */
     public void getEmployees() {
         boolean isEmpty = false;
 
@@ -116,6 +122,13 @@ public class DeskEmployeesController implements Initializable {
         employeesList.getSelectionModel().clearSelection();
     }
 
+    /**
+     *
+     * Edit employee
+     *
+     * @param event Event
+     *
+     */
     public void editEmployee(ActionEvent event) {
         if(currentEmployee == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -181,6 +194,13 @@ public class DeskEmployeesController implements Initializable {
         this.getEmployees();
     }
 
+    /**
+     *
+     * Create employee
+     *
+     * @param event Event
+     *
+     */
     public void createEmployee(ActionEvent event) {
         if(createUsername.getText().isEmpty() || createPassword.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -245,6 +265,13 @@ public class DeskEmployeesController implements Initializable {
         }
     }
 
+    /**
+     *
+     * Remove employee
+     *
+     * @param event Event
+     *
+     */
     public void removeEmployee(ActionEvent event) {
         if(currentEmployee == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

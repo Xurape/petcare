@@ -53,8 +53,17 @@ public class Session implements Serializable {
         return currentUser;
     }
 
+    /**
+     *
+     * Get current user as Service Provider
+     *
+     * @return Current user as service provider
+     *
+     */
     public ServiceProvider getCurrentUserAsServiceProvider() {
-        return (ServiceProvider) currentUser;
+        if(currentUser instanceof ServiceProvider)
+            return (ServiceProvider) currentUser;
+        return null;
     }
 
     /**
@@ -104,6 +113,7 @@ public class Session implements Serializable {
      *
      * @param username Username of the user
      * @param password Password of the user
+     *
      * @return True if user was logged in, false otherwise
      *
      */

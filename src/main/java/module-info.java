@@ -1,3 +1,6 @@
+/**
+ * This module is the main module of the application.
+ */
 module com.petcare.petcare {
     requires javafx.controls;
     requires javafx.fxml;

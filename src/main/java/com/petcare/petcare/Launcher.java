@@ -18,13 +18,6 @@ import com.petcare.petcare.Exceptions.CouldNotDeserializeException;
 import com.petcare.petcare.Utils.Storage;
 
 public class Launcher extends Application {
-    /*
-     * COLORS:
-     * Left - #02223A
-     * Middle - #0E2A47
-     * Right - #113255
-     */
-
     /**
      *
      * Try deserializing the storage

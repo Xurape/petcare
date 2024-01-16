@@ -4,10 +4,29 @@ public class DeskEmployee extends User {
     private String nif, name, surname, email, address;
     private int phone;
 
+    /**
+     *
+     * Constructor
+     *
+     * @param username Username of the user
+     * @param password Password of the user
+     *
+     */
     public DeskEmployee(String username, String password) {
         super(username, password);
     }
 
+    /**
+     *
+     * Constructor
+     *
+     * @param nif NIF
+     * @param name Name
+     * @param surname Surname
+     * @param email Email
+     * @param address Address
+     *
+     */
     public DeskEmployee(String nif, String name, String surname, String email, String address) {
         this.nif = nif;
         this.name = name;
@@ -16,18 +35,46 @@ public class DeskEmployee extends User {
         this.address = address;
     }
 
+    /**
+     *
+     * Get NIF
+     *
+     * @return NIF
+     *
+     */
     public String getNif() {
         return nif;
     }
 
+    /**
+     *
+     * Set NIF
+     *
+     * @param nif NIF
+     *
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
 
+    /**
+     *
+     * Get phone
+     *
+     * @return Phone
+     *
+     */
     public int getPhone() {
         return phone;
     }
 
+    /**
+     *
+     * Set phone
+     *
+     * @param phone Phone
+     *
+     */
     public void setPhone(int phone) {
         this.phone = phone;
     }

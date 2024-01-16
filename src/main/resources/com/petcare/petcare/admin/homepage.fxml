@@ -205,6 +205,21 @@
                </font>
             </Text>
             <Button fx:id="gotoProfileButton" layoutX="10.0" layoutY="475.0" mnemonicParsing="false" onAction="#gotoProfile" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" />
+            <Pane fx:id="companyBalancePane" layoutX="357.0" layoutY="211.0" prefHeight="47.0" prefWidth="587.0" style="-fx-background-color: #02223A; -fx-background-radius: 10;">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="15.0" layoutY="17.0">
+                     <image>
+                        <Image url="@../img/icons/credit-card.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="42.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo da PetCare">
+                     <font>
+                        <Font name="Apple Braille" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="companyBalance" editable="false" layoutX="496.0" layoutY="11.0" prefHeight="26.0" prefWidth="75.0" promptText="--" style="-fx-background-color: #0E2A47; -fx-background-radius: 6; -fx-text-fill: #eeeeee;" />
+               </children>
+            </Pane>
          </children>
          <effect>
             <DropShadow height="23.95" radius="12.21" spread="0.19" width="26.89">

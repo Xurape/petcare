@@ -52,6 +52,19 @@ public class ProfileController implements Initializable {
         thisStage.show();
     }
 
+    /**
+     *
+     * Initializes the controller class.
+     *
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     *
+     */
     public void initialize(URL location, ResourceBundle resources) {
         User client = null;
         client = Session.getSession().getCurrentUser();
@@ -102,6 +115,11 @@ public class ProfileController implements Initializable {
         _number.setText(client.getCitizenNumber());
     }
 
+    /**
+     *
+     * Edit profile
+     *
+     */
     @FXML
     protected void editProfile() {
         User client = null;

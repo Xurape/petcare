@@ -171,6 +171,13 @@ public class ServicesController {
         servicesList.getSelectionModel().clearSelection();
     }
 
+    /**
+     *
+     * Create a service
+     *
+     * @param event Event
+     *
+     */
     @FXML
     protected void createService(ActionEvent event) {
         String name = createName.getText();
@@ -204,6 +211,13 @@ public class ServicesController {
         this.getServicesList();
     }
 
+    /**
+     *
+     * Edit a service
+     *
+     * @param event Event
+     *
+     */
     @FXML
     protected void editService(ActionEvent event) {
         if(currentService == null) {
@@ -240,6 +254,13 @@ public class ServicesController {
         this.getServicesList();
     }
 
+    /**
+     *
+     * Remove a service
+     *
+     * @param event Event
+     *
+     */
     @FXML
     protected void removeService(ActionEvent event) {
         if(currentService == null) {
@@ -284,6 +305,13 @@ public class ServicesController {
         }
     }
 
+    /**
+     *
+     * Add a product
+     *
+     * @param event Event
+     *
+     */
     @FXML
     public void product(ActionEvent event) {
         if(currentService == null) {
@@ -334,6 +362,13 @@ public class ServicesController {
         this.getServicesList();
     }
 
+    /**
+     *
+     * Remove a product
+     *
+     * @param event Event
+     *
+     */
     @FXML
     public void removeProduct(ActionEvent event) {
         if(currentService == null) {

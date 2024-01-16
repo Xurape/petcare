@@ -82,11 +82,9 @@ public class InvoicesController implements Initializable {
         this.getInvoices();
     }
 
-    /****
+    /**
      *
-     *
-     * CLIENTS
-     *
+     * Get invoices
      *
      */
     public void getInvoices() {
@@ -133,6 +131,13 @@ public class InvoicesController implements Initializable {
         });
     }
 
+    /**
+     *
+     * Pay
+     *
+     * @param event Event
+     *
+     */
     @FXML
     public void pay(ActionEvent event) {
         String value = pay_Value.getText();
@@ -181,6 +186,13 @@ public class InvoicesController implements Initializable {
         }
     }
 
+    /**
+     *
+     * Get product price
+     *
+     * @return Product price
+     *
+     */
     private Double getProductPrice() {
         Double productsPrice = 0.0;
 

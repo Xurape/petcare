@@ -31,22 +31,50 @@ public class Service implements Serializable {
         this.company = company;
     }
 
+    /**
+     * Get the products of the service
+     *
+     * @return Products of the service
+     */
     public List<Product> getProducts() {
         return products;
     }
 
+    /**
+     * Set the products of the service
+     *
+     * @param products Products of the service
+     */
     public void setProducts(List<Product> products) {
         this.products = products;
     }
 
+    /**
+     * Get the company of the service
+     *
+     * @return Company
+     */
     public Company getCompany() {
         return company;
     }
 
+    /**
+     * Set the company of the service
+     *
+     * @param company Company
+     */
     public void setCompany(Company company) {
         this.company = company;
     }
 
+    /**
+     *
+     * Get the type of the service from a string
+     *
+     * @param type Type of the service as a string
+     * @return Type of the service
+     *
+     */
     public static ServiceType getTypeFromString(String type) {
         switch(type) {
             case "Banho":

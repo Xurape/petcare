@@ -107,66 +107,32 @@ public class LauncherController {
             return;
         }
 
+        URL resourceUrl = null;
+
         if(Session.getSession().isClient()) {
-            URL resourceUrl = getClass().getResource("/com/petcare/petcare/client/homepage.fxml");
-            if (resourceUrl != null) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
-                    Parent root = fxmlLoader.load();
-                    HomepageController controller = fxmlLoader.getController();
-                    controller.setStage(thisStage);
-                    thisStage.setScene(new Scene(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.err.println("Resource 'homepage.fxml' not found.");
-            }
+            resourceUrl = getClass().getResource("/com/petcare/petcare/client/homepage.fxml");
         } else if(Session.getSession().isServiceProvider()) {
-            URL resourceUrl = getClass().getResource("/com/petcare/petcare/serviceProvider/homepage.fxml");
-            if (resourceUrl != null) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
-                    Parent root = fxmlLoader.load();
-                    HomepageController controller = fxmlLoader.getController();
-                    controller.setStage(thisStage);
-                    thisStage.setScene(new Scene(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.err.println("Resource 'homepage.fxml' not found.");
-            }
+            resourceUrl = getClass().getResource("/com/petcare/petcare/serviceProvider/homepage.fxml");
         } else if(Session.getSession().isEmployee()) {
-            URL resourceUrl = getClass().getResource("/com/petcare/petcare/employee/homepage.fxml");
-            if (resourceUrl != null) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
-                    Parent root = fxmlLoader.load();
-                    HomepageController controller = fxmlLoader.getController();
-                    controller.setStage(thisStage);
-                    thisStage.setScene(new Scene(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.err.println("Resource 'homepage.fxml' not found.");
-            }
+            resourceUrl = getClass().getResource("/com/petcare/petcare/employee/homepage.fxml");
+        } else if(Session.getSession().isDeskEmployee()) {
+            resourceUrl = getClass().getResource("/com/petcare/petcare/deskEmployee/homepage.fxml");
         } else if(Session.getSession().isAdmin()) {
-            URL resourceUrl = getClass().getResource("/com/petcare/petcare/admin/homepage.fxml");
-            if (resourceUrl != null) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
-                    Parent root = fxmlLoader.load();
-                    HomepageController controller = fxmlLoader.getController();
-                    controller.setStage(thisStage);
-                    thisStage.setScene(new Scene(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.err.println("Resource 'homepage.fxml' not found.");
+            resourceUrl = getClass().getResource("/com/petcare/petcare/admin/homepage.fxml");
+        }
+
+        if (resourceUrl != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+                Parent root = fxmlLoader.load();
+                HomepageController controller = fxmlLoader.getController();
+                controller.setStage(thisStage);
+                thisStage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        } else {
+            System.err.println("Resource 'homepage.fxml' not found.");
         }
     }
 }

@@ -47,32 +47,113 @@ public class Storage implements Serializable {
      *
      */
     public Map<String, Client> getClients() {return clients;}
+
+    /**
+     * Get the companies
+     *
+     * @return Map of companies
+     */
     public Map<String, Company> getCompanies() {return companies;}
+
+    /**
+     *
+     * Get the service providers
+     *
+     * @return Map of service providers
+     *
+     */
     public Map<String, ServiceProvider> getServiceProviders() {
         return serviceProviders;
     }
+
+    /**
+     *
+     * Get the admins
+     *
+     * @return Map of admins
+     *
+     */
     public Map<String, Admin> getAdmins() {return admins;}
+
+    /**
+     *
+     * Get the employees
+     *
+     * @return Map of employees
+     *
+     */
     public Map<String, Employee> getEmployees() {return employees;}
+
+    /**
+     *
+     * Get the desk employees
+     *
+     * @return List of desk employees
+     *
+     */
     public List<DeskEmployee> getDeskEmployees() {
         return deskEmployees;
     }
+
+    /**
+     *
+     * Get the services
+     *
+     * @return List of services
+     *
+     */
     public List<Service> getServices() {return services;}
+
+    /**
+     *
+     * Get the locations
+     *
+     * @return List of locations
+     *
+     */
     public List<Location> getLocations() {
         return locations;
     }
 
+    /**
+     *
+     * Get the appointments
+     *
+     * @return List of appointments
+     *
+     */
     public List<Invoice> getInvoices() {
         return invoices;
     }
 
+    /**
+     *
+     * Get the appointments
+     *
+     * @return List of appointments
+     */
     public List<Appointments> getAppointments() {
         return appointments;
     }
 
+    /**
+     *
+     * Get petcare balance
+     *
+     * @return Petcare balance
+     *
+     */
     public Double getPetcareBalance() {
         return petcareBalance;
     }
 
+    /**
+     *
+     * Set petcare balance
+     *
+     * @param petcareBalance Petcare balance
+     *
+     */
     public void setPetcareBalance(Double petcareBalance) {
         this.petcareBalance = petcareBalance;
     }

@@ -16,18 +16,46 @@ public class Admin extends User {
         super(username, password);
     }
 
+    /**
+     *
+     * Get NIF
+     *
+     * @return NIF
+     *
+     */
     public String getNif() {
         return nif;
     }
 
+    /**
+     *
+     * Set NIF
+     *
+     * @param nif NIF
+     *
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
 
+    /**
+     *
+     * Get phone
+     *
+     * @return Phone
+     *
+     */
     public int getPhone() {
         return phone;
     }
 
+    /**
+     *
+     * Set phone
+     *
+     * @param phone Phone
+     *
+     */
     public void setPhone(int phone) {
         this.phone = phone;
     }
@@ -120,10 +148,24 @@ public class Admin extends User {
         this.nif = nif;
     }
 
+    /**
+     *
+     * Get the address of the user
+     *
+     * @return Address of the user
+     *
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     *
+     * Set the address of the user
+     *
+     * @param address Address of the user
+     *
+     */
     public void setAddress(String address) {
         this.address = address;
     }

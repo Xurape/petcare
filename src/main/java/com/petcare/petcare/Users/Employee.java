@@ -6,10 +6,31 @@ public class Employee extends User {
     private EmployeeType employeeType;
     private String professionalNumber;
 
+    /**
+     *
+     * Constructor
+     *
+     * @param username Username of the user
+     * @param password Password of the user
+     *
+     */
     public Employee(String username, String password) {
         super(username, password);
     }
 
+    /**
+     *
+     * Constructor
+     *
+     * @param nif NIF
+     * @param name Name
+     * @param surname Surname
+     * @param email Email
+     * @param address Address
+     * @param company Company
+     * @param employeeType Employee type
+     *
+     */
     public Employee(String nif, String name, String surname, String email, String address, Company company, EmployeeType employeeType) {
         this.nif = nif;
         this.name = name;
@@ -20,22 +41,56 @@ public class Employee extends User {
         this.employeeType = employeeType;
     }
 
+    /**
+     *
+     * Get the professional number of the employee
+     *
+     * @return Professional number of the employee
+     *
+     */
     public String getProfessionalNumber() {
         return professionalNumber;
     }
 
+    /**
+     *
+     * Set the professional number of the employee
+     *
+     * @param professionalNumber Professional number of the employee
+     *
+     */
     public void setProfessionalNumber(String professionalNumber) {
         this.professionalNumber = professionalNumber;
     }
 
+    /**
+     *
+     * Get the NIF of the employee
+     *
+     * @return NIF of the employee
+     *
+     */
     public String getNif() {
         return nif;
     }
 
+    /**
+     *
+     * Set the NIF of the employee
+     *
+     * @param nif NIF of the employee
+     *
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
 
+    /**
+     *
+     * Convert a string to an employee type
+     * @param employeeType Employee type as string
+     * @return Employee type
+     */
     public static EmployeeType convertStringToEmployeeType(String employeeType) {
         switch (employeeType) {
             case "Veterinário":
